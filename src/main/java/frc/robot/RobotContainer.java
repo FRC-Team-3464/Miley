@@ -7,7 +7,13 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeCMD;
+import frc.robot.commands.ReverseIntakeCMD;
+import frc.robot.commands.ShootAmp;
+import frc.robot.commands.ShootSpeaker;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -21,6 +27,14 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final ShooterSubsystem shootSub = new ShooterSubsystem();
+  private final IntakeSubsystem intakeSub = new IntakeSubsystem();
+
+  private final IntakeCMD suck = new IntakeCMD(intakeSub);
+  private final ReverseIntakeCMD spit = new ReverseIntakeCMD(intakeSub);
+
+  private final ShootSpeaker speaker = new ShootSpeaker(shootSub,intakeSub);
+  private final ShootAmp amp = new ShootAmp(shootSub, intakeSub);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -49,6 +63,11 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    Constants.OperatorConstants.button1.whileTrue(speaker);
+    Constants.OperatorConstants.button2.whileTrue(spit);
+    Constants.OperatorConstants.button3.whileTrue(suck);
+    Constants.OperatorConstants.button4.whileTrue(amp);
   }
 
   /**
