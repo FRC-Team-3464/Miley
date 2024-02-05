@@ -11,8 +11,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootAmp extends Command {
   /** Creates a new ShootAmp. */
   
-  public final ShooterSubsystem shootSub;
-  public final IntakeSubsystem intakeSub;
+  private ShooterSubsystem shootSub;
+  public IntakeSubsystem intakeSub;
 
   public ShootAmp() {
     shootSub = ShooterSubsystem.getInstance();

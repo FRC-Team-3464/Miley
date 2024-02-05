@@ -9,7 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeCMD extends Command {
   /** Creates a new RunIntakeCMD. */
-  public IntakeSubsystem intakeSub;
+  private IntakeSubsystem intakeSub;
 
   public IntakeCMD() {
     intakeSub = IntakeSubsystem.getInstance();

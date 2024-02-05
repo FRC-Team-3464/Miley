@@ -11,8 +11,10 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootSpeaker extends Command {
   /** Creates a new RunShooterCMD. */
   
-  public final ShooterSubsystem shootSub;
-  public final IntakeSubsystem intakeSub;
+  // Made private following guide 
+  // https://docs.google.com/document/d/1rMpvW10_W3HbNHDALNwipZNWk1XB1qKxHVw3UQViRO0/edit
+  private ShooterSubsystem shootSub;
+  private IntakeSubsystem intakeSub;
 
   public ShootSpeaker() {
     shootSub = ShooterSubsystem.getInstance();

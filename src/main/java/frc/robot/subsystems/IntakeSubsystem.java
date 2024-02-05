@@ -23,9 +23,9 @@ public class IntakeSubsystem extends SubsystemBase {
   public static IntakeSubsystem getInstance() {
     if (instance == null) {
       instance = new IntakeSubsystem();
-      }
-      return instance;
-    }
+    }  
+    return instance;
+  }
   
 
   public void runIntake(double speed) {
