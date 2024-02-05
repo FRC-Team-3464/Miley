@@ -17,7 +17,7 @@ public class ShooterSubsystem extends SubsystemBase {
     
 
   public ShooterSubsystem() {
-    shooterMotor.setInverted(false);
+    shooterMotor.setInverted(false); 
   }
 
   public void runShooter(double speed) {
