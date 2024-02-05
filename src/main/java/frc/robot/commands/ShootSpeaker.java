@@ -14,9 +14,9 @@ public class ShootSpeaker extends Command {
   public final ShooterSubsystem shootSub;
   public final IntakeSubsystem intakeSub;
 
-  public ShootSpeaker(ShooterSubsystem shootSub, IntakeSubsystem intakeSub) {
-    this.shootSub = shootSub;
-    this.intakeSub = intakeSub;
+  public ShootSpeaker() {
+    shootSub = ShooterSubsystem.getInstance();
+    intakeSub = IntakeSubsystem.getInstance();
     addRequirements(shootSub);
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.

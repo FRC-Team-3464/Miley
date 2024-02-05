@@ -14,9 +14,9 @@ public class ShootAmp extends Command {
   public final ShooterSubsystem shootSub;
   public final IntakeSubsystem intakeSub;
 
-  public ShootAmp(ShooterSubsystem shootSub, IntakeSubsystem intakeSub) {
-    this.shootSub = shootSub;
-    this.intakeSub = intakeSub;
+  public ShootAmp() {
+    shootSub = ShooterSubsystem.getInstance();
+    intakeSub = IntakeSubsystem.getInstance();
     addRequirements(shootSub);
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.

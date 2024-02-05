@@ -12,11 +12,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  private final CANSparkMax intakeMotor = new CANSparkMax(2, MotorType.kBrushless);
+  private final CANSparkMax intakeMotor = new CANSparkMax(12, MotorType.kBrushless);
+
+  private static IntakeSubsystem instance = null;  
 
   public IntakeSubsystem() {
     
   }
+
+  public static IntakeSubsystem getInstance() {
+    if (instance == null) {
+      instance = new IntakeSubsystem();
+      }
+      return instance;
+    }
+  
 
   public void runIntake(double speed) {
     intakeMotor.set(speed);

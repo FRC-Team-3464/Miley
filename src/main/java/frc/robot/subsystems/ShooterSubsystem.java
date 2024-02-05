@@ -12,12 +12,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-  private final CANSparkMax shooterMotor = new CANSparkMax(1, MotorType.kBrushless);
+  private final CANSparkMax shooterMotor = new CANSparkMax(11, MotorType.kBrushless);
   private final RelativeEncoder shooterEncoder = shooterMotor.getEncoder();
     
+  private static ShooterSubsystem instance = null;
 
   public ShooterSubsystem() {
     shooterMotor.setInverted(false); 
+  }
+
+  public static ShooterSubsystem getInstance() {
+    if (instance == null) {
+      instance = new ShooterSubsystem();
+    }
+    return instance;
   }
 
   public void runShooter(double speed) {
