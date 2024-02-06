@@ -18,8 +18,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final DigitalInput elevatorRMin = new DigitalInput(2);
   private final DigitalInput elevatorRMax = new DigitalInput(3);
 
-  private final CANSparkMax leftElevatorMotor = new CANSparkMax(9, MotorType.kBrushless);
-  private final CANSparkMax rightElevatorMotor = new CANSparkMax(10, MotorType.kBrushless);
+  private final CANSparkMax leftElevatorMotor = new CANSparkMax(11, MotorType.kBrushless);
+  private final CANSparkMax rightElevatorMotor = new CANSparkMax(12, MotorType.kBrushless);
 
   Boolean leftResistance;
   Boolean rightResistance;
@@ -27,6 +27,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     leftResistance = false;
     rightResistance = false;
+    leftElevatorMotor.setSmartCurrentLimit(30);
+    rightElevatorMotor.setSmartCurrentLimit(30);
   }
 
   private static ElevatorSubsystem instance = null;
@@ -64,7 +66,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
   public void runLeftElevator(double speed) {
-    if(elevatorLMax.get() || elevatorLMin.get()) {
+    if(!elevatorLMax.get() || !elevatorLMin.get()) {
       leftElevatorMotor.set(0);
     }
     else {
@@ -73,7 +75,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void runRightElevator(double speed) {
-    if(elevatorRMax.get() || elevatorRMin.get()) {
+    if(!elevatorRMax.get() || !elevatorRMin.get()) {
+      rightElevatorMotor.set(0);
+    }
+    else {
       rightElevatorMotor.set(speed);
     }
   }
@@ -96,10 +101,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Left Elevator Max", elevatorLMax.get());
-    SmartDashboard.putBoolean("Left Elevator Min", elevatorLMin.get());
-    SmartDashboard.putBoolean("Right Elevator Max", elevatorRMax.get());
-    SmartDashboard.putBoolean("Right Elevator Min", elevatorRMin.get());
+    SmartDashboard.putBoolean("Left Elevator Max - 1", elevatorLMax.get());
+    SmartDashboard.putBoolean("Left Elevator Min - 0", elevatorLMin.get());
+    SmartDashboard.putBoolean("Right Elevator Max - 3", elevatorRMax.get());
+    SmartDashboard.putBoolean("Right Elevator Min - 2", elevatorRMin.get());
     // This method will be called once per scheduler run
   }
 }

@@ -4,19 +4,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
-public class Intake extends Command {
-  /** Creates a new RunIntakeCMD. */
-  public final IntakeSubsystem intakeSub;
-  private final XboxController xbox = new XboxController(1);
-
-  public Intake(IntakeSubsystem intakeSub) {
-    this.intakeSub = intakeSub;
-    addRequirements(intakeSub);
+public class LowerRightElevator extends Command {
+  /** Creates a new LowerLeftElevator. */
+  private ElevatorSubsystem elevatorSub;
+  public LowerRightElevator() {
+    // Use addRequirements() here to declare subsystem dependencies.
+     elevatorSub = ElevatorSubsystem.getInstance();
+    addRequirements(elevatorSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,15 +24,13 @@ public class Intake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.runIntake(0.5);
-    
-    xbox.setRumble(RumbleType.kBothRumble, 1);
+    elevatorSub.runRightElevator(-0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSub.stopIntake();
+    elevatorSub.runRightElevator(0);
   }
 
   // Returns true when the command should end.

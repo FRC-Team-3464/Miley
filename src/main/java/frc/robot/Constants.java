@@ -36,8 +36,7 @@ public final class Constants {
     public static final POVButton pancakeDown = new POVButton(auxStick, 180);
     public static final POVButton pancakeRight = new POVButton(auxStick, 90);
     public static final POVButton pancakeLeft = new POVButton(auxStick, 270);
-    public static final POVButton pancakeUpRight = new POVButton(auxStick, 135);
-    public static final POVButton pancakeDownLeft = new POVButton(auxStick, 225);
+ 
     //hello this is a test yahoooohoiuawhoi
   }
 }
