@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ReverseIntakeCMD extends Command {
+public class ReverseIntake extends Command {
   /** Creates a new ReverseIntakeCMD. */
   public final IntakeSubsystem intakeSub;
   
-  public ReverseIntakeCMD(IntakeSubsystem intakeSub) {
+  public ReverseIntake(IntakeSubsystem intakeSub) {
     this.intakeSub = intakeSub;
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.

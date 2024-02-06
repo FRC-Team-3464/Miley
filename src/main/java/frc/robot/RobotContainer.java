@@ -5,13 +5,12 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.IntakeCMD;
-import frc.robot.commands.ReverseIntakeCMD;
+import frc.robot.commands.Intake;
+import frc.robot.commands.RaiseLeftElevator;
+import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.ShootAmp;
 import frc.robot.commands.ShootSpeaker;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,12 +25,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final ElevatorSubsystem elevatorSub;
   private final ShooterSubsystem shootSub = new ShooterSubsystem();
   private final IntakeSubsystem intakeSub = new IntakeSubsystem();
 
-  private final IntakeCMD suck = new IntakeCMD(intakeSub);
-  private final ReverseIntakeCMD spit = new ReverseIntakeCMD(intakeSub);
+  private final Intake suck = new Intake(intakeSub);
+  private final ReverseIntake spit = new ReverseIntake(intakeSub);
 
   private final ShootSpeaker speaker = new ShootSpeaker(shootSub,intakeSub);
   private final ShootAmp amp = new ShootAmp(shootSub, intakeSub);
@@ -42,6 +41,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    elevatorSub = ElevatorSubsystem.getInstance();
     // Configure the trigger bindings
     configureBindings();
   }
@@ -57,17 +57,15 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
     Constants.OperatorConstants.button1.whileTrue(speaker);
     Constants.OperatorConstants.button2.whileTrue(spit);
     Constants.OperatorConstants.button3.whileTrue(suck);
     Constants.OperatorConstants.button4.whileTrue(amp);
+    Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
+    Constants.OperatorConstants.pancakeDown.whileTrue(new LeftElevator());
   }
 
   /**
@@ -77,6 +75,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
+    // return Autos.exampleAuto();
   }
 }
