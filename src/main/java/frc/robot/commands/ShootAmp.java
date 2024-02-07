@@ -31,6 +31,7 @@ public class ShootAmp extends Command {
   public void execute() {
     intakeSub.runIntake(0.3);
     shootSub.runShooter(0.2);
+    shootSub.rumbleController(0.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +39,7 @@ public class ShootAmp extends Command {
   public void end(boolean interrupted) {
     intakeSub.stopIntake();
     shootSub.stopShooter();
+    shootSub.stopRumble();
   }
 
   // Returns true when the command should end.
