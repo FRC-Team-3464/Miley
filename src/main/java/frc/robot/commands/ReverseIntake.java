@@ -10,7 +10,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class ReverseIntake extends Command {
   /** Creates a new ReverseIntakeCMD. */
-  public final IntakeSubsystem intakeSub;
+  private IntakeSubsystem intakeSub;
   
   public ReverseIntake() {
     intakeSub = IntakeSubsystem.getInstance();

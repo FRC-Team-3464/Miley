@@ -11,11 +11,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class Intake extends Command {
   /** Creates a new RunIntakeCMD. */
-  public final IntakeSubsystem intakeSub;
-  private final XboxController xbox = new XboxController(1);
+  private IntakeSubsystem intakeSub;
 
-  public Intake(IntakeSubsystem intakeSub) {
-    this.intakeSub = intakeSub;
+  public Intake() {
+    intakeSub = IntakeSubsystem.getInstance();
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -28,9 +27,7 @@ public class Intake extends Command {
   @Override
   public void execute() {
     intakeSub.runIntake(0.5);
-    
-    xbox.setRumble(RumbleType.kBothRumble, 1);
-  }
+      }
 
   // Called once the command ends or is interrupted.
   @Override

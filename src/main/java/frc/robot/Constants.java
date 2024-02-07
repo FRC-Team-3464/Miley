@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
@@ -38,5 +39,6 @@ public final class Constants {
     public static final POVButton pancakeLeft = new POVButton(auxStick, 270);
  
     //hello this is a test yahoooohoiuawhoi
+    public static final XboxController xbox = new XboxController(2);
   }
 }

@@ -29,15 +29,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ElevatorSubsystem elevatorSub;
+  private final ShooterSubsystem shootSub;
   private final IntakeSubsystem intakeSub;
-  private final ShooterSubsystem shootSub = new ShooterSubsystem();
+  private final ElevatorSubsystem elevatorSub;
 
-  // private final Intake suck = new Intake(intakeSub);
-  // private final ReverseIntake spit = new ReverseIntake(intakeSub);
+  private final Intake suck = new Intake();
+  private final ReverseIntake spit = new ReverseIntake();
 
-  // private final ShootSpeaker speaker = new ShootSpeaker(shootSub,intakeSub);
-  // private final ShootAmp amp = new ShootAmp(shootSub, intakeSub);
+  private final ShootSpeaker speaker = new ShootSpeaker();
+  private final ShootAmp amp = new ShootAmp();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -46,8 +46,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     elevatorSub = ElevatorSubsystem.getInstance();
-    // Configure the trigger bindings
+    shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
+
     configureBindings();
   }
 
@@ -67,8 +68,7 @@ public class RobotContainer {
     // cancelling on release.
     // Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker(shootSub, intakeSub));
     // Constants.OperatorConstants.button12.whileTrue(spit);
-    Constants.OperatorConstants.button4.whileTrue(new Intake(intakeSub));
-    // Constants.OperatorConstants.button11.whileTrue(amp);
+    Constants.OperatorConstants.button4.whileTrue(new Intake());
 
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
     Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
@@ -86,6 +86,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return null;
-    // return Autos.exampleAuto();
   }
 }

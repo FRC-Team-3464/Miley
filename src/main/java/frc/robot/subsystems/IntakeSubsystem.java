@@ -14,17 +14,26 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  private final CANSparkMax intakeMotor = new CANSparkMax(10, MotorType.kBrushless);
+  private final CANSparkMax intakeMotor = new CANSparkMax(12, MotorType.kBrushless);
+
   private final DigitalInput intakeButton = new DigitalInput(6);
 
-  private static IntakeSubsystem instance = null;
+  private static IntakeSubsystem instance = null;  
 
-    public static IntakeSubsystem getInstance() {
-      if (instance == null) {
-        instance = new IntakeSubsystem();
-      }
-      return instance;
-    }
+  public IntakeSubsystem() {
+    intakeMotor.setInverted(true);
+  }
+
+  public static IntakeSubsystem getInstance() {
+    if (instance == null) {
+      instance = new IntakeSubsystem();
+    }  
+    return instance;
+  }
+  
+  public Boolean getIntakeButton() {
+    return !intakeButton.get();
+  }
 
   public void runIntake(double speed) {
     intakeMotor.set(speed);
@@ -39,5 +48,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Note? - 6", intakeButton.get());
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Have Note?", getIntakeButton());
   }
 }
