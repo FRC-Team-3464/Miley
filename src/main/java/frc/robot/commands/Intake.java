@@ -4,14 +4,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeCMD extends Command {
+public class Intake extends Command {
   /** Creates a new RunIntakeCMD. */
   private IntakeSubsystem intakeSub;
 
-  public IntakeCMD() {
+  public Intake() {
     intakeSub = IntakeSubsystem.getInstance();
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,7 +27,7 @@ public class IntakeCMD extends Command {
   @Override
   public void execute() {
     intakeSub.runIntake(0.5);
-  }
+      }
 
   // Called once the command ends or is interrupted.
   @Override

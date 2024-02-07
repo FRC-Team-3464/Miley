@@ -46,6 +46,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Note? - 6", intakeButton.get());
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Have Note?", getIntakeButton());
   }

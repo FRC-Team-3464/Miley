@@ -5,13 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ReverseIntakeCMD extends Command {
+public class ReverseIntake extends Command {
   /** Creates a new ReverseIntakeCMD. */
   private IntakeSubsystem intakeSub;
   
-  public ReverseIntakeCMD() {
+  public ReverseIntake() {
     intakeSub = IntakeSubsystem.getInstance();
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.

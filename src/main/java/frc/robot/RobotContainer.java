@@ -5,11 +5,16 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.IntakeCMD;
-import frc.robot.commands.ReverseIntakeCMD;
+import frc.robot.commands.Intake;
+import frc.robot.commands.LowerLeftElevator;
+import frc.robot.commands.LowerRightElevator;
+import frc.robot.commands.RaiseBothElevators;
+import frc.robot.commands.RaiseLeftElevator;
+import frc.robot.commands.RaiseRightElevator;
+import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.ShootAmp;
 import frc.robot.commands.ShootSpeaker;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,9 +31,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ShooterSubsystem shootSub;
   private final IntakeSubsystem intakeSub;
+  private final ElevatorSubsystem elevatorSub;
 
-  private final IntakeCMD suck = new IntakeCMD();
-  private final ReverseIntakeCMD spit = new ReverseIntakeCMD();
+  private final Intake suck = new Intake();
+  private final ReverseIntake spit = new ReverseIntake();
 
   private final ShootSpeaker speaker = new ShootSpeaker();
   private final ShootAmp amp = new ShootAmp();
@@ -39,10 +45,10 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    elevatorSub = ElevatorSubsystem.getInstance();
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
 
-    // Configure the trigger bindings
     configureBindings();
   }
 
@@ -57,17 +63,21 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    // Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker(shootSub, intakeSub));
+    // Constants.OperatorConstants.button12.whileTrue(spit);
+    Constants.OperatorConstants.button4.whileTrue(new Intake());
 
-    Constants.OperatorConstants.button1.whileTrue(speaker);
-    Constants.OperatorConstants.button2.whileTrue(spit);
-    Constants.OperatorConstants.button3.whileTrue(suck);
-    Constants.OperatorConstants.button4.whileTrue(amp);
+    Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
+    Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
+    Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
+    Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
+    Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
+    Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
   }
-
+ 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

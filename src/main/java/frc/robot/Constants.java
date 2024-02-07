@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -32,6 +33,11 @@ public final class Constants {
     public static final JoystickButton button10 = new JoystickButton(auxStick, 10);
     public static final JoystickButton button11 = new JoystickButton(auxStick, 11);
     public static final JoystickButton button12 = new JoystickButton(auxStick, 12);
+    public static final POVButton pancakeUp = new POVButton(auxStick, 0);
+    public static final POVButton pancakeDown = new POVButton(auxStick, 180);
+    public static final POVButton pancakeRight = new POVButton(auxStick, 90);
+    public static final POVButton pancakeLeft = new POVButton(auxStick, 270);
+ 
     //hello this is a test yahoooohoiuawhoi
     public static final XboxController xbox = new XboxController(2);
   }
