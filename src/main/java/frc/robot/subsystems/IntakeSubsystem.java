@@ -21,7 +21,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private static IntakeSubsystem instance = null;  
 
   public IntakeSubsystem() {
-
+    intakeMotor.setInverted(true);
   }
 
   public static IntakeSubsystem getInstance() {
