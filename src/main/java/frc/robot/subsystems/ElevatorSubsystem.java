@@ -18,8 +18,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final DigitalInput elevatorRMin = new DigitalInput(2);
   private final DigitalInput elevatorRMax = new DigitalInput(3);
 
-  private final CANSparkMax leftElevatorMotor = new CANSparkMax(11, MotorType.kBrushless);
-  private final CANSparkMax rightElevatorMotor = new CANSparkMax(12, MotorType.kBrushless);
+  private final CANSparkMax leftElevatorMotor = new CANSparkMax(9, MotorType.kBrushless);
+  private final CANSparkMax rightElevatorMotor = new CANSparkMax(10, MotorType.kBrushless);
 
   Boolean leftResistance;
   Boolean rightResistance;
