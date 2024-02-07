@@ -17,7 +17,7 @@ public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
   private final CANSparkMax shooterMotor = new CANSparkMax(11, MotorType.kBrushless);
   private final RelativeEncoder shooterEncoder = shooterMotor.getEncoder();
-  private final XboxController controller = Constants.OperatorConstants.xbox;
+  private final XboxController controller = new XboxController(2);
 
   private static ShooterSubsystem instance = null;
 
