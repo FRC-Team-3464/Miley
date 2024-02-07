@@ -9,10 +9,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeCMD extends Command {
   /** Creates a new RunIntakeCMD. */
-  public final IntakeSubsystem intakeSub;
+  private IntakeSubsystem intakeSub;
 
-  public IntakeCMD(IntakeSubsystem intakeSub) {
-    this.intakeSub = intakeSub;
+  public IntakeCMD() {
+    intakeSub = IntakeSubsystem.getInstance();
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }

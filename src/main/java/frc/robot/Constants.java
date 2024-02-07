@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -32,5 +33,6 @@ public final class Constants {
     public static final JoystickButton button11 = new JoystickButton(auxStick, 11);
     public static final JoystickButton button12 = new JoystickButton(auxStick, 12);
     //hello this is a test yahoooohoiuawhoi
+    public static final XboxController xbox = new XboxController(2);
   }
 }

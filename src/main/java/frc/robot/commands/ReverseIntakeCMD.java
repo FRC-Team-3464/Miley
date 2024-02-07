@@ -9,10 +9,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class ReverseIntakeCMD extends Command {
   /** Creates a new ReverseIntakeCMD. */
-  public final IntakeSubsystem intakeSub;
+  private IntakeSubsystem intakeSub;
   
-  public ReverseIntakeCMD(IntakeSubsystem intakeSub) {
-    this.intakeSub = intakeSub;
+  public ReverseIntakeCMD() {
+    intakeSub = IntakeSubsystem.getInstance();
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }

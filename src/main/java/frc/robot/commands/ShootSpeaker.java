@@ -11,12 +11,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootSpeaker extends Command {
   /** Creates a new RunShooterCMD. */
   
-  public final ShooterSubsystem shootSub;
-  public final IntakeSubsystem intakeSub;
+  // Made private following guide 
+  // https://docs.google.com/document/d/1rMpvW10_W3HbNHDALNwipZNWk1XB1qKxHVw3UQViRO0/edit
+  private ShooterSubsystem shootSub;
+  private IntakeSubsystem intakeSub;
 
-  public ShootSpeaker(ShooterSubsystem shootSub, IntakeSubsystem intakeSub) {
-    this.shootSub = shootSub;
-    this.intakeSub = intakeSub;
+  public ShootSpeaker() {
+    shootSub = ShooterSubsystem.getInstance();
+    intakeSub = IntakeSubsystem.getInstance();
     addRequirements(shootSub);
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,6 +34,7 @@ public class ShootSpeaker extends Command {
   @Override
   public void execute() {
     shootSub.runShooter(1);
+    shootSub.rumbleController(0.75);
     if(shootSub.getShooterEncoder() >= 20) {
       intakeSub.runIntake(0.5);
     }
@@ -42,6 +45,7 @@ public class ShootSpeaker extends Command {
   public void end(boolean interrupted) {
     shootSub.stopShooter();
     shootSub.resetShooter();
+    shootSub.stopRumble();
     intakeSub.stopIntake();
   }
 

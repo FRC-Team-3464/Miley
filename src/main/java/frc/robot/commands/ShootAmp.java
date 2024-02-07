@@ -11,12 +11,12 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootAmp extends Command {
   /** Creates a new ShootAmp. */
   
-  public final ShooterSubsystem shootSub;
-  public final IntakeSubsystem intakeSub;
+  private ShooterSubsystem shootSub;
+  public IntakeSubsystem intakeSub;
 
-  public ShootAmp(ShooterSubsystem shootSub, IntakeSubsystem intakeSub) {
-    this.shootSub = shootSub;
-    this.intakeSub = intakeSub;
+  public ShootAmp() {
+    shootSub = ShooterSubsystem.getInstance();
+    intakeSub = IntakeSubsystem.getInstance();
     addRequirements(shootSub);
     addRequirements(intakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,6 +31,7 @@ public class ShootAmp extends Command {
   public void execute() {
     intakeSub.runIntake(0.3);
     shootSub.runShooter(0.2);
+    shootSub.rumbleController(0.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +39,7 @@ public class ShootAmp extends Command {
   public void end(boolean interrupted) {
     intakeSub.stopIntake();
     shootSub.stopShooter();
+    shootSub.stopRumble();
   }
 
   // Returns true when the command should end.
