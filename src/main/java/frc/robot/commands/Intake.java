@@ -27,12 +27,16 @@ public class Intake extends Command {
   @Override
   public void execute() {
     intakeSub.runIntake(0.5);
+    if(!intakeSub.getIntakeButton()) {
+      intakeSub.rumbleDude();
+    }
       }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intakeSub.stopIntake();
+    intakeSub.stopRumble();
   }
 
   // Returns true when the command should end.
