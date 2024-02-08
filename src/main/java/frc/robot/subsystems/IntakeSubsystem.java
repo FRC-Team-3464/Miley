@@ -9,6 +9,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -17,6 +19,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private final CANSparkMax intakeMotor = new CANSparkMax(12, MotorType.kBrushless);
 
   private final DigitalInput intakeButton = new DigitalInput(6);
+
+  private final XboxController xbox = new XboxController(2);
 
   private static IntakeSubsystem instance = null;  
 
@@ -32,7 +36,15 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   public Boolean getIntakeButton() {
-    return !intakeButton.get();
+    return intakeButton.get();
+  }
+
+  public void rumbleDude() {
+    xbox.setRumble(RumbleType.kBothRumble, 0.5);
+  }
+
+  public void stopRumble() {
+    xbox.setRumble(RumbleType.kBothRumble, 0);
   }
 
   public void runIntake(double speed) {
@@ -48,6 +60,5 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Note? - 6", intakeButton.get());
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Have Note?", getIntakeButton());
   }
 }
