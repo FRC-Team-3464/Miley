@@ -244,11 +244,6 @@ public static final class TragConstants {
       ),
       AutoConstants.trajectoryConfig);
 
-    // public static final Trajectory tragSpeakerNoteToAmp = TrajectoryGenerator.generateTrajectory(
-    //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-    //   new Pose2d(-0.8, 1.2, Rotation2d.fromDegrees(-90)),
-    //   new Pose2d(-1.055, 2.2, Rotation2d.fromDegrees(-90))), AutoConstants.trajectoryConfig);
-
     public static final Trajectory tragSpeakerNoteToAmp = TrajectoryGenerator.generateTrajectory(
       List.of(
         new Pose2d(
@@ -269,12 +264,6 @@ public static final class TragConstants {
       ),
       AutoConstants.trajectoryConfig);
 
-
-    // public static final Trajectory tragAmpToHailMaryNote = TrajectoryGenerator.generateTrajectory(
-    //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-90)),
-    //   new Pose2d(5.5, -0.282, Rotation2d.fromDegrees(0)),
-    //   new Pose2d(6.424, -0.282, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig);
-
     public static final Trajectory tragAmpToHailMaryNote = TrajectoryGenerator.generateTrajectory(
       List.of(
         new Pose2d(
@@ -292,11 +281,6 @@ public static final class TragConstants {
           Rotation2d.fromDegrees(coordsAmpToHailMaryNoteEnd[2]))  
       ),
       AutoConstants.trajectoryConfig);
-
-    // public static final Trajectory tragHailMaryNoteToAmpM1 = TrajectoryGenerator.generateTrajectory(
-    //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
-    //   new Pose2d(-6.4, -0.5, Rotation2d.fromDegrees(180)),
-    //   new Pose2d(-6.4, 0.283, Rotation2d.fromDegrees(270))), AutoConstants.trajectoryConfig);
 
     public static final Trajectory tragHailMaryNoteToAmpM1 = TrajectoryGenerator.generateTrajectory(
       List.of(
@@ -353,7 +337,6 @@ public static final class TragConstants {
           Rotation2d.fromDegrees(-coordsAmpToAmpNoteEnd[2]))
       ), 
       AutoConstants.trajectoryConfig);
-      
 
 
     //  Trag Amp Note to Amp is simply each point of AmpToAmpNote Trag, except the x and y values are flipped. 
@@ -377,10 +360,6 @@ public static final class TragConstants {
       ), 
       AutoConstants.trajectoryConfig);
 
-    // List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-90)), 
-    // new Pose2d(0.5, -2.178, Rotation2d.fromDegrees(-90)),
-    // new Pose2d(1.055, -2.178, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig);
-
 
     public static final Trajectory tragBlueAmpToSpeakerNote = TrajectoryGenerator.generateTrajectory(
       List.of(
@@ -399,10 +378,6 @@ public static final class TragConstants {
       ),
       AutoConstants.trajectoryConfig);
 
-    // public static final Trajectory tragSpeakerNoteToAmp = TrajectoryGenerator.generateTrajectory(
-    //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-    //   new Pose2d(-0.8, 1.2, Rotation2d.fromDegrees(-90)),
-    //   new Pose2d(-1.055, 2.2, Rotation2d.fromDegrees(-90))), AutoConstants.trajectoryConfig);
 
     public static final Trajectory tragBlueSpeakerNoteToAmp = TrajectoryGenerator.generateTrajectory(
       List.of(
@@ -424,12 +399,6 @@ public static final class TragConstants {
       ),
       AutoConstants.trajectoryConfig);
 
-
-    // public static final Trajectory tragAmpToHailMaryNote = TrajectoryGenerator.generateTrajectory(
-    //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-90)),
-    //   new Pose2d(5.5, -0.282, Rotation2d.fromDegrees(0)),
-    //   new Pose2d(6.424, -0.282, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig);
-
     public static final Trajectory tragBlueAmpToHailMaryNote = TrajectoryGenerator.generateTrajectory(
       List.of(
         new Pose2d(
@@ -447,11 +416,6 @@ public static final class TragConstants {
           Rotation2d.fromDegrees(-coordsAmpToHailMaryNoteEnd[2]))  
       ),
       AutoConstants.trajectoryConfig);
-
-    // public static final Trajectory tragHailMaryNoteToAmpM1 = TrajectoryGenerator.generateTrajectory(
-    //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
-    //   new Pose2d(-6.4, -0.5, Rotation2d.fromDegrees(180)),
-    //   new Pose2d(-6.4, 0.283, Rotation2d.fromDegrees(270))), AutoConstants.trajectoryConfig);
 
     public static final Trajectory tragBlueHailMaryNoteToAmpM1 = TrajectoryGenerator.generateTrajectory(
       List.of(
