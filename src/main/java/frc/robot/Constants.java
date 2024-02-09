@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -138,12 +139,32 @@ public static final class AutoConstants {
 
 public static final class TragConstants {
   /*
+   * 
+   * AMP Coordinates
+   * 
+   */
+  
+   public static final Double[] coordsOriginToAmpStart = {0.0, 0.0, -90.0};
+   public static final Double[] coordsOriginToAmp = {0.427, 0.451, -90.0};
+   public static final Double[] coordsAmpToAmpNoteWayPoint = {1.03, 0.451, -90.0};
+  
+  /*
    * AMP Trajectories
    */
 
     public static final Trajectory tragOriginToAmp = TrajectoryGenerator.generateTrajectory(
-      List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-90)), 
-      new Pose2d(0.427, 0.451, Rotation2d.fromDegrees(-90))), AutoConstants.trajectoryConfig); // Apply trajectory settings to path
+      List.of(
+      new Pose2d(
+        coordsOriginToAmpStart[0],
+        coordsOriginToAmpStart[1],
+        Rotation2d.fromDegrees(coordsOriginToAmpStart[2])), 
+      new Pose2d(
+        coordsOriginToAmp[0],
+        coordsOriginToAmp[1],
+        Rotation2d.fromDegrees(coordsOriginToAmp[2]))
+      ),
+      AutoConstants.trajectoryConfig
+      ); // Apply trajectory settings to path
 
     public static final Trajectory tragAmpToAmpNote = TrajectoryGenerator.generateTrajectory(
       List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-90)), 
