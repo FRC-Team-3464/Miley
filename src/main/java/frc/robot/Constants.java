@@ -141,11 +141,9 @@ public static final class TragConstants {
   /*
    * 
    * AMP Coordinates
-   * 
+   * These are set to be on the red alliance
    */
   
-   // These are set to be on the red alliance
-
    public static final Double[] coordsOriginToAmpStart = {0.0, 0.0, -90.0};
    public static final Double[] coordsOriginToAmpEnd = {0.427, 0.451, -90.0};
 
@@ -165,6 +163,23 @@ public static final class TragConstants {
    public static final Double[] coordsHailMaryNoteToAmpStart = {coordsAmpToHailMaryNoteStart[0], coordsAmpToHailMaryNoteStart[1], coordsAmpToHailMaryNoteEnd[2]};
    public static final Double[] coordsHailMaryNoteToAmpWayPoint1 = {-coordsAmpToHailMaryNoteEnd[0], coordsAmpToHailMaryNoteEnd[1] * 2, 180.0};
    public static final Double[] coordsHailMaryNoteToAmpEnd = {-coordsAmpToHailMaryNoteEnd[0], -coordsAmpToHailMaryNoteEnd[1], 270.0};
+
+  /*
+   * 
+   * Speaker Coordinates
+   * Set to Red Alliance
+   * 
+   */
+
+   public static final Double[] coordsOriginToStageNoteStart = {0.0, 0.0, 0.0};
+   public static final Double[] coordsOriginToStageNoteStartWayPoint1 = {0.508, -1.4478, 0.0};
+   public static final Double[] coordsOriginToStageNoteEnd = {1.3462, -1.4478, 0.0};
+
+   public static final Double[] coordsStageNoteToSpeakerShootingStart = {0.0, 0.0, 0.0};
+   public static final Double[] coordsStageNoteToSpeakerShootingWayPoint1 = {-0.508, 1.4478, 0.0};
+   public static final Double[] coordsStageNoteToSpeakerShootingEnd = {-0.508, -1.4478, 0.0};
+
+
 
 
   /*
@@ -442,17 +457,49 @@ public static final class TragConstants {
      * 
      */
     
-      public static final Trajectory tragOriginToStageNote = TrajectoryGenerator.generateTrajectory(
-        List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
-        new Pose2d(0.508, -1.4478, Rotation2d.fromDegrees(0)),
-        new Pose2d(1.3462, -1.4478, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
+      // public static final Trajectory tragOriginToStageNote = TrajectoryGenerator.generateTrajectory(
+      //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
+      //   new Pose2d(0.508, -1.4478, Rotation2d.fromDegrees(0)),
+      //   new Pose2d(1.3462, -1.4478, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
    
-      public static final Trajectory tragStageNoteToSpeakerShooting = TrajectoryGenerator.generateTrajectory(
-        List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
-        new Pose2d(-0.508, 1.4478, Rotation2d.fromDegrees(0)),
-        new Pose2d(-0.508, 1.4478, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
+    public static final Trajectory tragOriginToStageNote = TrajectoryGenerator.generateTrajectory(
+      List.of(
+        new Pose2d(
+          coordsOriginToStageNoteStart[0], 
+          coordsOriginToStageNoteStart[1], 
+          Rotation2d.fromDegrees(coordsOriginToStageNoteStart[2])), 
+        new Pose2d(
+          coordsOriginToStageNoteStartWayPoint1[0], 
+          coordsOriginToStageNoteStartWayPoint1[1], 
+          Rotation2d.fromDegrees(coordsOriginToStageNoteStartWayPoint1[2])), 
+        new Pose2d(
+          coordsOriginToStageNoteEnd[0], 
+          coordsOriginToStageNoteEnd[1], 
+          Rotation2d.fromDegrees(coordsOriginToStageNoteEnd[2]))
+      ),
+      AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
+   
 
-      public static final Trajectory tragSpeakerShootingToSpeakerNote = TrajectoryGenerator.generateTrajectory(
+    // public static final Trajectory tragStageNoteToSpeakerShooting = TrajectoryGenerator.generateTrajectory(
+    //     List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
+    //     new Pose2d(-0.508, 1.4478, Rotation2d.fromDegrees(0)),
+    //     new Pose2d(-0.508, 1.4478, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
+
+    public static final Trajectory tragStageNoteToSpeakerShooting = TrajectoryGenerator.generateTrajectory(
+      List.of(
+        new Pose2d(
+          coordsStageNoteToSpeakerShootingStart[0], 
+          coordsStageNoteToSpeakerShootingStart[1], 
+          Rotation2d.fromDegrees(coordsStageNoteToSpeakerShootingStart[2])), 
+        new Pose2d(
+          coordsStageNoteToSpeakerShootingEnd[0], 
+          coordsStageNoteToSpeakerShootingEnd[1], 
+          Rotation2d.fromDegrees(coordsStageNoteToSpeakerShootingEnd[2]))
+      ),
+      AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
+    
+
+    public static final Trajectory tragSpeakerShootingToSpeakerNote = TrajectoryGenerator.generateTrajectory(
         List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
         new Pose2d(0.6, 0, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
 
