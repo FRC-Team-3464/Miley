@@ -4,14 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class Intake extends Command {
   /** Creates a new RunIntakeCMD. */
   private IntakeSubsystem intakeSub;
+
+  Timer startTime;
+  Boolean finish;
 
   public Intake() {
     intakeSub = IntakeSubsystem.getInstance();
@@ -21,14 +26,23 @@ public class Intake extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    startTime = new Timer();
+    startTime.reset();
+    finish = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.runIntake(0.5);
+    System.out.println(startTime.get());
     if(!intakeSub.getIntakeButton()) {
+      startTime.start();
+      intakeSub.stopIntake();
       intakeSub.rumbleDude();
+    }
+    else {
+      intakeSub.runIntake(0.5);
     }
       }
 
@@ -42,6 +56,6 @@ public class Intake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return(startTime.get() > 0.5);
   }
 }

@@ -63,7 +63,7 @@ public class RobotContainer {
 
   private final SendableChooser<String> commandChooser = new SendableChooser<>();
   public SequentialCommandGroup selectedAuto;
-  private final XboxController xbox = new XboxController(3);
+  private final XboxController xbox = Constants.OperatorConstants.xbox;
 
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);

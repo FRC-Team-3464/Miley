@@ -35,7 +35,7 @@ public class ShootSpeaker extends Command {
   public void execute() {
     shootSub.runShooter(1);
     shootSub.rumbleController(0.75);
-    if(shootSub.getShooterEncoder() >= 20) {
+    if(shootSub.getShooterEncoder() >= 50) {
       intakeSub.runIntake(0.5);
     }
   }
@@ -52,6 +52,6 @@ public class ShootSpeaker extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return shootSub.getShooterEncoder() > 50;
+    return shootSub.getShooterEncoder() > 100;
   }
 }
