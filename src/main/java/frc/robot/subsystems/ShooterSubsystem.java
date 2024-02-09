@@ -23,6 +23,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public ShooterSubsystem() {
     shooterMotor.setInverted(false); 
+    shooterMotor.setSmartCurrentLimit(30);
   }
 
   public static ShooterSubsystem getInstance() {
@@ -32,6 +33,8 @@ public class ShooterSubsystem extends SubsystemBase {
     return instance;
   }
 
+  // Note: Shooting must have the motor turning clockwise
+  
   public void runShooter(double speed) {
     shooterMotor.set(speed);
   }

@@ -115,7 +115,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
-    Constants.OperatorConstants.button12.whileTrue(spit);
+    Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
     Constants.OperatorConstants.button4.whileTrue(new Intake());
 
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
