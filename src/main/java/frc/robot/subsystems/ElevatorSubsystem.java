@@ -29,6 +29,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     rightResistance = false;
     leftElevatorMotor.setSmartCurrentLimit(30);
     rightElevatorMotor.setSmartCurrentLimit(30);
+    leftElevatorMotor.setInverted(true);
   }
 
   private static ElevatorSubsystem instance = null;
