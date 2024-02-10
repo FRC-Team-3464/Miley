@@ -134,23 +134,18 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-      PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
-      PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
+ 
+    PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
+    PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
 
-      // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
-      ProfiledPIDController thetaController = new ProfiledPIDController(
-        AutoConstants.kPThetaController,
-        0,
-        0,
-        AutoConstants.kThetaControllerConstraints);
-      thetaController.enableContinuousInput(-Math.PI, Math.PI);  
+    // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
+    ProfiledPIDController thetaController = new ProfiledPIDController(
+      AutoConstants.kPThetaController,
+      0,
+      0,
+      AutoConstants.kThetaControllerConstraints);
 
-      /*
-       * 
-       * AMP Autos
-       * 
-       */
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
       // contruct command to follow trajectory
       SwerveControllerCommand orginToAmp = new SwerveControllerCommand(
@@ -445,6 +440,15 @@ public class RobotContainer {
         thetaController, 
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
+
+
+
+
+      /*
+       * 
+       * AMP Autos
+       * 
+       */
       
 
     // Start HERE:
