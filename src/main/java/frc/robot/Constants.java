@@ -517,13 +517,13 @@ public static final class TragConstants {
     public static final Trajectory tragAmpShootingToAmpNote = TrajectoryGenerator.generateTrajectory(
       List.of(
         new Pose2d(
-          coordsStageNoteToSpeakerShootingStart[0], 
-          coordsStageNoteToSpeakerShootingStart[1], 
-          Rotation2d.fromDegrees(coordsStageNoteToSpeakerShootingStart[2])), 
+          coordsSpeakerShootingToSpeakerNoteStart[0], 
+          coordsSpeakerShootingToSpeakerNoteStart[1], 
+          Rotation2d.fromDegrees(coordsSpeakerShootingToSpeakerNoteStart[2])), 
         new Pose2d(
-          coordsStageNoteToSpeakerShootingEnd[0], 
-          coordsStageNoteToSpeakerShootingEnd[1], 
-          Rotation2d.fromDegrees(coordsStageNoteToSpeakerShootingEnd[2]))
+          coordsSpeakerShootingToSpeakerNoteEnd[0], 
+          coordsSpeakerShootingToSpeakerNoteEnd[1], 
+          Rotation2d.fromDegrees(coordsSpeakerShootingToSpeakerNoteEnd[2]))
       ),
       AutoConstants.trajectoryConfig); 
       
@@ -601,12 +601,12 @@ public static final class TragConstants {
       List.of(
         new Pose2d(
           coordsSpeakerNoteToAmpShootingStart[0], 
-          coordsSpeakerNoteToAmpShootingStart[1], 
-          Rotation2d.fromDegrees(coordsSpeakerNoteToAmpShootingStart[2])), 
+          -coordsSpeakerNoteToAmpShootingStart[1], 
+          Rotation2d.fromDegrees(-coordsSpeakerNoteToAmpShootingStart[2])), 
         new Pose2d(
           coordsSpeakerNoteToAmpShootingEnd[0], 
-          coordsSpeakerNoteToAmpShootingEnd[1], 
-          Rotation2d.fromDegrees(coordsSpeakerNoteToAmpShootingEnd[2]))
+          -coordsSpeakerNoteToAmpShootingEnd[1], 
+          Rotation2d.fromDegrees(-coordsSpeakerNoteToAmpShootingEnd[2]))
       ),
       AutoConstants.trajectoryConfig); 
 
@@ -614,13 +614,13 @@ public static final class TragConstants {
     public static final Trajectory tragBlueAmpShootingToAmpNote = TrajectoryGenerator.generateTrajectory(
       List.of(
         new Pose2d(
-          coordsStageNoteToSpeakerShootingStart[0], 
-          -coordsStageNoteToSpeakerShootingStart[1], 
-          Rotation2d.fromDegrees(-coordsStageNoteToSpeakerShootingStart[2])), 
+          coordsSpeakerShootingToSpeakerNoteStart[0], 
+          -coordsSpeakerShootingToSpeakerNoteStart[1], 
+          Rotation2d.fromDegrees(-coordsSpeakerShootingToSpeakerNoteStart[2])), 
         new Pose2d(
-          coordsStageNoteToSpeakerShootingEnd[0], 
-          -coordsStageNoteToSpeakerShootingEnd[1], 
-          Rotation2d.fromDegrees(-coordsStageNoteToSpeakerShootingEnd[2]))
+          coordsSpeakerShootingToSpeakerNoteEnd[0], 
+          -coordsSpeakerShootingToSpeakerNoteEnd[1], 
+          Rotation2d.fromDegrees(-coordsSpeakerShootingToSpeakerNoteEnd[2]))
       ),
       AutoConstants.trajectoryConfig); 
       
