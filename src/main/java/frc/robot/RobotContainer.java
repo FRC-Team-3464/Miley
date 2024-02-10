@@ -67,10 +67,10 @@ public class RobotContainer {
   public SequentialCommandGroup selectedAuto;
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
-  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
   // private final InstantCommand resetLocation = new InstantCommand(swerveSubsystem::resetOdom)
-    private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(swerveSubsystem,
+    private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverXAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverRotAxis),
