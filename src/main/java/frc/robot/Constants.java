@@ -235,11 +235,6 @@ public static final class TragConstants {
       ), 
       AutoConstants.trajectoryConfig);
 
-    // List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-90)), 
-    // new Pose2d(0.5, -2.178, Rotation2d.fromDegrees(-90)),
-    // new Pose2d(1.055, -2.178, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig);
-
-
     public static final Trajectory tragAmpToSpeakerNote = TrajectoryGenerator.generateTrajectory(
       List.of(
         new Pose2d(
@@ -564,11 +559,6 @@ public static final class TragConstants {
         ),  
       AutoConstants.trajectoryConfig);  
       
-      // public static final Trajectory tragBlueStageNoteToSpeakerShooting = TrajectoryGenerator.generateTrajectory(
-      //   List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), 
-      //   new Pose2d(-0.508, -1.4478, Rotation2d.fromDegrees(0)),
-      //   new Pose2d(-0.508, -1.4478, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
-    
       public static final Trajectory tragBlueStageNoteToSpeakerShooting = TrajectoryGenerator.generateTrajectory(
         List.of(
           new Pose2d(
