@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.List;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -112,10 +114,20 @@ public static final class AutoConstants {
   public static final double kPYController = 0.9;
   public static final double kPThetaController = 3.75 ;
 
+  public static PIDController xController = new PIDController(kPXController, 0, 0);
+  public static PIDController yController = new PIDController(kPYController, 0, 0);
+
   public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
           new TrapezoidProfile.Constraints(
                   kMaxAngularSpeedRadiansPerSecond,
                   kMaxAngularAccelerationRadiansPerSecondSquared);
+
+    // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
+  public static ProfiledPIDController thetaController = new ProfiledPIDController(
+    kPThetaController,
+    0,
+    0,
+    kThetaControllerConstraints);
 
   public static final TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
     AutoConstants.kMaxSpeedMetersPerSecond,

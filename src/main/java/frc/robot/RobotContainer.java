@@ -9,6 +9,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.TragConstants;
+import frc.robot.autos.Red3AmpAuto;
 import frc.robot.commands.Intake;
 import frc.robot.commands.LowerLeftElevator;
 import frc.robot.commands.LowerRightElevator;
@@ -135,26 +136,17 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
  
-    PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
-    PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
 
-    // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
-    ProfiledPIDController thetaController = new ProfiledPIDController(
-      AutoConstants.kPThetaController,
-      0,
-      0,
-      AutoConstants.kThetaControllerConstraints);
-
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);  
+    AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
       // contruct command to follow trajectory
       SwerveControllerCommand orginToAmp = new SwerveControllerCommand(
         AmpTrajectories.tragOriginToAmp, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -162,9 +154,9 @@ public class RobotContainer {
         AmpTrajectories.tragAmpToSpeakerNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -173,9 +165,9 @@ public class RobotContainer {
         AmpTrajectories.tragAmpToAmpNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -183,9 +175,9 @@ public class RobotContainer {
         AmpTrajectories.tragAmpNoteToAmp, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
       
@@ -193,9 +185,9 @@ public class RobotContainer {
         AmpTrajectories.tragSpeakerNoteToAmp, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -203,9 +195,9 @@ public class RobotContainer {
         AmpTrajectories.tragAmpToHailMaryNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -213,9 +205,9 @@ public class RobotContainer {
         AmpTrajectories.tragHailMaryNoteToAmpM1, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -230,9 +222,9 @@ public class RobotContainer {
         AmpTrajectories.tragBlueOriginToAmp, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -240,9 +232,9 @@ public class RobotContainer {
         AmpTrajectories.tragBlueAmpToSpeakerNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -251,9 +243,9 @@ public class RobotContainer {
         AmpTrajectories.tragBlueAmpToAmpNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -261,9 +253,9 @@ public class RobotContainer {
         AmpTrajectories.tragBlueAmpNoteToAmp, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
       
@@ -271,9 +263,9 @@ public class RobotContainer {
         AmpTrajectories.tragBlueSpeakerNoteToAmp, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -281,9 +273,9 @@ public class RobotContainer {
         AmpTrajectories.tragBlueAmpToHailMaryNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -291,9 +283,9 @@ public class RobotContainer {
         AmpTrajectories.tragBlueHailMaryNoteToAmpM1, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -305,9 +297,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragOriginToStageNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
         
@@ -315,9 +307,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragStageNoteToSpeakerShooting, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -325,9 +317,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragSpeakerShootingToSpeakerNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -335,9 +327,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragSpeakerNoteToAmpShooting, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
       
@@ -345,9 +337,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragAmpShootingToAmpNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
     
@@ -355,9 +347,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragAmpNoteRotateToSpeaker, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
     
@@ -369,9 +361,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragBlueOriginToStageNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
         
@@ -379,9 +371,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragBlueStageNoteToSpeakerShooting, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -389,9 +381,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragBlueSpeakerShootingToSpeakerNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -399,9 +391,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragBlueSpeakerNoteToAmpShooting, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
       
@@ -409,9 +401,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragBlueAmpShootingToAmpNote, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
     
@@ -419,9 +411,9 @@ public class RobotContainer {
         SpeakerTrajectories.tragBlueAmpNoteRotateToSpeaker, 
         swerveSubsystem::getPose, // Coords
         DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
         swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
         swerveSubsystem);
 
@@ -435,9 +427,9 @@ public class RobotContainer {
         TragConstants.tragOriginToFarCenterNote, 
         swerveSubsystem::getPose,
         DriveConstants.kDriveKinematics,
-        xController,
-        yController, 
-        thetaController, 
+        AutoConstants.xController,
+        AutoConstants.yController, 
+        AutoConstants.thetaController, 
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
 
@@ -454,27 +446,8 @@ public class RobotContainer {
     // Start HERE:
     if (commandChooser.getSelected() == "R3A"){
       // add some init and wrap up, and return everything
-      selectedAuto = new SequentialCommandGroup(
-        // Reset odometry to starting pose. 
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragOriginToAmp.getInitialPose())),
-        orginToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpToAmpNote.getInitialPose())),
-        ampToAmpN,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
-        ampNToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpToSpeakerNote.getInitialPose())),
-        ampToSpeaker,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragSpeakerNoteToAmp.getInitialPose())),
-        speakerNoteToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()));
+      selectedAuto = new Red3AmpAuto();
+
 
     }else if (commandChooser.getSelected() == "R3AHM"){
         // HAIL MARY
