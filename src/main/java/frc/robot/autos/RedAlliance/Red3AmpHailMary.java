@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos;
+package frc.robot.autos.RedAlliance;
 
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -13,27 +13,15 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.trajectories.SpeakerTrajectories;
+import frc.robot.trajectories.AmpTrajectories;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Red3Speaker extends SequentialCommandGroup {       
-
+public class Red3AmpHailMary extends SequentialCommandGroup {       
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
-  
-  SwerveControllerCommand originToStageNote = new SwerveControllerCommand(
-    SpeakerTrajectories.tragOriginToStageNote, 
-    swerveSubsystem::getPose, // Coords
-    DriveConstants.kDriveKinematics, 
-    AutoConstants.xController, 
-    AutoConstants.yController,
-    AutoConstants.thetaController,
-    swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-    swerveSubsystem);
-    
-SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand(
-    SpeakerTrajectories.tragStageNoteToSpeakerShooting, 
+  SwerveControllerCommand orginToAmp = new SwerveControllerCommand(
+    AmpTrajectories.tragOriginToAmp, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -42,8 +30,8 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-  SwerveControllerCommand speakerShootingToSpeakerNote = new SwerveControllerCommand(
-    SpeakerTrajectories.tragSpeakerShootingToSpeakerNote, 
+  SwerveControllerCommand ampToAmpN = new SwerveControllerCommand(
+    AmpTrajectories.tragAmpToAmpNote, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -52,8 +40,8 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-  SwerveControllerCommand speakerNoteToAmpShooting = new SwerveControllerCommand(
-    SpeakerTrajectories.tragSpeakerNoteToAmpShooting, 
+  SwerveControllerCommand ampNToAmp = new SwerveControllerCommand(
+    AmpTrajectories.tragAmpNoteToAmp, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -62,8 +50,9 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
   
-  SwerveControllerCommand ampShootingToAmpNote = new SwerveControllerCommand(
-    SpeakerTrajectories.tragAmpShootingToAmpNote, 
+
+  SwerveControllerCommand ampToRightmostNote = new SwerveControllerCommand(
+    AmpTrajectories.tragAmpToHailMaryNote, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -72,8 +61,8 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-  SwerveControllerCommand ampNoteRotateToSpeaker = new SwerveControllerCommand(
-    SpeakerTrajectories.tragAmpNoteRotateToSpeaker, 
+  SwerveControllerCommand rightmostNoteToAmpM1 = new SwerveControllerCommand(
+    AmpTrajectories.tragHailMaryNoteToAmpM1, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -88,35 +77,28 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
    * AMP Trajectories
    */
 
-  public Red3Speaker() {
+  public Red3AmpHailMary() {
     addCommands(
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragOriginToStageNote.getInitialPose())),
-        originToStageNote,
+        // Reset odometry to starting pose. 
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragOriginToAmp.getInitialPose())),
+        orginToAmp,
         new InstantCommand(() -> swerveSubsystem.stopModules()),
         new WaitCommand(0.25),
-        // Go to Speaker Note
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragStageNoteToSpeakerShooting.getInitialPose())),
-        stageNoteToSpeakerShooting,
-        new WaitCommand(0.25),
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpToAmpNote.getInitialPose())),
+        ampToAmpN,
         new InstantCommand(() -> swerveSubsystem.stopModules()),
         new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerShootingToSpeakerNote.getInitialPose())),
-        speakerShootingToSpeakerNote,
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
+        ampNToAmp,
         new InstantCommand(() -> swerveSubsystem.stopModules()),
         new WaitCommand(0.25),
-
-        // Go to Amp Note
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerNoteToAmpShooting.getInitialPose())),
-        speakerNoteToAmpShooting,
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpToHailMaryNote.getInitialPose())),
+        ampToRightmostNote,
         new InstantCommand(() -> swerveSubsystem.stopModules()),
         new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragAmpShootingToAmpNote.getInitialPose())),
-        ampShootingToAmpNote,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragHailMaryNoteToAmpM1.getInitialPose())),
         new WaitCommand(0.25),
-        // Rotate to speaker
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragAmpNoteRotateToSpeaker.getInitialPose())),
-        ampNoteRotateToSpeaker,
+        rightmostNoteToAmpM1,
         new InstantCommand(() -> swerveSubsystem.stopModules())
       );
   }
