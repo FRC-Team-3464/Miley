@@ -9,6 +9,12 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.TragConstants;
+import frc.robot.autos.BlueAlliance.Blue3AmpAuto;
+import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
+import frc.robot.autos.BlueAlliance.Blue3Speaker;
+import frc.robot.autos.RedAlliance.Red3AmpAuto;
+import frc.robot.autos.RedAlliance.Red3AmpHailMary;
+import frc.robot.autos.RedAlliance.Red3Speaker;
 import frc.robot.commands.Intake;
 import frc.robot.commands.LowerBothElevators;
 import frc.robot.commands.LowerLeftElevator;
@@ -24,6 +30,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.trajectories.AmpTrajectories;
+import frc.robot.trajectories.SpeakerTrajectories;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -66,10 +74,10 @@ public class RobotContainer {
   public SequentialCommandGroup selectedAuto;
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
-  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
   // private final InstantCommand resetLocation = new InstantCommand(swerveSubsystem::resetOdom)
-    private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(swerveSubsystem,
+    private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverXAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverRotAxis),
@@ -133,95 +141,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-      PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
-      PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
+ 
 
-      // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
-      ProfiledPIDController thetaController = new ProfiledPIDController(
-        AutoConstants.kPThetaController,
-        0,
-        0,
-        AutoConstants.kThetaControllerConstraints);
-      thetaController.enableContinuousInput(-Math.PI, Math.PI);  
-
-      /*
-       * 
-       * AMP Autos
-       * 
-       */
-
-      // contruct command to follow trajectory
-      SwerveControllerCommand orginToAmp = new SwerveControllerCommand(
-        TragConstants.tragOriginToAmp, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand ampToSpeaker = new SwerveControllerCommand(
-        TragConstants.tragAmpToSpeakerNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-
-      SwerveControllerCommand ampToAmpN = new SwerveControllerCommand(
-        TragConstants.tragAmpToAmpNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand ampNToAmp = new SwerveControllerCommand(
-        TragConstants.tragAmpNoteToAmp, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-      
-      SwerveControllerCommand speakerNoteToAmp = new SwerveControllerCommand(
-        TragConstants.tragSpeakerNoteToAmp, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand ampToRightmostNote = new SwerveControllerCommand(
-        TragConstants.tragAmpToHailMaryNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand rightmostNoteToAmpM1 = new SwerveControllerCommand(
-        TragConstants.tragHailMaryNoteToAmpM1, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
+    AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
       /*
        * 
@@ -229,205 +151,13 @@ public class RobotContainer {
        * 
        */
 
-      // contruct command to follow trajectory
-      SwerveControllerCommand blueOrginToAmp = new SwerveControllerCommand(
-        TragConstants.tragBlueOriginToAmp, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand blueAmpToSpeaker = new SwerveControllerCommand(
-        TragConstants.tragBlueAmpToSpeakerNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-
-      SwerveControllerCommand blueAmpToAmpN = new SwerveControllerCommand(
-        TragConstants.tragBlueAmpToAmpNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand blueAmpNToAmp = new SwerveControllerCommand(
-        TragConstants.tragBlueAmpNoteToAmp, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-      
-      SwerveControllerCommand blueSpeakerNoteToAmp = new SwerveControllerCommand(
-        TragConstants.tragBlueSpeakerNoteToAmp, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand blueAmpToRightmostNote = new SwerveControllerCommand(
-        TragConstants.tragBlueAmpToHailMaryNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand blueRightmostNoteToAmpM1 = new SwerveControllerCommand(
-        TragConstants.tragBlueHailMaryNoteToAmpM1, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-
 
     // ------------------- Points relative to speaker ----------------------- //
 
-    SwerveControllerCommand originToStageNote = new SwerveControllerCommand(
-        TragConstants.tragOriginToStageNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-        
-    SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand(
-        TragConstants.tragStageNoteToSpeakerShooting, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand speakerShootingToSpeakerNote = new SwerveControllerCommand(
-        TragConstants.tragSpeakerShootingToSpeakerNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand speakerNoteToAmpShooting = new SwerveControllerCommand(
-        TragConstants.tragSpeakerNoteToAmpShooting, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-      
-      SwerveControllerCommand ampShootingToAmpNote = new SwerveControllerCommand(
-        TragConstants.tragAmpShootingToAmpNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-    
-      SwerveControllerCommand ampNoteRotateToSpeaker = new SwerveControllerCommand(
-        TragConstants.tragAmpNoteRotateToSpeaker, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-    
     /*
     * Blue Alliance SPEAKER
     */ 
     
-    SwerveControllerCommand blueOriginToStageNote = new SwerveControllerCommand(
-        TragConstants.tragBlueOriginToStageNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-        
-    SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCommand(
-        TragConstants.tragBlueStageNoteToSpeakerShooting, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand blueSpeakerShootingToSpeakerNote = new SwerveControllerCommand(
-        TragConstants.tragBlueSpeakerShootingToSpeakerNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-
-      SwerveControllerCommand blueSpeakerNoteToAmpShooting = new SwerveControllerCommand(
-        TragConstants.tragBlueSpeakerNoteToAmpShooting, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-      
-      SwerveControllerCommand blueAmpShootingToAmpNote = new SwerveControllerCommand(
-        TragConstants.tragBlueAmpShootingToAmpNote, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
-    
-      SwerveControllerCommand blueAmpNoteRotateToSpeaker = new SwerveControllerCommand(
-        TragConstants.tragBlueAmpNoteRotateToSpeaker, 
-        swerveSubsystem::getPose, // Coords
-        DriveConstants.kDriveKinematics, 
-        xController, 
-        yController,
-        thetaController,
-        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-        swerveSubsystem);
 
       /*
        * 
@@ -439,188 +169,52 @@ public class RobotContainer {
         TragConstants.tragOriginToFarCenterNote, 
         swerveSubsystem::getPose,
         DriveConstants.kDriveKinematics,
-        xController,
-        yController, 
-        thetaController, 
+        AutoConstants.xController,
+        AutoConstants.yController, 
+        AutoConstants.thetaController, 
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
+
+
+
+
+      /*
+       * 
+       * AMP Autos
+       * 
+       */
       
 
     // Start HERE:
     if (commandChooser.getSelected() == "R3A"){
       // add some init and wrap up, and return everything
-      selectedAuto = new SequentialCommandGroup(
-        // Reset odometry to starting pose. 
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToAmp.getInitialPose())),
-        orginToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpToAmpNote.getInitialPose())),
-        ampToAmpN,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpNoteToAmp.getInitialPose())),
-        ampNToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpToSpeakerNote.getInitialPose())),
-        ampToSpeaker,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragSpeakerNoteToAmp.getInitialPose())),
-        speakerNoteToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()));
+      selectedAuto = new Red3AmpAuto();
 
     }else if (commandChooser.getSelected() == "R3AHM"){
-        // HAIL MARY
-            // add some init and wrap up, and return everything
-        selectedAuto = new SequentialCommandGroup(
-          // Reset odometry to starting pose. 
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToAmp.getInitialPose())),
-          orginToAmp,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpToAmpNote.getInitialPose())),
-          ampToAmpN,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpNoteToAmp.getInitialPose())),
-          ampNToAmp,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpToHailMaryNote.getInitialPose())),
-          ampToRightmostNote,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragHailMaryNoteToAmpM1.getInitialPose())),
-          new WaitCommand(0.25),
-          rightmostNoteToAmpM1,
-          new InstantCommand(() -> swerveSubsystem.stopModules())
-        );
+      // HAIL MARY
+      selectedAuto = new Red3AmpHailMary();
+      
     }else if(commandChooser.getSelected() == "R3S"){
-      selectedAuto = new SequentialCommandGroup(
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToStageNote.getInitialPose())),
-        originToStageNote,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        // Go to Speaker Note
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragStageNoteToSpeakerShooting.getInitialPose())),
-        stageNoteToSpeakerShooting,
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragSpeakerShootingToSpeakerNote.getInitialPose())),
-        speakerShootingToSpeakerNote,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
+      selectedAuto = new Red3Speaker();
 
-        // Go to Amp Note
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragSpeakerNoteToAmpShooting.getInitialPose())),
-        speakerNoteToAmpShooting,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpShootingToAmpNote.getInitialPose())),
-        ampShootingToAmpNote,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        // Rotate to speaker
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragAmpNoteRotateToSpeaker.getInitialPose())),
-        ampNoteRotateToSpeaker,
-        new InstantCommand(() -> swerveSubsystem.stopModules())
-        // new WaitCommand(0.25)
-        );
     }else if(commandChooser.getSelected() == "B3A"){
-      selectedAuto = new SequentialCommandGroup(
-          // Reset odometry to starting pose. 
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueOriginToAmp.getInitialPose())),
-          blueOrginToAmp,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpToAmpNote.getInitialPose())),
-          blueAmpToAmpN,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpNoteToAmp.getInitialPose())),
-          blueAmpNToAmp,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpToSpeakerNote.getInitialPose())),
-          blueAmpToSpeaker,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueSpeakerNoteToAmp.getInitialPose())),
-          blueSpeakerNoteToAmp,
-          new InstantCommand(() -> swerveSubsystem.stopModules())
-          );  
+      selectedAuto = new Blue3AmpAuto();
 
     }else if (commandChooser.getSelected() == "B3AHM"){
-      selectedAuto = new SequentialCommandGroup(
-        // Reset odometry to starting pose. 
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueOriginToAmp.getInitialPose())),
-        blueOrginToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpToAmpNote.getInitialPose())),
-        blueAmpToAmpN,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpNoteToAmp.getInitialPose())),
-        blueAmpNToAmp,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpToHailMaryNote.getInitialPose())),
-        blueAmpToRightmostNote,
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new WaitCommand(0.25),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueHailMaryNoteToAmpM1.getInitialPose())),
-        new WaitCommand(0.25),
-        blueRightmostNoteToAmpM1,
-        new InstantCommand(() -> swerveSubsystem.stopModules())
-      );       
+      selectedAuto = new Blue3AmpHailMary();       
 
-      }else if(commandChooser.getSelected() == "B3S"){
+    }else if(commandChooser.getSelected() == "B3S"){
+      selectedAuto = new Blue3Speaker();
+    
+    }else if(commandChooser.getSelected() == "RCHM"){
         selectedAuto = new SequentialCommandGroup(
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueOriginToStageNote.getInitialPose())),
-          blueOriginToStageNote,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          // Go to Speaker Note
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueStageNoteToSpeakerShooting.getInitialPose())),
-          blueStageNoteToSpeakerShooting,
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueSpeakerShootingToSpeakerNote.getInitialPose())),
-          blueSpeakerShootingToSpeakerNote,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-  
-          // Go to Amp Note
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueSpeakerNoteToAmpShooting.getInitialPose())),
-          blueSpeakerNoteToAmpShooting,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpShootingToAmpNote.getInitialPose())),
-          blueAmpShootingToAmpNote,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          // Rotate to speaker
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueAmpNoteRotateToSpeaker.getInitialPose())),
-          blueAmpNoteRotateToSpeaker,
+          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
+          originToFarCenterNote,
           new InstantCommand(() -> swerveSubsystem.stopModules())
-          // new WaitCommand(0.25)
           );
-      
-      }else if(commandChooser.getSelected() == "RCHM"){
-          selectedAuto = new SequentialCommandGroup(
-            new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
-            originToFarCenterNote,
-            new InstantCommand(() -> swerveSubsystem.stopModules())
-            );
 
-
-      } else{
-        selectedAuto = null;
+    } else{
+      selectedAuto = null;
     }
 
 

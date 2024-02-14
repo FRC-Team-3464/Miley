@@ -17,14 +17,14 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class SwerveJoystickCMD extends Command {
   /** Creates a new SwerveJoystickCMD. */
     // Use addRequirements() here to declare subsystem dependencies.
-    private final SwerveSubsystem swerveSubsystem;
+    private SwerveSubsystem swerveSubsystem;
     private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
     private final Supplier<Boolean> fieldOrientedFunction;
     private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
   
 
-  public SwerveJoystickCMD(SwerveSubsystem swerveSubsystem, Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction, Supplier<Boolean> fieldOrientedFunction) {
-        this.swerveSubsystem = swerveSubsystem;
+  public SwerveJoystickCMD(Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction, Supplier<Boolean> fieldOrientedFunction) {
+        swerveSubsystem = SwerveSubsystem.getInstance();
         this.xSpdFunction = xSpdFunction;
         this.ySpdFunction = ySpdFunction; 
         this.turningSpdFunction = turningSpdFunction;
