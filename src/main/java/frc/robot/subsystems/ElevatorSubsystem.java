@@ -30,6 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftElevatorMotor.setSmartCurrentLimit(30);
     rightElevatorMotor.setSmartCurrentLimit(30);
     leftElevatorMotor.setInverted(true);
+    rightElevatorMotor.setInverted(false);
   }
 
   private static ElevatorSubsystem instance = null;
@@ -67,20 +68,47 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
   public void runLeftElevator(double speed) {
-    if(!elevatorLMax.get() || !elevatorLMin.get()) {
-      leftElevatorMotor.set(0);
+    if(speed < 0) {
+      if(!elevatorLMin.get()) {
+        leftElevatorMotor.set(0);
+      }
+      else {
+        leftElevatorMotor.set(speed);
+      }
+    }
+    else if(speed > 0) {
+      if(!elevatorLMax.get()) {
+        leftElevatorMotor.set(0);
+      }
+      else {
+        leftElevatorMotor.set(speed);
+      }
     }
     else {
-      leftElevatorMotor.set(speed);
+      leftElevatorMotor.set(0);
     }
+
   }
 
   public void runRightElevator(double speed) {
-    if(!elevatorRMax.get() || !elevatorRMin.get()) {
-      rightElevatorMotor.set(0);
+    if(speed < 0) {
+      if(!elevatorRMin.get()) {
+        rightElevatorMotor.set(0);
+      }
+      else {
+        rightElevatorMotor.set(speed);
+      }
+    }
+    else if(speed > 0) {
+      if(!elevatorRMax.get()) {
+        rightElevatorMotor.set(0);
+      }
+      else {
+        rightElevatorMotor.set(speed);
+      }
     }
     else {
-      rightElevatorMotor.set(speed);
+      rightElevatorMotor.set(0);
     }
   }
 
