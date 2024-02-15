@@ -7,7 +7,6 @@ package frc.robot;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.TragConstants;
 import frc.robot.autos.BlueAlliance.Blue3AmpAuto;
 import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
@@ -23,17 +22,12 @@ import frc.robot.commands.RaiseBothElevators;
 import frc.robot.commands.RaiseLeftElevator;
 import frc.robot.commands.RaiseRightElevator;
 import frc.robot.commands.ReverseIntake;
-import frc.robot.commands.ShootAmp;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.SwerveJoystickCMD;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.trajectories.AmpTrajectories;
-import frc.robot.trajectories.SpeakerTrajectories;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.XboxController;
@@ -44,7 +38,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -60,21 +53,17 @@ public class RobotContainer {
   private final IntakeSubsystem intakeSub;
   private final ElevatorSubsystem elevatorSub;
 
-  private final Intake suck = new Intake();
-  private final ReverseIntake spit = new ReverseIntake();
-
-  private final ShootSpeaker speaker = new ShootSpeaker();
-  private final ShootAmp amp = new ShootAmp();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  // private final CommandXboxController m_driverController =
+  //     new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   private final SendableChooser<String> commandChooser = new SendableChooser<>();
   public SequentialCommandGroup selectedAuto;
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
+
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
   // private final InstantCommand resetLocation = new InstantCommand(swerveSubsystem::resetOdom)
     private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(
@@ -102,6 +91,7 @@ public class RobotContainer {
     commandChooser.addOption("Blue 3 Speaker", "B3S");
 
     SmartDashboard.putData("Auto", commandChooser);
+
     CommandScheduler.getInstance().setDefaultCommand(swerveSubsystem, swerveCMD);
 
     configureBindings();
