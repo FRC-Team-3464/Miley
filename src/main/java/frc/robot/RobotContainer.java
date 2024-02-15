@@ -42,25 +42,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
+
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
   private final ShooterSubsystem shootSub;
   private final IntakeSubsystem intakeSub;
   private final ElevatorSubsystem elevatorSub;
   private final LEDSubsystem ledSub;
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  // private final CommandXboxController m_driverController =
-  //     new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   private final SendableChooser<String> commandChooser = new SendableChooser<>();
   public SequentialCommandGroup selectedAuto;
@@ -69,7 +57,6 @@ public class RobotContainer {
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
 
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
-  // private final InstantCommand resetLocation = new InstantCommand(swerveSubsystem::resetOdom)
     private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverXAxis),
@@ -77,14 +64,13 @@ public class RobotContainer {
                 () -> true/*
                 () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx */);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     elevatorSub = ElevatorSubsystem.getInstance();
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
     ledSub = LEDSubsystem.getInstance();
 
-        // where we set the options that user has to choose for autos 
+    // where we set the options that user has to choose for autos 
     // Red Autos
     commandChooser.setDefaultOption("Red 3 Amp ", "R3A");
     commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
@@ -94,33 +80,22 @@ public class RobotContainer {
     commandChooser.addOption("Blue 3 Amp", "B3A");
     commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
     commandChooser.addOption("Blue 3 Speaker", "B3S");
-
     SmartDashboard.putData("Auto", commandChooser);
 
+    // Have our default swerve command to be the one that allows us to drive it. 
     CommandScheduler.getInstance().setDefaultCommand(swerveSubsystem, swerveCMD);
-
     configureBindings();
   }
 
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
-   */
   private void configureBindings() {
-    
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))));
 
+    // Shooter Commands
     Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
     Constants.OperatorConstants.button4.whileTrue(new Intake());
     Constants.OperatorConstants.button6.whileTrue(new ShootAmp());
-
 
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
     Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
@@ -130,59 +105,23 @@ public class RobotContainer {
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
   }
  
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
- 
+
+  public Command getAutonomousCommand() { 
     // Config our theta controller to calculate error in an error. . 
     AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
-      /*
-       * 
-       * BLUE Autos
-       * 
-       */
+    SwerveControllerCommand originToFarCenterNote = new SwerveControllerCommand(
+      TragConstants.tragOriginToFarCenterNote, 
+      swerveSubsystem::getPose,
+      DriveConstants.kDriveKinematics,
+      AutoConstants.xController,
+      AutoConstants.yController, 
+      AutoConstants.thetaController, 
+      swerveSubsystem::setModuleStates,
+      swerveSubsystem);
 
-
-    // ------------------- Points relative to speaker ----------------------- //
-
-    /*
-    * Blue Alliance SPEAKER
-    */ 
-    
-
-      /*
-       * 
-       * Hail Mary Note
-       * 
-       */
-
-      SwerveControllerCommand originToFarCenterNote = new SwerveControllerCommand(
-        TragConstants.tragOriginToFarCenterNote, 
-        swerveSubsystem::getPose,
-        DriveConstants.kDriveKinematics,
-        AutoConstants.xController,
-        AutoConstants.yController, 
-        AutoConstants.thetaController, 
-        swerveSubsystem::setModuleStates,
-        swerveSubsystem);
-
-
-
-
-      /*
-       * 
-       * AMP Autos
-       * 
-       */
-      
-
-    // Start HERE:
+    // Chooser selection 
     if (commandChooser.getSelected() == "R3A"){
-      // add some init and wrap up, and return everything
       selectedAuto = new Red3AmpAuto();
 
     }else if (commandChooser.getSelected() == "R3AHM"){
@@ -212,7 +151,7 @@ public class RobotContainer {
       selectedAuto = null;
     }
 
-
+    // Return our selected auto to be run. 
     return selectedAuto;
   }
 }
