@@ -45,18 +45,13 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 
 public class RobotContainer {
-  private final ShooterSubsystem shootSub;
-  private final IntakeSubsystem intakeSub;
-  private final ElevatorSubsystem elevatorSub;
-  private final LEDSubsystem ledSub;
-
   private final SendableChooser<String> commandChooser = new SendableChooser<>();
   public SequentialCommandGroup selectedAuto;
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
-
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
+  
     private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverXAxis),
@@ -65,10 +60,6 @@ public class RobotContainer {
                 () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx */);
 
   public RobotContainer() {
-    elevatorSub = ElevatorSubsystem.getInstance();
-    shootSub = ShooterSubsystem.getInstance();
-    intakeSub = IntakeSubsystem.getInstance();
-    ledSub = LEDSubsystem.getInstance();
 
     // where we set the options that user has to choose for autos 
     // Red Autos
