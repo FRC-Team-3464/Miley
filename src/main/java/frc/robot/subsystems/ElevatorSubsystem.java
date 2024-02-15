@@ -134,6 +134,5 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Left Elevator Min - 0", elevatorLMin.get());
     SmartDashboard.putBoolean("Right Elevator Max - 3", elevatorRMax.get());
     SmartDashboard.putBoolean("Right Elevator Min - 2", elevatorRMin.get());
-    // This method will be called once per scheduler run
   }
 }
