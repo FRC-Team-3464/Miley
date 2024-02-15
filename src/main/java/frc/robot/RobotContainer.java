@@ -116,12 +116,11 @@ public class RobotContainer {
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
     Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
-    Constants.OperatorConstants.button3.whileTrue(new ShootAmp());
     Constants.OperatorConstants.button4.whileTrue(new Intake());
+    Constants.OperatorConstants.button6.whileTrue(new ShootAmp());
+
 
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
     Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
@@ -138,7 +137,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
  
-
+    // Config our theta controller to calculate error in an error. . 
     AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
       /*
