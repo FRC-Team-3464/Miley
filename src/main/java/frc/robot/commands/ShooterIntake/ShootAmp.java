@@ -1,22 +1,19 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
-package frc.robot.commands;
+package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootSpeaker extends Command {
-  /** Creates a new RunShooterCMD. */
+public class ShootAmp extends Command {
+  /** Creates a new ShootAmp. */
   
-  // Made private following guide 
-  // https://docs.google.com/document/d/1rMpvW10_W3HbNHDALNwipZNWk1XB1qKxHVw3UQViRO0/edit
   private ShooterSubsystem shootSub;
-  private IntakeSubsystem intakeSub;
+  public IntakeSubsystem intakeSub;
 
-  public ShootSpeaker() {
+  public ShootAmp() {
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
     addRequirements(shootSub);
@@ -26,30 +23,27 @@ public class ShootSpeaker extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    shootSub.resetShooter();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shootSub.runShooter(1);
-    if(shootSub.getShooterEncoder() >= 50) {
-      intakeSub.runIntake(0.5);
-    }
+    intakeSub.runIntake(0.3);
+    shootSub.runShooter(0.2);
+    shootSub.rumbleController(0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shootSub.stopShooter();
-    shootSub.resetShooter();
     intakeSub.stopIntake();
+    shootSub.stopShooter();
+    shootSub.stopRumble();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return shootSub.getShooterEncoder() > 100;
+    return false;
   }
 }

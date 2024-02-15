@@ -14,20 +14,24 @@ import frc.robot.autos.BlueAlliance.Blue3Speaker;
 import frc.robot.autos.RedAlliance.Red3AmpAuto;
 import frc.robot.autos.RedAlliance.Red3AmpHailMary;
 import frc.robot.autos.RedAlliance.Red3Speaker;
-import frc.robot.commands.Intake;
+import frc.robot.commands.ShooterIntake.Intake;
 import frc.robot.commands.LowerBothElevators;
 import frc.robot.commands.LowerLeftElevator;
 import frc.robot.commands.LowerRightElevator;
 import frc.robot.commands.RaiseBothElevators;
 import frc.robot.commands.RaiseLeftElevator;
 import frc.robot.commands.RaiseRightElevator;
-import frc.robot.commands.ReverseIntake;
-import frc.robot.commands.ShootSpeaker;
+import frc.robot.commands.ShooterIntake.ReverseIntake;
+import frc.robot.commands.ShooterIntake.ShootAmp;
+import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.commands.SwerveJoystickCMD;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
+
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.XboxController;
@@ -52,7 +56,7 @@ public class RobotContainer {
   private final ShooterSubsystem shootSub;
   private final IntakeSubsystem intakeSub;
   private final ElevatorSubsystem elevatorSub;
-
+  private final LEDSubsystem ledSub;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // private final CommandXboxController m_driverController =
@@ -78,6 +82,7 @@ public class RobotContainer {
     elevatorSub = ElevatorSubsystem.getInstance();
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
+    ledSub = LEDSubsystem.getInstance();
 
         // where we set the options that user has to choose for autos 
     // Red Autos
@@ -115,6 +120,7 @@ public class RobotContainer {
     // cancelling on release.
     Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
+    Constants.OperatorConstants.button3.whileTrue(new ShootAmp());
     Constants.OperatorConstants.button4.whileTrue(new Intake());
 
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
