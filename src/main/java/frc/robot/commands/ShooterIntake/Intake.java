@@ -38,6 +38,7 @@ public class Intake extends Command {
     if(!intakeSub.getIntakeButton()) {
       startTime.start();
       intakeSub.stopIntake();
+      // change LED light color
       intakeSub.rumbleDude();
     }
     else {
