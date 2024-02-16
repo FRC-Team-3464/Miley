@@ -54,6 +54,7 @@ public class Intake extends Command {
   public void end(boolean interrupted) {
     intakeSub.stopIntake();
     intakeSub.stopRumble();
+    ledSub.setOff();
   }
 
   // Returns true when the command should end.

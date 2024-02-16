@@ -83,7 +83,9 @@ public class RobotContainer {
 
     // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
-    Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))));
+    // new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))
+    Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> ledSub.setPurple()));
+  
 
     // Commands regarding the intake sandwich
     // Shooter Commands

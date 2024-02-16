@@ -47,6 +47,14 @@ public class LEDSubsystem extends SubsystemBase {
     return ledState;
   }
 
+  public void setOff(){
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setRGB(i, 0,0,0);
+    }
+   ledState = "off";
+   ledStrip.setData(ledBuffer); 
+  }
+
   public void setWhite() {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
         // Sets the specified LED to the RGB values for red
@@ -75,6 +83,15 @@ public class LEDSubsystem extends SubsystemBase {
       ledState = "Orange";
      ledStrip.setData(ledBuffer);
   }
+
+  public void setPurple() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setRGB(i,150,0,150);
+    }
+    ledState = "Purple";
+    ledStrip.setData(ledBuffer);
+  }
+
 
 
 
