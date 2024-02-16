@@ -112,7 +112,7 @@ public class RobotContainer {
  
 
   public Command getAutonomousCommand() { 
-    // Config our theta controller to calculate error in an error. . 
+    // Config our theta controller to calculate error in a circle.
     AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
     SwerveControllerCommand originToFarCenterNote = new SwerveControllerCommand(
