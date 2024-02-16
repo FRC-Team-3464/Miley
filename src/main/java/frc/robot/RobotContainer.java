@@ -28,6 +28,7 @@ import frc.robot.commands.Elevator.LowerRightElevator;
 import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 
@@ -49,6 +50,7 @@ public class RobotContainer {
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
+  private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
   
     private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(
