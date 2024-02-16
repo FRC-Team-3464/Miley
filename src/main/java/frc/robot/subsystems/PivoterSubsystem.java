@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -12,6 +11,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PivoterConstants;
 
 public class PivoterSubsystem extends SubsystemBase {
   /** Creates a new PivoterSubsystem. */
@@ -57,16 +57,12 @@ public class PivoterSubsystem extends SubsystemBase {
 
   public double getPivoterRotation(){
     // Return the pivoter raw position in rotations. 
-    return pivotEncoder.getPosition();
+    return getPivoterRawRotation() * PivoterConstants.kPivoterGearRatio;
   }
 
-
   public double getPivoterDegrees(){
-    // MUST FIND THE ROTATION TO DEGREES FACTOR!!!!!
-    // GO TO MANCHESTER!!!
-    // DON'T FORGET THIS!!!
-    // PLEASE SOMEBODY READ THIS AND DON'T FORGET!!!!
-    return pivotEncoder.getPosition(); 
+    // 360 degrees in a rotation
+    return getPivoterRotation() * 360; 
   }
 
   public void resetEncoder(){
@@ -88,6 +84,9 @@ public class PivoterSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Pivotor Right Switch", rightLimit.get());
 
     SmartDashboard.putNumber("Pivotor Raw Rotations", getPivoterRawRotation());
+    SmartDashboard.putNumber("Pivotor Rotations", getPivoterRotation());
+    SmartDashboard.putNumber("Pivotor Degrees", getPivoterDegrees());
+
     SmartDashboard.putNumber("Pivotor Current", pivotMotor.getOutputCurrent());
   }
 }
