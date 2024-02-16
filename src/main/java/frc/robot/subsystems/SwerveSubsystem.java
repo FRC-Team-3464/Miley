@@ -59,6 +59,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
 
+  private static SwerveSubsystem instance = null;  
+
   // Odemeter to track robot position and create feedback speeds in auto. 
   private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(
     DriveConstants.kDriveKinematics, 
@@ -88,6 +90,14 @@ public class SwerveSubsystem extends SubsystemBase {
     field = new Field2d();
     SmartDashboard.putData("Field", field);
   }
+
+  public static SwerveSubsystem getInstance() {
+    if (instance == null) {
+      instance = new SwerveSubsystem();
+    }
+    return instance;
+  }
+
 
   public void zeroHeading () {
     gyro.reset();

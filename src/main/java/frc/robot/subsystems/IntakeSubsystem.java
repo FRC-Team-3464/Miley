@@ -17,9 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final CANSparkMax intakeMotor = new CANSparkMax(12, MotorType.kBrushless);
-
   private final DigitalInput intakeButton = new DigitalInput(6);
-
   private final XboxController xbox = new XboxController(2);
 
   private static IntakeSubsystem instance = null;  
