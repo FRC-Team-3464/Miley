@@ -25,9 +25,13 @@ import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.commands.SwerveJoystickCMD;
+import frc.robot.commands.Pivoter.ManualPivotDown;
+import frc.robot.commands.Pivoter.ManualPivotUp;
+import frc.robot.commands.Pivoter.PivotToPosition;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.PivoterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -56,8 +60,9 @@ public class RobotContainer {
   private final ShooterSubsystem shootSub;
   private final IntakeSubsystem intakeSub;
   private final ElevatorSubsystem elevatorSub;
-  private final LEDSubsystem ledSub;
+  private final PivoterSubsystem pivoterSub;
 
+  private final LEDSubsystem ledSub;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // private final CommandXboxController m_driverController =
   //     new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -83,6 +88,7 @@ public class RobotContainer {
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
     ledSub = LEDSubsystem.getInstance();
+    pivoterSub = PivoterSubsystem.getInstance();
 
         // where we set the options that user has to choose for autos 
     // Red Autos
@@ -112,23 +118,34 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    
+
+    // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
+    // Commands regarding the intake sandwich
     Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
     Constants.OperatorConstants.button3.whileTrue(new ShootAmp());
     Constants.OperatorConstants.button4.whileTrue(new Intake());
+    Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());
 
+    // Commands for elevator hahahah lmao
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
     Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
     Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
     Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
+
+    // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
+    // Test positions
+    Constants.OperatorConstants.button7.onTrue(new PivotToPosition(0));
+    Constants.OperatorConstants.button8.onTrue(new PivotToPosition(20));
+    Constants.OperatorConstants.button9.onTrue(new PivotToPosition(100));
+
+    Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
+    Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
   }
  
   /**
