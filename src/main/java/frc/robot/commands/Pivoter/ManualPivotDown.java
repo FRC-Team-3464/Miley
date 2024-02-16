@@ -2,16 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Pivoter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PivoterSubsystem;
 
-public class ManualPivotUp extends Command {
+public class ManualPivotDown extends Command {
   /** Creates a new ManualPivotUp. */
   private PivoterSubsystem pivotSub;
 
-  public ManualPivotUp() {
+  public ManualPivotDown() {
     pivotSub = PivoterSubsystem.getInstance();
     addRequirements(pivotSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -24,7 +24,7 @@ public class ManualPivotUp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivotSub.pivot(0.5);
+    pivotSub.pivot(-0.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -36,9 +36,6 @@ public class ManualPivotUp extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(pivotSub.getPivoterDegrees() > 150 || !pivotSub.getLeftSwitch() || !pivotSub.getRightSwitch()) {
-      return true;
-    }
     return false;
   }
 }

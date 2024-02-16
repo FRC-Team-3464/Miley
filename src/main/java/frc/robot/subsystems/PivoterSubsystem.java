@@ -40,6 +40,7 @@ public class PivoterSubsystem extends SubsystemBase {
   public void pivot(double speed) {
     // If we hit the switch and we're going down, stop
     if(speed < 0 && getSwitchToggled()){
+      resetEncoder();
       pivotMotor.set(0);
     }else{
       pivotMotor.set(speed);
@@ -90,9 +91,13 @@ public class PivoterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if(getSwitchToggled()){
+      resetEncoder();
+    };
+
     // Print debug information
-    SmartDashboard.putBoolean("Pivotor Left Switch", getLeftSwitch());
-    SmartDashboard.putBoolean("Pivotor Right Switch", getRightSwitch());
+    SmartDashboard.putBoolean("4 - Pivotor Left Switch", getLeftSwitch());
+    SmartDashboard.putBoolean("5 - Pivotor Right Switch", getRightSwitch());
     SmartDashboard.putBoolean("Pivotor Switch Input", getSwitchToggled());
 
 
