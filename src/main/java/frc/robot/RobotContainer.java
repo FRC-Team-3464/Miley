@@ -22,6 +22,7 @@ import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.ManualPivotDown;
 import frc.robot.commands.Pivoter.ManualPivotUp;
+import frc.robot.commands.Pivoter.PivotToPosition;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
@@ -129,6 +130,7 @@ public class RobotContainer {
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
+    Constants.OperatorConstants.button7.onTrue(new PivotToPosition());
     Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
     Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
   }
