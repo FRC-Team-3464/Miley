@@ -200,6 +200,14 @@ public static final class TragConstants {
   
 }
 
+
+public static final class PivoterConstants{
+  public static final double kMaxPivoterDegrees = 120.0;
+
+  // Our gear ratio is as follows: (1/64) * (1/1.4)
+  public static final double kPivoterGearRatio = 0.01116071428;
+}
+
 public static final class OIConstants {
   public static final int kDriverControllerPort = 0;
 

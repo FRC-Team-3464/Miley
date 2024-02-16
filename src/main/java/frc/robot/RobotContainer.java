@@ -19,6 +19,9 @@ import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.commands.SwerveJoystickCMD;
+import frc.robot.commands.Pivoter.ManualPivotDown;
+import frc.robot.commands.Pivoter.ManualPivotUp;
+import frc.robot.commands.Pivoter.PivotToPosition;
 import frc.robot.commands.Elevator.LowerBothElevators;
 import frc.robot.commands.Elevator.LowerLeftElevator;
 import frc.robot.commands.Elevator.LowerRightElevator;
@@ -79,21 +82,34 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+
+    // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))));
 
+    // Commands regarding the intake sandwich
     // Shooter Commands
     Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
     Constants.OperatorConstants.button4.whileTrue(new Intake());
     Constants.OperatorConstants.button6.whileTrue(new ShootAmp());
 
+    // Commands for elevator hahahah lmao
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
     Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
     Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
     Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
+
+    // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
+    // Test positions
+    Constants.OperatorConstants.button7.onTrue(new PivotToPosition(0));
+    Constants.OperatorConstants.button8.onTrue(new PivotToPosition(20));
+    Constants.OperatorConstants.button9.onTrue(new PivotToPosition(100));
+
+    Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
+    Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
   }
  
 
