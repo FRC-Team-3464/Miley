@@ -46,6 +46,6 @@ public class PivotToPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(pivotSub.getPivoterDegrees() - setpoint) < 1);
+    return (Math.abs(pivotSub.getPivoterDegrees() - setpoint) < 5);
   }
 }

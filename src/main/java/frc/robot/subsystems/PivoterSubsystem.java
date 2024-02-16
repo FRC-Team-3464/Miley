@@ -42,7 +42,7 @@ public class PivoterSubsystem extends SubsystemBase {
       // If we hit the switch and we're going down, stop the motor and reset the encoder
       resetEncoder();
       pivotMotor.set(0);
-    }else if (speed > 0 && (getPivoterDegrees() > 120)) {
+    }else if (speed > 0 && (getPivoterDegrees() > PivoterConstants.kMaxPivoterDegrees)) {
       // If we're going up and exceed our degrees for the pivoter, stop. 
       pivotMotor.set(0);
 
