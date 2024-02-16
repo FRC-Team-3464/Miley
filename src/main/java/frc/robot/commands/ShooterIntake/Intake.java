@@ -9,17 +9,19 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 
 public class Intake extends Command {
   /** Creates a new RunIntakeCMD. */
   private IntakeSubsystem intakeSub;
-
+  private LEDSubsystem ledSub;
   Timer startTime;
   Boolean finish;
 
   public Intake() {
     intakeSub = IntakeSubsystem.getInstance();
-    addRequirements(intakeSub);
+    ledSub = LEDSubsystem.getInstance();
+    addRequirements(intakeSub, ledSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -39,6 +41,7 @@ public class Intake extends Command {
       startTime.start();
       intakeSub.stopIntake();
       // change LED light color
+      ledSub.setGreen();
       intakeSub.rumbleDude();
     }
     else {
