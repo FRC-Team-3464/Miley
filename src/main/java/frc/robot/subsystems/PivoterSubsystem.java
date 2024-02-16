@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PivoterSubsystem extends SubsystemBase {
@@ -49,10 +50,16 @@ public class PivoterSubsystem extends SubsystemBase {
     return pivotMotor.get();
   }
 
-  public double getPivoterRotation(){
-    // Return the pivoter position in rotations. 
+  public double getPivoterRawRotation(){
+    // Return the pivoter raw position in rotations. 
     return pivotEncoder.getPosition();
   }
+
+  public double getPivoterRotation(){
+    // Return the pivoter raw position in rotations. 
+    return pivotEncoder.getPosition();
+  }
+
 
   public double getPivoterDegrees(){
     // MUST FIND THE ROTATION TO DEGREES FACTOR!!!!!
@@ -76,6 +83,11 @@ public class PivoterSubsystem extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Print debug information
+    SmartDashboard.putBoolean("Pivotor Left Switch", leftLimit.get());
+    SmartDashboard.putBoolean("Pivotor Right Switch", rightLimit.get());
+
+    SmartDashboard.putNumber("Pivotor Raw Rotations", getPivoterRawRotation());
+    SmartDashboard.putNumber("Pivotor Current", pivotMotor.getOutputCurrent());
   }
 }
