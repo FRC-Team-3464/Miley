@@ -15,19 +15,19 @@ import frc.robot.Constants.PivoterConstants;
 
 public class PivoterSubsystem extends SubsystemBase {
   /** Creates a new PivoterSubsystem. */
-  private final CANSparkMax pivotMotor = new CANSparkMax(13, MotorType.kBrushless);
-  private final CANSparkMax secondPivotMotor = new CANSparkMax(14, MotorType.kBrushless);
+  private final CANSparkMax leftPivoter = new CANSparkMax(13, MotorType.kBrushless);
+  private final CANSparkMax rightPivoter = new CANSparkMax(14, MotorType.kBrushless);
 
   private final DigitalInput leftLimit = new DigitalInput(4);
   private final DigitalInput rightLimit = new DigitalInput(5);
 
-  private final RelativeEncoder pivotEncoder = pivotMotor.getEncoder();
+  private final RelativeEncoder leftEncoder = leftPivoter.getEncoder();
   private static PivoterSubsystem instance = null;  
 
 
   public PivoterSubsystem() {
-    pivotMotor.setInverted(false);
-    secondPivotMotor.follow(pivotMotor, true);
+    leftPivoter.setInverted(false);
+    rightPivoter.follow(leftPivoter, true);
   }
 
   public static PivoterSubsystem getInstance() {
@@ -41,28 +41,28 @@ public class PivoterSubsystem extends SubsystemBase {
     if(speed < 0 && getSwitchToggled()){
       // If we hit the switch and we're going down, stop the motor and reset the encoder
       resetEncoder();
-      pivotMotor.set(0);
+      leftPivoter.set(0);
     }else if (speed > 0 && (getPivoterDegrees() > PivoterConstants.kMaxPivoterDegrees)) {
       // If we're going up and exceed our degrees for the pivoter, stop. 
-      pivotMotor.set(0);
+      leftPivoter.set(0);
 
     } else {
-      pivotMotor.set(speed);
+      leftPivoter.set(speed);
     }
   }
 
   public void stopMotor() {
-    pivotMotor.stopMotor();
+    leftPivoter.stopMotor();
   }
 
   public double getPivoterSpeed() {
     // Get the speed of the motor. 
-    return pivotMotor.get();
+    return leftPivoter.get();
   }
 
   public double getPivoterRawRotation(){
     // Return the pivoter raw position in rotations. 
-    return pivotEncoder.getPosition();
+    return leftEncoder.getPosition();
   }
 
   public double getPivoterRotation(){
@@ -77,7 +77,7 @@ public class PivoterSubsystem extends SubsystemBase {
 
   public void resetEncoder(){
     // Set the encoder back to normal
-    pivotEncoder.setPosition(0);
+    leftEncoder.setPosition(0);
   }
 
   public Boolean getLeftSwitch() {
@@ -109,6 +109,6 @@ public class PivoterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Pivotor Rotations", getPivoterRotation());
     SmartDashboard.putNumber("Pivotor Degrees", getPivoterDegrees());
 
-    SmartDashboard.putNumber("Pivotor Current", pivotMotor.getOutputCurrent());
+    SmartDashboard.putNumber("Pivotor Current", leftPivoter.getOutputCurrent());
   }
 }
