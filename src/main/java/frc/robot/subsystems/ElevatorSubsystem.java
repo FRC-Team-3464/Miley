@@ -18,18 +18,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final DigitalInput elevatorRMin = new DigitalInput(2);
   private final DigitalInput elevatorRMax = new DigitalInput(3);
 
-  // private final CANSparkMax leftElevatorMotor = new CANSparkMax(9, MotorType.kBrushless);
-  // private final CANSparkMax rightElevatorMotor = new CANSparkMax(10, MotorType.kBrushless);
-
-  // This is just for testing
-  private final CANSparkMax leftElevatorMotor = new CANSparkMax(13, MotorType.kBrushless);
-  private final CANSparkMax rightElevatorMotor = new CANSparkMax(14, MotorType.kBrushless);
-
+  private final CANSparkMax leftElevatorMotor = new CANSparkMax(9, MotorType.kBrushless);
+  private final CANSparkMax rightElevatorMotor = new CANSparkMax(10, MotorType.kBrushless);
 
   Boolean leftResistance;
   Boolean rightResistance;
 
   public ElevatorSubsystem() {
+    // Use this for debugging
+    leftElevatorMotor.restoreFactoryDefaults();
+    rightElevatorMotor.restoreFactoryDefaults();
+    
     leftResistance = false;
     rightResistance = false;
     leftElevatorMotor.setSmartCurrentLimit(30);
@@ -75,6 +74,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void runLeftElevator(double speed) {
     if(speed < 0) {
       if(leftElevatorMin()) {
+        System.out.println("L Min Stop");
         leftElevatorMotor.set(0);
       }
       else {
@@ -83,6 +83,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     else if(speed > 0) {
       if(leftElevatorMax()) {
+        System.out.println("L Max Stop");
         leftElevatorMotor.set(0);
       }
       else {
@@ -98,6 +99,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void runRightElevator(double speed) {
     if(speed < 0) {
       if(rightElevatorMin()) {
+        System.out.println("R Min Stop");
         rightElevatorMotor.set(0);
       }
       else {
@@ -106,6 +108,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     else if(speed > 0) {
       if(rightElevatorMax()) {
+        System.out.println("R Max Stop");
         rightElevatorMotor.set(0);
       }
       else {
@@ -135,9 +138,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Left Elevator Max - 1", elevatorLMax.get());
-    SmartDashboard.putBoolean("Left Elevator Min - 0", elevatorLMin.get());
-    SmartDashboard.putBoolean("Right Elevator Max - 3", elevatorRMax.get());
-    SmartDashboard.putBoolean("Right Elevator Min - 2", elevatorRMin.get());
+    SmartDashboard.putBoolean("Left Elevator Max - 1", leftElevatorMax());
+    SmartDashboard.putBoolean("Left Elevator Min - 0", leftElevatorMin());
+    SmartDashboard.putBoolean("Right Elevator Max - 3", rightElevatorMax());
+    SmartDashboard.putBoolean("Right Elevator Min - 2", rightElevatorMin());
   }
 }
