@@ -74,7 +74,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void runLeftElevator(double speed) {
     if(speed < 0) {
-      if(!elevatorLMin.get()) {
+      if(leftElevatorMin()) {
         leftElevatorMotor.set(0);
       }
       else {
@@ -82,7 +82,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       }
     }
     else if(speed > 0) {
-      if(!elevatorLMax.get()) {
+      if(leftElevatorMax()) {
         leftElevatorMotor.set(0);
       }
       else {
@@ -97,7 +97,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void runRightElevator(double speed) {
     if(speed < 0) {
-      if(!elevatorRMin.get()) {
+      if(rightElevatorMin()) {
         rightElevatorMotor.set(0);
       }
       else {
@@ -105,7 +105,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       }
     }
     else if(speed > 0) {
-      if(!elevatorRMax.get()) {
+      if(rightElevatorMax()) {
         rightElevatorMotor.set(0);
       }
       else {
@@ -118,19 +118,19 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Boolean leftElevatorMax() {
-    return elevatorLMax.get();
+    return !elevatorLMax.get();
   }
 
   public Boolean leftElevatorMin() {
-    return elevatorLMin.get();
+    return !elevatorLMin.get();
   }
 
   public Boolean rightElevatorMax() {
-    return elevatorRMax.get();
+    return !elevatorRMax.get();
   }
 
   public Boolean rightElevatorMin() {
-    return elevatorRMin.get();
+    return !elevatorRMin.get();
   }
 
   @Override
