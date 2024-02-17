@@ -106,8 +106,8 @@ public class RobotContainer {
     Constants.OperatorConstants.button8.onTrue(new PivotToPosition(20));
     Constants.OperatorConstants.button9.onTrue(new PivotToPosition(100));
 
-    Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
-    Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
+    // Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
+    // Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
   }
  
 
