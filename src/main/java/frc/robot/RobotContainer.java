@@ -81,7 +81,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
     // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     // new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))

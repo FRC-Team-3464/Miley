@@ -74,7 +74,6 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
 
-
   public void setOrange() {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
         // Sets the specified LED to the RGB values for red
