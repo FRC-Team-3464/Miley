@@ -28,6 +28,7 @@ import frc.robot.commands.Elevator.LowerRightElevator;
 import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
+import frc.robot.commands.Leds.LedFlash;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -84,8 +85,8 @@ public class RobotContainer {
     // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     // new InstantCommand(() -> swerveSubsystem.resetOdometry(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)))
-    Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> ledSub.setPurple()));
-  
+    // Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> ledSub.setPurple()));
+    Constants.OperatorConstants.buttonY.onTrue(new LedFlash());
 
     // Commands regarding the intake sandwich
     // Shooter Commands
