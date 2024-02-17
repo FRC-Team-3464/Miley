@@ -28,8 +28,11 @@ public class ShootAmp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.runIntake(0.3);
-    shootSub.runShooter(0.2);
+    // intakeSub.runIntake(0.3);
+    // shootSub.runShooter(0.2);
+    intakeSub.runIntake(0.05);
+    shootSub.runShooter(0.05);
+
     shootSub.rumbleController(0.5);
   }
 

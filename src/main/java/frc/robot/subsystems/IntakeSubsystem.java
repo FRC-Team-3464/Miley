@@ -24,7 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
     intakeMotor.restoreFactoryDefaults();
-    intakeMotor.setInverted(true);
+    intakeMotor.setInverted(false);
   }
 
   public static IntakeSubsystem getInstance() {

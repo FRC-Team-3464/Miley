@@ -36,7 +36,6 @@ public class Intake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(startTime.get());
     if(!intakeSub.getIntakeButton()) {
       startTime.start();
       intakeSub.stopIntake();
@@ -45,7 +44,9 @@ public class Intake extends Command {
       intakeSub.rumbleDude();
     }
     else {
-      intakeSub.runIntake(0.5);
+      // intakeSub.runIntake(0.5);
+      intakeSub.runIntake(0.05);
+
     }
       }
 

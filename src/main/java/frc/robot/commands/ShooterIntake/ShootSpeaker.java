@@ -32,9 +32,12 @@ public class ShootSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shootSub.runShooter(1);
+    // shootSub.runShooter(1);
+    shootSub.runShooter(0.05);
     if(shootSub.getShooterEncoder() >= 50) {
-      intakeSub.runIntake(0.5);
+      // intakeSub.runIntake(0.5);
+      intakeSub.runIntake(0.05);
+
     }
   }
 
