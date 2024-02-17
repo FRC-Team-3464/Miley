@@ -22,6 +22,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private static ShooterSubsystem instance = null;
 
   public ShooterSubsystem() {
+    shooterMotor.restoreFactoryDefaults();
     shooterMotor.setInverted(false); 
     shooterMotor.setSmartCurrentLimit(30);
   }
