@@ -15,11 +15,9 @@ import frc.robot.Constants.PivoterConstants;
 
 public class PivoterSubsystem extends SubsystemBase {
   /** Creates a new PivoterSubsystem. */
-  private final CANSparkMax leftPivoter = new CANSparkMax(31, MotorType.kBrushless);
-  private final CANSparkMax rightPivoter = new CANSparkMax(41, MotorType.kBrushless);
 
-  // private final CANSparkMax leftPivoter = new CANSparkMax(13, MotorType.kBrushless);
-  // private final CANSparkMax rightPivoter = new CANSparkMax(14, MotorType.kBrushless);
+  private final CANSparkMax leftPivoter = new CANSparkMax(13, MotorType.kBrushless);
+  private final CANSparkMax rightPivoter = new CANSparkMax(14, MotorType.kBrushless);
 
   private final DigitalInput leftLimit = new DigitalInput(4);
   private final DigitalInput rightLimit = new DigitalInput(5);
