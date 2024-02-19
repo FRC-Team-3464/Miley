@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -74,21 +75,6 @@ public class PivoterSubsystem extends SubsystemBase {
     return instance;
   }
 
-  // Method to run the motor to our target input
-  // public void PIDPivot(double rotations){
-  //   if ((rotations >= PivoterConstants.kPivoterMaxValue) 
-  //   || rotations < 0){
-  //     System.out.println("ABORT");
-  //   }else{
-  //     m_pidController.setReference(
-  //       rotations,
-  //       // CANSparkMax.ControlType.kPosition,
-  //       CANSparkMax.ControlType.kSmartMotion,
-  //       SMART_MOTION_SLOT,
-  //       getArbFF()
-  //     );  
-  // }
-
   public void pivot(double speed) {
     if(speed < 0 && getSwitchToggled()){
       // If we hit the switch and we're going down, stop the motor and reset the encoder
@@ -144,6 +130,38 @@ public class PivoterSubsystem extends SubsystemBase {
     //Return if any of the switches were toggled
     return (getLeftSwitch() || getRightSwitch());
   }
+
+  // WE MAY NEED IT FOR NON-PID CONTROL
+  public void addFeedFoward(){
+    // Add some power to the pivoter to have it hold against gravity. 
+    if(!getSwitchToggled()){ // Make sure the trigger isn't activated. 
+      pivot(0.05);
+    }
+  }
+
+
+  // Method to run the motor to our target input using PID. 
+  public void PIDPivot(double rotations){
+    // Don't do anything if target is out of bounds. 
+    if ((rotations >= PivoterConstants.kMaxPivoterRotations) || rotations < 0){
+      System.out.println("ABORT");
+    }else{
+      m_pidController.setReference(
+        rotations,
+        CANSparkMax.ControlType.kSmartMotion,
+        SMART_MOTION_SLOT,
+        getArbFF()
+      );  
+    }
+  }
+
+  // "Extra" voltage needed 
+  public double getArbFF() {
+    double radians = Units.degreesToRadians(getPivoterDegrees());
+    return Math.cos(radians) * horizontalArbFF; // We need "max" ff when degrees is 0
+  }
+
+
 
   @Override
   public void periodic() {

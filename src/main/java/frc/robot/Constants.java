@@ -203,6 +203,7 @@ public static final class TragConstants {
 
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 120.0;
+  public static final double kMaxPivoterRotations = 29.866666682; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
 
   // Our gear ratio is as follows: (1/64) * (1/1.4)
   public static final double kPivoterGearRatio = 0.01116071428;
