@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -25,6 +26,21 @@ public class PivoterSubsystem extends SubsystemBase {
   private final RelativeEncoder leftEncoder = leftPivoter.getEncoder();
   private static PivoterSubsystem instance = null;  
 
+  private final SparkPIDController m_pidController;
+  // PID gains for Spark Smart Motion - class defined below
+  // private Gains gains = new Gains(0.00025, 0, 0, 0.00025, 0, 1);
+  private Gains gains = new Gains(0, 0, 0, 0, 0, 1);
+
+  private static final int SMART_MOTION_SLOT = 0;
+    // SmartMotion configs
+    private static final double MAX_VELOCITY_RPM = 3_000; // NEO free speed 5676 RPM
+    private static final double MIN_VELOCITY_RPM = 0;
+    private static final double MAX_ACCELERATION_RPM_PER_SEC = 1_500;
+    private static final double ALLOWED_ERROR = 0.1; //motor rotations
+
+    // Voltage needed to maintain horizontal arm position.
+    private static final double horizontalArbFF = 0.00; 
+
 
   public PivoterSubsystem() {
     leftPivoter.restoreFactoryDefaults();
@@ -32,6 +48,23 @@ public class PivoterSubsystem extends SubsystemBase {
     
     leftPivoter.setInverted(true);
     rightPivoter.follow(leftPivoter, true);
+
+    // Define PIDController to be the one in the SparkMax
+    m_pidController = leftPivoter.getPIDController();
+
+    // Set PID coefficients
+    m_pidController.setP(gains.kP, SMART_MOTION_SLOT);
+    m_pidController.setI(gains.kI, SMART_MOTION_SLOT);
+    m_pidController.setD(gains.kD, SMART_MOTION_SLOT);
+    m_pidController.setIZone(gains.kIzone, SMART_MOTION_SLOT);
+    m_pidController.setFF(gains.kF, SMART_MOTION_SLOT);
+    m_pidController.setOutputRange(-gains.kPeakOutput, gains.kPeakOutput, SMART_MOTION_SLOT);
+
+    m_pidController.setSmartMotionMaxVelocity(MAX_VELOCITY_RPM, SMART_MOTION_SLOT);
+    m_pidController.setSmartMotionMinOutputVelocity(MIN_VELOCITY_RPM, SMART_MOTION_SLOT);
+    m_pidController.setSmartMotionMaxAccel(MAX_ACCELERATION_RPM_PER_SEC, SMART_MOTION_SLOT);
+    m_pidController.setSmartMotionAllowedClosedLoopError(ALLOWED_ERROR, SMART_MOTION_SLOT);
+  
   }
 
   public static PivoterSubsystem getInstance() {
@@ -40,6 +73,21 @@ public class PivoterSubsystem extends SubsystemBase {
     }
     return instance;
   }
+
+  // Method to run the motor to our target input
+  // public void PIDPivot(double rotations){
+  //   if ((rotations >= PivoterConstants.kPivoterMaxValue) 
+  //   || rotations < 0){
+  //     System.out.println("ABORT");
+  //   }else{
+  //     m_pidController.setReference(
+  //       rotations,
+  //       // CANSparkMax.ControlType.kPosition,
+  //       CANSparkMax.ControlType.kSmartMotion,
+  //       SMART_MOTION_SLOT,
+  //       getArbFF()
+  //     );  
+  // }
 
   public void pivot(double speed) {
     if(speed < 0 && getSwitchToggled()){
@@ -115,4 +163,23 @@ public class PivoterSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Pivotor Current", leftPivoter.getOutputCurrent());
   }
+}
+
+// Gains Class:
+class Gains {
+  public final double kP;
+	public final double kI;
+	public final double kD;
+	public final double kF;
+	public final double kIzone;
+	public final double kPeakOutput;
+	
+	public Gains(double _kP, double _kI, double _kD, double _kF, double _kIzone, double _kPeakOutput){
+		kP = _kP;
+		kI = _kI;
+		kD = _kD;
+		kF = _kF;
+		kIzone = _kIzone;
+		kPeakOutput = _kPeakOutput;
+    }
 }
