@@ -13,7 +13,7 @@ public class PIDPivotToPosition extends Command {
   private final PivoterSubsystem pivoterSub;
   private final double targetPosition;
   // Amount error that we can tolerate. 
-  private final double PIVOTER_ANGLE_TOLERANCE = 0.75; // About 3 degrees
+  private final double PIVOTER_ANGLE_TOLERANCE = 1; // About 3 degrees
   double pivoterPositionError;
 
   public PIDPivotToPosition(double target) {
@@ -30,11 +30,11 @@ public class PIDPivotToPosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivoterSub.pivot(targetPosition); // setpoint is rotations.
+    pivoterSub.PIDPivot(targetPosition); // setpoint is rotations.
     
-    double currPositionRotations = pivoterSub.getPivoterRotation();
-    pivoterPositionError = Math.abs(targetPosition - currPositionRotations);
+    double currPositionRotations = pivoterSub.getPivoterRawRotation();
 
+    pivoterPositionError = Math.abs(targetPosition - currPositionRotations);
     SmartDashboard.putNumber("Pivoter Target Rotation", targetPosition);
     SmartDashboard.putNumber("Pivoter Reading", currPositionRotations);
     SmartDashboard.putNumber("Pivoter Error", pivoterPositionError);

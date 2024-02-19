@@ -21,6 +21,7 @@ import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.commands.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.ManualPivotDown;
 import frc.robot.commands.Pivoter.ManualPivotUp;
+import frc.robot.commands.Pivoter.PIDPivotToPosition;
 import frc.robot.commands.Pivoter.PivotToPosition;
 import frc.robot.commands.Elevator.LowerBothElevators;
 import frc.robot.commands.Elevator.LowerLeftElevator;
@@ -102,9 +103,13 @@ public class RobotContainer {
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     // Test positions
-    Constants.OperatorConstants.button7.onTrue(new PivotToPosition(0));
-    Constants.OperatorConstants.button8.onTrue(new PivotToPosition(20));
-    Constants.OperatorConstants.button9.onTrue(new PivotToPosition(100));
+    // Constants.OperatorConstants.button7.onTrue(new PivotToPosition(0));
+    // Constants.OperatorConstants.button8.onTrue(new PivotToPosition(20));
+    // Constants.OperatorConstants.button9.onTrue(new PivotToPosition(100));
+    Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
+    Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(4.97777777983)); // 20 Degrees
+    Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(24.8888889009)); // 100 Degrees
+
 
     Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
     Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
