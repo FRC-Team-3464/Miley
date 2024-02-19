@@ -27,7 +27,10 @@ public class PivoterSubsystem extends SubsystemBase {
 
 
   public PivoterSubsystem() {
-    leftPivoter.setInverted(false);
+    leftPivoter.restoreFactoryDefaults();
+    rightPivoter.restoreFactoryDefaults();
+    
+    leftPivoter.setInverted(true);
     rightPivoter.follow(leftPivoter, true);
   }
 

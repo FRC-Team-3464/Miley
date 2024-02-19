@@ -30,10 +30,10 @@ public class PivotToPosition extends Command {
   @Override
   public void execute() {
     if(startingPos < setpoint) {
-      pivotSub.pivot(0.25);
+      pivotSub.pivot(0.15);
     }
     else {
-      pivotSub.pivot(-0.25);
+      pivotSub.pivot(-0.15);
     }
   }
 
