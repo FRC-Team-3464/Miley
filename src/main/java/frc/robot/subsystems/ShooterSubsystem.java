@@ -32,11 +32,11 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor.setInverted(false); 
     shooterMotor.setSmartCurrentLimit(30);
 //   PID coefficients (ง'̀-'́)ง
-    kP = 0.00025;
+    kP = 0.0001;
     kI = 0;
     kD = 0;
     kIz = 0;
-    kFF = 0.000175;
+    kFF = 0.0001625;
     kMaxOutput = 1;
     kMinOutput = -1;
     maxRPM = 5700;
@@ -119,6 +119,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Shooter Velocity", shooterEncoder.getVelocity());
     SmartDashboard.putNumber("Shooter F", shooterMotor.getPIDController().getFF());
+    SmartDashboard.putNumber("Shooter Current", shooterMotor.getOutputCurrent());
 
     // This method will be called once per scheduler run
   }
