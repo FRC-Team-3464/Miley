@@ -25,7 +25,6 @@ public class PivoterSubsystem extends SubsystemBase {
   private final RelativeEncoder leftEncoder = leftPivoter.getEncoder();
   private static PivoterSubsystem instance = null;  
 
-
   public PivoterSubsystem() {
     leftPivoter.restoreFactoryDefaults();
     rightPivoter.restoreFactoryDefaults();

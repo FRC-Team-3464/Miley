@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 
-public class Intake extends Command {
+public class IntakeFromGround extends Command {
   /** Creates a new RunIntakeCMD. */
   private IntakeSubsystem intakeSub;
   private LEDSubsystem ledSub;
   Timer startTime;
   Boolean finish;
 
-  public Intake() {
+  public IntakeFromGround() {
     intakeSub = IntakeSubsystem.getInstance();
     ledSub = LEDSubsystem.getInstance();
     addRequirements(intakeSub, ledSub);
@@ -44,8 +44,7 @@ public class Intake extends Command {
       intakeSub.rumbleDude();
     }
     else {
-      // intakeSub.runIntake(0.5);
-      intakeSub.runIntake(0.05);
+      intakeSub.runIntake(0.25);
 
     }
       }
