@@ -15,6 +15,7 @@ public class ShootPID extends Command {
   private ShooterSubsystem shootSub;
   // private IntakeSubsystem intakeSub;
   double setPoint;
+  double error; 
   // Timer timeIt;
 
   // Boolean fishnish;
@@ -41,10 +42,12 @@ public class ShootPID extends Command {
   @Override
   public void execute() {
     shootSub.runShooterPID(setPoint);
-    // SmartDashboard.putNumber("Time Left", timeIt.get());
-    SmartDashboard.putNumber("Shoot Error", setPoint - shootSub.getVelocity());
-    SmartDashboard.putNumber("Shooter Velocity", shootSub.getVelocity());
-        // SmartDashboard.putNumber("Intake Speed", intakeSub.getIntakeVelocity());
+
+    error = Math.abs(setPoint - shootSub.getVelocity());
+    SmartDashboard.putNumber("Shoot Setpoint", setPoint);
+    SmartDashboard.putNumber("Shoot Velocity", shootSub.getVelocity());
+    SmartDashboard.putNumber("Shoot Error", error);
+
 
     // if(Math.abs(setPoint - shootSub.getVelocity()) < 100) {
     //   intakeSub.runIntake(0.25);
@@ -64,6 +67,6 @@ public class ShootPID extends Command {
   @Override
   public boolean isFinished() {
     // return timeIt.get() > 2.7;
-    return (Math.abs(setPoint - shootSub.getVelocity()) < 100);
+    return (error < 50);
   }
 }
