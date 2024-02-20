@@ -14,10 +14,12 @@ import frc.robot.autos.BlueAlliance.Blue3Speaker;
 import frc.robot.autos.RedAlliance.Red3AmpAuto;
 import frc.robot.autos.RedAlliance.Red3AmpHailMary;
 import frc.robot.autos.RedAlliance.Red3Speaker;
-import frc.robot.commands.ShooterIntake.Intake;
+import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootSpeaker;
+import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
+import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.PIDManual;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
@@ -28,6 +30,7 @@ import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
 import frc.robot.commands.Leds.LedFlash;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -38,6 +41,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -87,10 +91,13 @@ public class RobotContainer {
 
     // Commands regarding the intake sandwich
     // Shooter Commands
-    Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
+    // Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
+    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(5000));
+    Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
-    Constants.OperatorConstants.button4.whileTrue(new Intake());
+    Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button6.whileTrue(new ShootAmp());
+    
 
     // Commands for elevator hahahah lmao
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
