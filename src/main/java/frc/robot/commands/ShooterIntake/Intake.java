@@ -45,7 +45,7 @@ public class Intake extends Command {
     }
     else {
       // intakeSub.runIntake(0.5);
-      intakeSub.runIntake(0.05);
+      intakeSub.runIntake(0.25);
 
     }
       }
