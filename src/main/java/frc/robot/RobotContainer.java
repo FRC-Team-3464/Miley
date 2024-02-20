@@ -92,8 +92,8 @@ public class RobotContainer {
     // Commands regarding the intake sandwich
     // Shooter Commands
     // Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
-    // Constants.OperatorConstants.button1.onTrue(new ShootPID(500));
-    Constants.OperatorConstants.button1.onTrue(new ShootPID(500).andThen(new ParallelRaceGroup(new InstantCommand(() -> IntakeSubsystem.getInstance().runIntake(0.5)), new WaitCommand(1))).andThen(new IntakeSubsystem.getInstance().stopIntake()).alongWith(Intake));
+    Constants.OperatorConstants.button1.onTrue(new ShootPID(5000));
+    // Constants.OperatorConstants.button1.onTrue(new ShootPID(500).andThen(new ParallelRaceGroup(new InstantCommand(() -> IntakeSubsystem.getInstance().runIntake(0.5)), new WaitCommand(1))).andThen(new IntakeSubsystem.getInstance().stopIntake()).alongWith(Intake));
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
     Constants.OperatorConstants.button4.whileTrue(new Intake());
     Constants.OperatorConstants.button6.whileTrue(new ShootAmp());

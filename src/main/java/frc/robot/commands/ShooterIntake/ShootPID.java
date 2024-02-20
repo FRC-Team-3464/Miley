@@ -13,12 +13,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootPID extends Command {
   /** Creates a new ShootPID. */
   private ShooterSubsystem shootSub;
-  // private IntakeSubsystem intakeSub;
   double setPoint;
   double error; 
-  // Timer timeIt;
-
-  // Boolean fishnish;
 
   public ShootPID(double target) {
     shootSub = ShooterSubsystem.getInstance();
@@ -67,6 +63,6 @@ public class ShootPID extends Command {
   @Override
   public boolean isFinished() {
     // return timeIt.get() > 2.7;
-    return (error < 10);
+    return (error < 50);
   }
 }
