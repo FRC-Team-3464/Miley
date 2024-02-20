@@ -95,7 +95,6 @@ public class RobotContainer {
     // Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
     // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(5000));
     Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
-
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button6.whileTrue(new ShootAmp());
