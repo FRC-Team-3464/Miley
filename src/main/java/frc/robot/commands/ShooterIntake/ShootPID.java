@@ -67,6 +67,6 @@ public class ShootPID extends Command {
   @Override
   public boolean isFinished() {
     // return timeIt.get() > 2.7;
-    return (error < 50);
+    return (error < 10);
   }
 }
