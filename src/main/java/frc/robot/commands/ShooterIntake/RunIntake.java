@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootSpeaker extends Command {
+public class RunIntake extends Command {
   /** Creates a new RunShooterCMD. */
   
   // Made private following guide 
@@ -15,7 +15,7 @@ public class ShootSpeaker extends Command {
   private ShooterSubsystem shootSub;
   private IntakeSubsystem intakeSub;
 
-  public ShootSpeaker() {
+  public RunIntake() {
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
     addRequirements(shootSub);
