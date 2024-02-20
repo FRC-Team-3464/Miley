@@ -44,7 +44,6 @@ public class IntakeFromGround extends Command {
       intakeSub.rumbleDude();
     }
     else {
-      // intakeSub.runIntake(0.5);
       intakeSub.runIntake(0.25);
 
     }

@@ -17,6 +17,7 @@ import frc.robot.autos.RedAlliance.Red3Speaker;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
+import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.SwerveJoystickCMD;
@@ -92,8 +93,9 @@ public class RobotContainer {
     // Commands regarding the intake sandwich
     // Shooter Commands
     // Constants.OperatorConstants.button1.whileTrue(new ShootSpeaker());
-    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(5000));
-    // Constants.OperatorConstants.button1.onTrue(new ShootPID(500).andThen(new ParallelRaceGroup(new InstantCommand(() -> IntakeSubsystem.getInstance().runIntake(0.5)), new WaitCommand(1))).andThen(new IntakeSubsystem.getInstance().stopIntake()).alongWith(Intake));
+    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(5000));
+    Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
+
     Constants.OperatorConstants.button2.whileTrue(new ReverseIntake());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button6.whileTrue(new ShootAmp());

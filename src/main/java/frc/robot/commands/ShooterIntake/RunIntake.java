@@ -3,55 +3,42 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot.commands.ShooterIntake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+
 
 public class RunIntake extends Command {
-  /** Creates a new RunShooterCMD. */
-  
-  // Made private following guide 
-  // https://docs.google.com/document/d/1rMpvW10_W3HbNHDALNwipZNWk1XB1qKxHVw3UQViRO0/edit
-  private ShooterSubsystem shootSub;
+ 
+  private Timer runtime;
   private IntakeSubsystem intakeSub;
 
   public RunIntake() {
-    shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
-    addRequirements(shootSub);
+    runtime = new Timer();
     addRequirements(intakeSub);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shootSub.resetShooter();
+    runtime.restart();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // shootSub.runShooter(1);
-    shootSub.runShooter(0.05);
-    if(shootSub.getShooterEncoder() >= 50) {
-      // intakeSub.runIntake(0.5);
-      intakeSub.runIntake(0.05);
+    intakeSub.runIntake(0.25);
 
-    }
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shootSub.stopShooter();
-    shootSub.resetShooter();
     intakeSub.stopIntake();
+    runtime.stop();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return shootSub.getShooterEncoder() > 100;
+    // Stop after 3 seconds
+    return runtime.get() > 1.5;
   }
 }
