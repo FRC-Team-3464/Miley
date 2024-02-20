@@ -37,6 +37,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public Boolean getIntakeButton() {
     return intakeButton.get();
   }
+  
+  public double getIntakeVelocity(){
+    return intakeMotor.get();
+  }
 
   public void rumbleDude() {
     xbox.setRumble(RumbleType.kBothRumble, 0.5);
