@@ -21,6 +21,7 @@ import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.commands.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.ManualPivotDown;
 import frc.robot.commands.Pivoter.ManualPivotUp;
+import frc.robot.commands.Pivoter.PIDManual;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
 import frc.robot.commands.Pivoter.PivotToPosition;
 import frc.robot.commands.Elevator.LowerBothElevators;
@@ -42,6 +43,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 
 public class RobotContainer {
@@ -110,9 +112,13 @@ public class RobotContainer {
     Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(4.97777777983)); // 20 Degrees
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(24.8888889009)); // 100 Degrees
 
+    
+    // Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
+    // Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
 
-    Constants.OperatorConstants.button11.whileTrue(new ManualPivotUp());
-    Constants.OperatorConstants.button12.whileTrue(new ManualPivotDown());
+    Constants.OperatorConstants.button10.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // 100 Degrees
+    Constants.OperatorConstants.button12.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // 100 Degrees
+ 
   }
  
 
