@@ -81,10 +81,10 @@ public final class Constants {
     public static final boolean kFrontRightDriveEncoderReversed = false;
     public static final boolean kBackRightDriveEncoderReversed = false; // Check here
 
-    public static final int kFrontLeftDriveAbsoluteEncoderPort = 9;
-    public static final int kBackLeftDriveAbsoluteEncoderPort = 11;
-    public static final int kFrontRightDriveAbsoluteEncoderPort = 10;
-    public static final int kBackRightDriveAbsoluteEncoderPort = 12;
+    public static final int kFrontLeftDriveAbsoluteEncoderPort = 20;
+    public static final int kBackLeftDriveAbsoluteEncoderPort = 17;
+    public static final int kFrontRightDriveAbsoluteEncoderPort = 19;
+    public static final int kBackRightDriveAbsoluteEncoderPort = 18;
 
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0.2531 - 0.5; // Reverse to right orientation
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.2568;
