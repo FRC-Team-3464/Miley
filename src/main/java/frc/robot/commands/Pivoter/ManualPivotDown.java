@@ -24,7 +24,7 @@ public class ManualPivotDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivotSub.pivot(-0.35);
+    pivotSub.pivot(-0.05);
   }
 
   // Called once the command ends or is interrupted.

@@ -24,7 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
     intakeMotor.restoreFactoryDefaults();
-    intakeMotor.setInverted(false);
+    intakeMotor.setInverted(true);
   }
 
   public static IntakeSubsystem getInstance() {
@@ -62,6 +62,7 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Note? - 6", intakeButton.get());
+    SmartDashboard.putNumber("Intake Current", intakeMotor.getOutputCurrent());
     // This method will be called once per scheduler run
   }
 }

@@ -21,8 +21,8 @@ public class PivoterSubsystem extends SubsystemBase {
   private final CANSparkMax leftPivoter = new CANSparkMax(13, MotorType.kBrushless);
   private final CANSparkMax rightPivoter = new CANSparkMax(14, MotorType.kBrushless);
 
-  private final DigitalInput leftLimit = new DigitalInput(4);
-  private final DigitalInput rightLimit = new DigitalInput(5);
+  private final DigitalInput leftLimit = new DigitalInput(5);
+  private final DigitalInput rightLimit = new DigitalInput(4);
 
   private final RelativeEncoder leftEncoder = leftPivoter.getEncoder();
   private static PivoterSubsystem instance = null;  
@@ -30,7 +30,7 @@ public class PivoterSubsystem extends SubsystemBase {
   private final SparkPIDController m_pidController;
   // PID gains for Spark Smart Motion - class defined below
   // private Gains gains = new Gains(0.00025, 0, 0, 0.00025, 0, 1);
-  private Gains gains = new Gains(0.0, 0, 0, 0.0001, 0, 0.25);
+  private Gains gains = new Gains(0.0, 0, 0, 0.0005, 0, 0.25);
 
   private static final int SMART_MOTION_SLOT = 0;
 
@@ -81,11 +81,11 @@ public class PivoterSubsystem extends SubsystemBase {
   }
 
   public void pivot(double speed) {
-    if(speed < 0 && getSwitchToggled()){
+    if(speed < 0 && getLowerSwitchToggled()){
       // If we hit the switch and we're going down, stop the motor and reset the encoder
-      resetEncoder();
+      resetEncoder(0);
       leftPivoter.set(0);
-    }else if (speed > 0 && (getPivoterDegrees() > PivoterConstants.kMaxPivoterDegrees)) {
+    }else if (speed > 0 && (getHigherSwitchToggled())) {
       // If we're going up and exceed our degrees for the pivoter, stop. 
       leftPivoter.set(0);
 
@@ -118,28 +118,24 @@ public class PivoterSubsystem extends SubsystemBase {
     return getPivoterRotation() * 360; 
   }
 
-  public void resetEncoder(){
+  public void resetEncoder(double position){
     // Set the encoder back to normal
-    leftEncoder.setPosition(0);
+    leftEncoder.setPosition(position);
   }
 
-  public Boolean getLeftSwitch() {
-    return !leftLimit.get();
-  }
-
-  public Boolean getRightSwitch() {
+  public Boolean getHigherSwitchToggled() {
     return !rightLimit.get();
   }
 
-  public Boolean getSwitchToggled(){
+  public Boolean getLowerSwitchToggled(){
     //Return if any of the switches were toggled
-    return (getLeftSwitch() || getRightSwitch());
+    return !leftLimit.get();
   }
 
   // WE MAY NEED IT FOR NON-PID CONTROL
   public void addFeedFoward(){
     // Add some power to the pivoter to have it hold against gravity. 
-    if(!getSwitchToggled()){ // Make sure the trigger isn't activated. 
+    if(!getLowerSwitchToggled()){ // Make sure the trigger isn't activated. 
       pivot(0.05);
     }
   }
@@ -170,14 +166,20 @@ public class PivoterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(getSwitchToggled()){
-      resetEncoder();
+
+    if(getLowerSwitchToggled()){
+      resetEncoder(0);
+    }else if(getHigherSwitchToggled()){
+      resetEncoder(PivoterConstants.kMaxPivoterRotations);
+
     };
 
+
+    
     // Print debug information
-    SmartDashboard.putBoolean("4 - Pivotor Left Switch", getLeftSwitch());
-    SmartDashboard.putBoolean("5 - Pivotor Right Switch", getRightSwitch());
-    SmartDashboard.putBoolean("Pivotor Switch Input", getSwitchToggled());
+    SmartDashboard.putBoolean("4 - Pivotor Left Switch", getLowerSwitchToggled());
+    SmartDashboard.putBoolean("5 - Pivotor Right Switch", getHigherSwitchToggled());
+    // SmartDashboard.putBoolean("Pivotor Switch Input", getSwitchToggled());
 
 
     SmartDashboard.putNumber("Pivotor Raw Rotations", getPivoterRawRotation());

@@ -30,8 +30,8 @@ public class ShootAmp extends Command {
   public void execute() {
     // intakeSub.runIntake(0.3);
     // shootSub.runShooter(0.2);
-    intakeSub.runIntake(0.05);
-    shootSub.runShooter(0.05);
+    intakeSub.runIntake(0.5);
+    shootSub.runShooter(0.5);
 
     shootSub.rumbleController(0.5);
   }

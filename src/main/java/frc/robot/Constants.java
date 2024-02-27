@@ -86,10 +86,16 @@ public final class Constants {
     public static final int kFrontRightDriveAbsoluteEncoderPort = 19;
     public static final int kBackRightDriveAbsoluteEncoderPort = 18;
 
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0.2531 - 0.5; // Reverse to right orientation
+    // public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0.2531 - 0.5; // Reverse to right orientation
+    // public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.2568;
+    // public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -0.4924 + 0.5;
+    // public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -0.3937;
+
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 0.2531 - 0.5 + 0.25; // Reverse to right orientation
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.2568;
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -0.4924 + 0.5;
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.4924 + 0.5 - 0.25;
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -0.3937;
+
 
 
 
@@ -202,11 +208,11 @@ public static final class TragConstants {
 
 
 public static final class PivoterConstants{
-  public static final double kMaxPivoterDegrees = 120.0;
-  public static final double kMaxPivoterRotations = 29.866666682; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
+  public static final double kMaxPivoterDegrees = 100;
+  public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
 
-  // Our gear ratio is as follows: (1/64) * (1/1.4)
-  public static final double kPivoterGearRatio = 0.01116071428;
+  // Our gear ratio is as follows: (1/64) * (16/26)
+  public static final double kPivoterGearRatio = 0.00961538462;
 }
 
 public static final class OIConstants {

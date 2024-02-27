@@ -26,7 +26,7 @@ public class LEDSubsystem extends SubsystemBase {
     // Reuse buffer
     // Default to a length of 60, start empty output
     // Length is expensive to set, so only set it once, then just update data
-    ledBuffer = new AddressableLEDBuffer(3);
+    ledBuffer = new AddressableLEDBuffer(14);
     ledStrip.setLength(ledBuffer.getLength());
 
 

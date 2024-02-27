@@ -38,13 +38,12 @@ public class IntakeFromGround extends Command {
   public void execute() {
     if(!intakeSub.getIntakeButton()) {
       startTime.start();
-      intakeSub.stopIntake();
       // change LED light color
       ledSub.setGreen();
       intakeSub.rumbleDude();
     }
     else {
-      intakeSub.runIntake(0.25);
+      intakeSub.runIntake(0.5);
 
     }
       }
@@ -60,6 +59,6 @@ public class IntakeFromGround extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return(startTime.get() > 0.5);
+    return(startTime.get() > 0.2);
   }
 }

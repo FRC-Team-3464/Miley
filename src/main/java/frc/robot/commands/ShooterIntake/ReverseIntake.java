@@ -27,10 +27,8 @@ public class ReverseIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // intakeSub.runIntake(-0.4);
-    // shooterSub.runShooter(-0.4);
-    intakeSub.runIntake(-0.05);
-    shooterSub.runShooter(-0.05);
+    intakeSub.runIntake(-1);
+    shooterSub.runShooter(-1);
   }
 
   // Called once the command ends or is interrupted.
