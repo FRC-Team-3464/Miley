@@ -24,8 +24,8 @@ public class LowerBothElevators extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSub.runLeftElevator(-0.7);
-    elevatorSub.runRightElevator(-0.7);
+    elevatorSub.runLeftElevator(-1);
+    elevatorSub.runRightElevator(-1);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +38,9 @@ public class LowerBothElevators extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(elevatorSub.leftElevatorMin() || elevatorSub.rightElevatorMin()) {
+      return true;
+    }
     return false;
   }
 }
