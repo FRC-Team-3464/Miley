@@ -99,18 +99,17 @@ public class RobotContainer {
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
-    Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(4.97777777983)); // 20 Degrees
-    Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(28.5)); // 100 Degrees
+    Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(4.97777777983)); // Subwoofer Angle
+    Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(28.5)); // Amp Angle
+    Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(20.5)); // Stage Shot
     Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
     Constants.OperatorConstants.button12.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // Manual Up
 
-
-    // // Commands for elevator hahahah lmao
+    // Commands for elevator hahahah lmao
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
     Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
     Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
-    // Constants.OperatorConstants.button10.whileTrue(new AutoLowerElevators());
 
     // Test positions
     // NON-PID

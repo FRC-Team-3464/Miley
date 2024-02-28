@@ -103,7 +103,7 @@ public final class Constants {
     public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.75;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.25;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
             kPhysicalMaxAngularSpeedRadiansPerSecond / 2.75;
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
@@ -209,7 +209,11 @@ public static final class TragConstants {
 
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
+  public static final double kSubwofferPivoterRotations = 4.97777777983; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
+  public static final double kAmpPivoterRotations = 28.5;
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
+
+
 
   // Our gear ratio is as follows: (1/64) * (16/26)
   public static final double kPivoterGearRatio = 0.00961538462;

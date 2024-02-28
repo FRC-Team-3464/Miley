@@ -10,6 +10,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 public class AutoLowerElevators extends Command {
   /** Creates a new ExtendLeftElevator. */
   private ElevatorSubsystem elevatorSub;
+  Boolean yapOne;
+  Boolean yapTwo;
 
   public AutoLowerElevators() {
     elevatorSub = ElevatorSubsystem.getInstance();
@@ -23,25 +25,30 @@ public class AutoLowerElevators extends Command {
   public void initialize() {
     elevatorSub.setLeftRes(false);
     elevatorSub.setRightRes(false);
+    yapOne = false;
+    yapTwo = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(elevatorSub.getLeftOutput() > 10) {
-      elevatorSub.setLeftRes(true);
-    }
+    // if(elevatorSub.getLeftOutput() > 6) {
+    //   elevatorSub.setLeftRes(true);
+    //   // elevatorSub.runLeftElevator(0);
+    // }
 
-    if(elevatorSub.getRightOutput() > 10) {
-      elevatorSub.setRightRes(true);
-    }
+    // if(elevatorSub.getRightOutput() > 6) {
+    //   elevatorSub.setRightRes(true);
+    //   // elevatorSub.runRightElevator(0);
+    // }
 
     if(!elevatorSub.getLeftRes()) {
-      elevatorSub.runLeftElevator(-0.5);
+      elevatorSub.runLeftElevator(-0.3);
     }
 
+
     if(!elevatorSub.getRightRes()) {
-      elevatorSub.runRightElevator(-0.5);
+      elevatorSub.runRightElevator(-0.3);
     }
 
   }
@@ -49,6 +56,10 @@ public class AutoLowerElevators extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // while(elevatorSub.rightElevatorMin() && elevatorSub.leftElevatorMin()) {
+    //   elevatorSub.runLeftElevator(-0.5);
+    //   elevatorSub.runRightElevator(-0.5);
+    // }
     elevatorSub.runLeftElevator(0);
     elevatorSub.runRightElevator(0);
   }
