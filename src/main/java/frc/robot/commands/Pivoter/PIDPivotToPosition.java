@@ -13,7 +13,7 @@ public class PIDPivotToPosition extends Command {
   private final PivoterSubsystem pivoterSub;
   private final double targetPosition;
   // Amount error that we can tolerate. 
-  private final double PIVOTER_ANGLE_TOLERANCE = 1; // About 3 degrees
+  private final double PIVOTER_ANGLE_TOLERANCE = 0.75; // About 3 degrees
   double pivoterPositionError;
 
   public PIDPivotToPosition(double target) {

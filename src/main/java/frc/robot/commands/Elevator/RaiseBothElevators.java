@@ -24,8 +24,8 @@ public class RaiseBothElevators extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSub.runRightElevator(0.05);
-    elevatorSub.runLeftElevator(0.05);
+    elevatorSub.runRightElevator(0.7);
+    elevatorSub.runLeftElevator(0.7);
     }
 
   // Called once the command ends or is interrupted.

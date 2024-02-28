@@ -6,12 +6,15 @@ package frc.robot.autos.RedAlliance;
 
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-
+import frc.robot.Constants.PivoterConstants;
+import frc.robot.commands.Pivoter.PIDPivotToPosition;
+import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.trajectories.SpeakerTrajectories;
 
@@ -90,10 +93,16 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
 
   public Red3Speaker() {
     addCommands(
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragOriginToStageNote.getInitialPose())),
+        new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+        // new ShootSpeaker(),
+        // Go to subwoffer pos;
+        new PIDPivotToPosition(0),
         originToStageNote,
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragOriginToStageNote.getInitialPose())),  
+
         new InstantCommand(() -> swerveSubsystem.stopModules()),
         new WaitCommand(0.25),
+
         // Go to Speaker Note
         new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragStageNoteToSpeakerShooting.getInitialPose())),
         stageNoteToSpeakerShooting,

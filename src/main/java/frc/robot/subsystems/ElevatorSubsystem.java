@@ -33,8 +33,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     rightResistance = false;
     leftElevatorMotor.setSmartCurrentLimit(30);
     rightElevatorMotor.setSmartCurrentLimit(30);
-    leftElevatorMotor.setInverted(true);
-    rightElevatorMotor.setInverted(false);
+    leftElevatorMotor.setInverted(false);
+    rightElevatorMotor.setInverted(true);
   }
 
   private static ElevatorSubsystem instance = null;
@@ -55,11 +55,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getLeftOutput() {
-    return leftElevatorMotor.getAppliedOutput();
+    return leftElevatorMotor.getOutputCurrent();
   }
 
   public double getRightOutput() {
-    return rightElevatorMotor.getAppliedOutput();
+    return rightElevatorMotor.getOutputCurrent();
   }
 
   public void setLeftRes(Boolean yapOne) {
@@ -72,6 +72,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
   public void runLeftElevator(double speed) {
+    if(leftElevatorMotor.getOutputCurrent() > 6) {
+      leftResistance = true;
+    }
+    if(rightElevatorMotor.getOutputCurrent() > 6) {
+      rightResistance = true;
+    }
     if(speed < 0) {
       if(leftElevatorMin()) {
         System.out.println("L Min Stop");
@@ -142,5 +148,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Left Elevator Min - 0", leftElevatorMin());
     SmartDashboard.putBoolean("Right Elevator Max - 3", rightElevatorMax());
     SmartDashboard.putBoolean("Right Elevator Min - 2", rightElevatorMin());
+  
+
+    SmartDashboard.putNumber("Right Elevator Current", rightElevatorMotor.getOutputCurrent());
+    SmartDashboard.putNumber("Left Elevator Current", leftElevatorMotor.getOutputCurrent());
+  
+    SmartDashboard.putBoolean("Left Elevator Res?", getLeftRes());
+    SmartDashboard.putBoolean("Right Elevator Res?", getRightRes());
   }
 }
