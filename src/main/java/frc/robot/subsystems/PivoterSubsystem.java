@@ -30,7 +30,7 @@ public class PivoterSubsystem extends SubsystemBase {
   private final SparkPIDController m_pidController;
   // PID gains for Spark Smart Motion - class defined below
   // private Gains gains = new Gains(0.00025, 0, 0, 0.00025, 0, 1);
-  private Gains gains = new Gains(0.0002, 0, 0, 0.0007, 0, 0.25);
+  private Gains gains = new Gains(0.0004, 0, 0, 0.0007, 0, 0.25);
 
   private static final int SMART_MOTION_SLOT = 0;
 
@@ -185,6 +185,7 @@ public class PivoterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Pivotor Raw Rotations", getPivoterRawRotation());
     SmartDashboard.putNumber("Pivotor Rotations", getPivoterRotation());
     SmartDashboard.putNumber("Pivotor Degrees", getPivoterDegrees());
+
 
     SmartDashboard.putNumber("Pivotor Current", leftPivoter.getOutputCurrent());
   }
