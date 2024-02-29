@@ -5,6 +5,7 @@
 package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class LowerBothElevators extends Command {
@@ -24,8 +25,8 @@ public class LowerBothElevators extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSub.runLeftElevator(-1);
-    elevatorSub.runRightElevator(-1);
+    elevatorSub.runLeftElevator(Constants.ElevatorConstants.kElevatorLowerSpeed);
+    elevatorSub.runRightElevator(Constants.ElevatorConstants.kElevatorLowerSpeed);
   }
 
   // Called once the command ends or is interrupted.
