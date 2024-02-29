@@ -18,6 +18,8 @@ import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
+import frc.robot.commands.ShooterIntake.ShootSpeaker;
+// import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.commands.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.ManualPivotDown;
 import frc.robot.commands.Pivoter.ManualPivotUp;
@@ -100,9 +102,9 @@ public class RobotContainer {
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
-    Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(4.97777777983)); // Subwoofer Angle
-    Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(28.5)); // Amp Angle
-    Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(20.5)); // Stage Shot
+    Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations)); // Subwoofer Angle
+    Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
+    Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
     Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
     Constants.OperatorConstants.button12.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // Manual Up
 
