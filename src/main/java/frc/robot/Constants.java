@@ -86,15 +86,15 @@ public final class Constants {
     public static final int kFrontRightDriveAbsoluteEncoderPort = 19;
     public static final int kBackRightDriveAbsoluteEncoderPort = 18;
 
-    // public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0.2531 - 0.5; // Reverse to right orientation
-    // public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.2568;
-    // public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -0.4924 + 0.5;
-    // public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -0.3937;
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.24462890625; // Reverse to right orientation
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.257080078125;
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 0.49853515625-0.5;
+    public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -0.39697265625;
 
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 0.2531 - 0.5 + 0.25; // Reverse to right orientation
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.2568;
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.4924 + 0.5 - 0.25;
-    public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -0.3937;
+    // public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 0.2531 - 0.5 + 0.25; // Reverse to right orientation
+    // public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.2568;
+    // public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.4924 + 0.5 - 0.25;
+    // public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -0.3937;
 
 
 
@@ -209,14 +209,21 @@ public static final class TragConstants {
 
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
-  public static final double kSubwofferPivoterRotations = 4.97777777983; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
+  public static final double kSubwofferPivoterRotations = 1.7777; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
   public static final double kAmpPivoterRotations = 28.5;
+  public static final double kStagePivoterRotations = 20.5;
+
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
 
 
 
   // Our gear ratio is as follows: (1/64) * (16/26)
   public static final double kPivoterGearRatio = 0.00961538462;
+}
+
+public static final class ElevatorConstants {
+  public static final double kElevatorLowerSpeed = -1;
+  public static final double kElevatorRaiseSpeed = 1;
 }
 
 public static final class OIConstants {
@@ -228,6 +235,17 @@ public static final class OIConstants {
   public static final int kDriverFieldOrientedButtonIdx = 1;
 
   public static final double kDeadband = 0.08;
+}
+
+public static final class SandwichConstants {
+  public static final double kIntakeSpeed = 0.5;
+  public static final double kReverseIntakeSpeed = -1;
+
+  public static final double kReverseShootSpeed = -1;
+  public static final double kAmpShootSpeed = 0.5;
+  public static final double kSpeakerShootSpeed = 1;
+
+  public static final double kShootVelocityTarget = 5000;
 }
 
   public static class OperatorConstants {
