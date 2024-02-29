@@ -30,7 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     shooterMotor.restoreFactoryDefaults();
     shooterMotor.setInverted(false); 
-    shooterMotor.setSmartCurrentLimit(30);
+    // shooterMotor.setSmartCurrentLimit(30);
 //   PID coefficients (ง'̀-'́)ง
     kP = 0.0001;
     kI = 0;
