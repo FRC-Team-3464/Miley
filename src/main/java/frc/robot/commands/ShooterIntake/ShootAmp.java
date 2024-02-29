@@ -4,6 +4,7 @@
 package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -30,8 +31,8 @@ public class ShootAmp extends Command {
   public void execute() {
     // intakeSub.runIntake(0.3);
     // shootSub.runShooter(0.2);
-    intakeSub.runIntake(0.5);
-    shootSub.runShooter(0.5);
+    intakeSub.runIntake(Constants.SandwichConstants.kAmpShootSpeed);
+    shootSub.runShooter(Constants.SandwichConstants.kAmpShootSpeed);
 
     shootSub.rumbleController(0.5);
   }

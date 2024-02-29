@@ -7,7 +7,7 @@ package frc.robot.commands.ShooterIntake;
 import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 
@@ -43,7 +43,7 @@ public class IntakeFromGround extends Command {
       intakeSub.rumbleDude();
     }
     else {
-      intakeSub.runIntake(0.5);
+      intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
 
     }
       }

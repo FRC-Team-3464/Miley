@@ -6,6 +6,7 @@ package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -16,7 +17,7 @@ public class ShootSpeaker extends SequentialCommandGroup {
   public ShootSpeaker() {
     addCommands(
       // Set shooter to correct velocity
-      new ShooterVelocityPID(5000),
+      new ShooterVelocityPID(Constants.SandwichConstants.kShootVelocityTarget),
 
       // Run our intake for 3 seconds
       new RunIntake(),

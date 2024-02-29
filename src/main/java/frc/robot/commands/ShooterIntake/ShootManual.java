@@ -5,6 +5,7 @@ package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -36,9 +37,9 @@ public class ShootManual extends Command {
   @Override
   public void execute() {
     // intakeSub.runIntake(0.3);
-    shootSub.runShooter(1);
+    shootSub.runShooter(Constants.SandwichConstants.kSpeakerShootSpeed);
     if (shootTimer.get() > 1){
-      intakeSub.runIntake(0.5);
+      intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
     }
 
     shootSub.rumbleController(0.5);
