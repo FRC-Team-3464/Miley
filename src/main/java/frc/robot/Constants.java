@@ -211,7 +211,7 @@ public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
   public static final double kSubwofferPivoterRotations = 1.7777; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
   public static final double kAmpPivoterRotations = 28.5;
-  public static final double kStagePivoterRotations = 20.5;
+  public static final double kStagePivoterRotations = 8.5;
 
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
 
