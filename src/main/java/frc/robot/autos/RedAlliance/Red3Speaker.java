@@ -17,7 +17,6 @@ import frc.robot.Constants.PivoterConstants;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ShootManual;
-import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.trajectories.SpeakerTrajectories;
 
@@ -109,9 +108,9 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       // Go to next note pos while intaking. 
       new ParallelCommandGroup(
         new ParallelRaceGroup(
-          // Ends when intake done or 5 seconds. 
+          // Ends when intake done or 2 seconds. 
           new IntakeFromGround(),
-          new WaitCommand(3)
+          new WaitCommand(2)
         ),
         originToStageNote
       ),
@@ -119,10 +118,12 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
 
-      // Go to Speaker Note
+      // Go to subwoffer
       new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragStageNoteToSpeakerShooting.getInitialPose())),
       stageNoteToSpeakerShooting,
       new InstantCommand(() -> swerveSubsystem.stopModules()),
+
+      // Aim and shoot
       new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
       new ParallelRaceGroup(
         new ShootManual(),
@@ -136,12 +137,16 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
         new ParallelRaceGroup(
           // Ends when intake done or 5 seconds. 
           new IntakeFromGround(),
-          new WaitCommand(3)
+          new WaitCommand(2)
         ),
         speakerShootingToSpeakerNote
       ),
       new InstantCommand(() -> swerveSubsystem.stopModules())
       );
+      /*
+       * 
+       * UNFINISHED
+       */
       //   new WaitCommand(0.25),
       //   new InstantCommand(() -> swerveSubsystem.stopModules()),
       //   new WaitCommand(0.25),
