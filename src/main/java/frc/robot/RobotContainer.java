@@ -10,10 +10,12 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.PivoterConstants;
 import frc.robot.Constants.TragConstants;
 import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
+import frc.robot.autos.BlueAlliance.Blue1Speaker;
 import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
 import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
 import frc.robot.autos.BlueAlliance.Blue2Speaker;
 import frc.robot.autos.RedAlliance.Red1AmpAuto;
+import frc.robot.autos.RedAlliance.Red1Speaker;
 import frc.robot.autos.RedAlliance.Red2AmpAuto;
 import frc.robot.autos.RedAlliance.Red3AmpHailMary;
 import frc.robot.autos.RedAlliance.Red2Speaker;
@@ -76,12 +78,14 @@ public class RobotContainer {
     commandChooser.addOption("Red 1 Amp ", "R1A");
     commandChooser.addOption("Red 2 Amp ", "R2A");
     // commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
+    commandChooser.addOption("Red 1 Speaker ", "R1S");
     commandChooser.setDefaultOption("Red 2 Speaker", "R2S");
     commandChooser.addOption("Red Center Hail Mary", "RCHM");    
     // Blue Autos
     commandChooser.addOption("Blue 1 Amp", "B1A");
     commandChooser.addOption("Blue 2 Amp", "B2A");
     // commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
+    commandChooser.addOption("Blue 1 Speaker ", "B1S");
     commandChooser.addOption("Blue 2 Speaker", "B2S");
     commandChooser.addOption("Red Center Hail Mary", "BCHM");    
     
@@ -167,6 +171,9 @@ public class RobotContainer {
       // HAIL MARY
       selectedAuto = new Red3AmpHailMary();
       
+    }else if(commandChooser.getSelected() == "R1S"){
+      selectedAuto = new Red1Speaker();
+
     }else if(commandChooser.getSelected() == "R2S"){
       selectedAuto = new Red2Speaker();
 
@@ -179,6 +186,9 @@ public class RobotContainer {
     }else if (commandChooser.getSelected() == "B3AHM"){
       /* NOT USED FOR HARTFORD */
       selectedAuto = new Blue3AmpHailMary();       
+
+    }else if(commandChooser.getSelected() == "B1S"){
+      selectedAuto = new Blue1Speaker();
 
     }else if(commandChooser.getSelected() == "B2S"){
       selectedAuto = new Blue2Speaker();
