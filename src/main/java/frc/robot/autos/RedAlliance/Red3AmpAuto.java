@@ -15,6 +15,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
+import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.trajectories.AmpTrajectories;
@@ -86,15 +87,63 @@ public class Red3AmpAuto extends SequentialCommandGroup {
   public Red3AmpAuto() {
     addCommands(
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragOriginToAmp.getInitialPose())),
-      new ParallelCommandGroup(orginToAmp, 
-      new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)),
+      // Go to AMP while pivoting to AMP Pos.
+      new ParallelCommandGroup(
+        orginToAmp, 
+        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
+      ),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
-      new ParallelRaceGroup(new WaitCommand(1.5), new ShootAmp()),
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpToAmpNote.getInitialPose())),
+      
+      // Shoot in AMP for 1.5 Seconds 
+      new ParallelRaceGroup(
+        new WaitCommand(1.5),
+        new ShootAmp()),
+
+      // Move arm down to rest pos
       new PIDPivotToPosition(0),
-      ampToAmpN,
-      new InstantCommand(() -> swerveSubsystem.stopModules())
+      new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpToAmpNote.getInitialPose())),
+
+      // Drive to AMP Note while intaking
+      new ParallelCommandGroup(
+        new ParallelRaceGroup(
+          // Ends when intake done or 2 seconds. 
+          new IntakeFromGround(),
+          new WaitCommand(2)
+        ),
+        ampToAmpN
+      ),
+      new InstantCommand(() -> swerveSubsystem.stopModules()),
+
+
+      /* NEW UNTESTED */
+      // Go back to AMP while pivoting
+      new WaitCommand(0.25),
+      new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
+      new ParallelCommandGroup(
+        ampNToAmp, 
+        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
+      ),
+      new InstantCommand(() -> swerveSubsystem.stopModules()),
+      new WaitCommand(0.25),
+      
+      // Shoot in AMP for 1.5 Seconds 
+      new ParallelRaceGroup(
+        new WaitCommand(1.5),
+        new ShootAmp()
+      ),
+    
+      // Move arm down to rest pos
+      new PIDPivotToPosition(0)
+      
+      );
+
+      /*
+       * 
+       * ORIGINAL
+       * 
+       */
+
       // new WaitCommand(0.25),
       // new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
       // ampNToAmp,
@@ -106,7 +155,5 @@ public class Red3AmpAuto extends SequentialCommandGroup {
       // new WaitCommand(0.25),
       // new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragSpeakerNoteToAmp.getInitialPose())),
       // speakerNoteToAmp,
-      // new InstantCommand(() -> swerveSubsystem.stopModules())
-      );
   }
 }

@@ -135,7 +135,7 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       // Go to next note pos while intaking. 
       new ParallelCommandGroup(
         new ParallelRaceGroup(
-          // Ends when intake done or 5 seconds. 
+          // Ends when intake done or 2 seconds. 
           new IntakeFromGround(),
           new WaitCommand(2)
         ),
