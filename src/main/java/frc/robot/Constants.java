@@ -206,6 +206,7 @@ public static final class TragConstants {
         List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-45)), 
         new Pose2d(6.9342, -3.4798, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
 
+    /* SHOULD BE TESTED */
     public static final Trajectory tragBlueOriginToFarCenterNote = TrajectoryGenerator.generateTrajectory(
         List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(45)), 
         new Pose2d(6.9342, 3.4798, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 

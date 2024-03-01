@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.PivoterConstants;
 import frc.robot.Constants.TragConstants;
 import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
 import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
@@ -43,6 +44,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -68,14 +71,15 @@ public class RobotContainer {
 
     // where we set the options that user has to choose for autos 
     // Red Autos
-    commandChooser.setDefaultOption("Red 3 Amp ", "R3A");
-    commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
-    commandChooser.addOption("Red 3 Speaker", "R3S");
+    commandChooser.setDefaultOption("Red 2 Amp ", "R2A");
+    // commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
+    commandChooser.addOption("Red 2 Speaker", "R2S");
     commandChooser.addOption("Red Center Hail Mary", "RCHM");    
     // Blue Autos
-    commandChooser.addOption("Blue 3 Amp", "B3A");
-    commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
-    commandChooser.addOption("Blue 3 Speaker", "B3S");
+    commandChooser.addOption("Blue 2 Amp", "B2A");
+    // commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
+    commandChooser.addOption("Blue 2 Speaker", "B2S");
+    commandChooser.addOption("Red Center Hail Mary", "BCHM");    
     SmartDashboard.putData("Auto", commandChooser);
 
     // Have our default swerve command to be the one that allows us to drive it. 
@@ -137,7 +141,7 @@ public class RobotContainer {
       swerveSubsystem);
 
     SwerveControllerCommand blueOriginToFarCenterNote = new SwerveControllerCommand(
-      TragConstants.tragOriginToFarCenterNote, 
+      TragConstants.tragBlueOriginToFarCenterNote, 
       swerveSubsystem::getPose,
       DriveConstants.kDriveKinematics,
       AutoConstants.xController,
@@ -147,37 +151,69 @@ public class RobotContainer {
       swerveSubsystem);
 
     // Chooser selection 
-    if (commandChooser.getSelected() == "R3A"){
+    if (commandChooser.getSelected() == "R2A"){
       selectedAuto = new Red2AmpAuto();
 
     }else if (commandChooser.getSelected() == "R3AHM"){
+      /* NOT USED FOR HARTFORD */
       // HAIL MARY
       selectedAuto = new Red3AmpHailMary();
       
-    }else if(commandChooser.getSelected() == "R3S"){
+    }else if(commandChooser.getSelected() == "R2S"){
       selectedAuto = new Red2Speaker();
 
-    }else if(commandChooser.getSelected() == "B3A"){
+    }else if(commandChooser.getSelected() == "B2A"){
       selectedAuto = new Blue2AmpAuto();
 
     }else if (commandChooser.getSelected() == "B3AHM"){
+      /* NOT USED FOR HARTFORD */
       selectedAuto = new Blue3AmpHailMary();       
 
-    }else if(commandChooser.getSelected() == "B3S"){
+    }else if(commandChooser.getSelected() == "B2S"){
       selectedAuto = new Blue2Speaker();
     
     }else if(commandChooser.getSelected() == "RCHM"){
-        selectedAuto = new SequentialCommandGroup(
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
-          originToFarCenterNote,
-          new InstantCommand(() -> swerveSubsystem.stopModules())
-          );
+      selectedAuto = new SequentialCommandGroup(
+        // Shoot first into speaker
+        new InstantCommand(() -> swerveSubsystem.stopModules()),
+        new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+        new ParallelRaceGroup(
+          new ShootManual(),
+          new WaitCommand(2)        
+        ),
+        // Go to subwoffer pos;
+        new PIDPivotToPosition(0),
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
+            // IF we reach a note and intake it - great. No need for fussy dual parallel commands
+        new ParallelRaceGroup(
+          new IntakeFromGround(),
+          originToFarCenterNote
+        ),
+
+        new InstantCommand(() -> swerveSubsystem.stopModules())
+        );
+
     } else if(commandChooser.getSelected() == "BCHM"){
         selectedAuto = new SequentialCommandGroup(
+          // Shoot first into speaker
+          new InstantCommand(() -> swerveSubsystem.stopModules()),
+          new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+          new ParallelRaceGroup(
+           new ShootManual(),
+           new WaitCommand(2)        
+          ),
+          // Go to subwoffer pos;
+          new PIDPivotToPosition(0),
           new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
-          originToFarCenterNote,
+          
+          new ParallelRaceGroup(
+            new IntakeFromGround(),
+            blueOriginToFarCenterNote
+
+          ),
           new InstantCommand(() -> swerveSubsystem.stopModules())
           );
+
     } else{
       selectedAuto = null;
     }
