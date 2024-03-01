@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos.BlueAlliance;
+package frc.robot.autos.RedAlliance;
 
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -23,12 +23,12 @@ import frc.robot.trajectories.SpeakerTrajectories;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Blue2Speaker extends SequentialCommandGroup {       
+public class Red1Speaker extends SequentialCommandGroup {       
 
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   
-  SwerveControllerCommand blueOriginToStageNote = new SwerveControllerCommand(
-    SpeakerTrajectories.tragBlueOriginToStageNote, 
+  SwerveControllerCommand originToStageNote = new SwerveControllerCommand(
+    SpeakerTrajectories.tragOriginToStageNote, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -37,8 +37,8 @@ public class Blue2Speaker extends SequentialCommandGroup {
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
     
-SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCommand(
-    SpeakerTrajectories.tragBlueStageNoteToSpeakerShooting, 
+SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand(
+    SpeakerTrajectories.tragStageNoteToSpeakerShooting, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -47,8 +47,8 @@ SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCom
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-  SwerveControllerCommand blueSpeakerShootingToSpeakerNote = new SwerveControllerCommand(
-    SpeakerTrajectories.tragBlueSpeakerShootingToSpeakerNote, 
+  SwerveControllerCommand speakerShootingToSpeakerNote = new SwerveControllerCommand(
+    SpeakerTrajectories.tragSpeakerShootingToSpeakerNote, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -57,8 +57,8 @@ SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCom
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-  SwerveControllerCommand blueSpeakerNoteToAmpShooting = new SwerveControllerCommand(
-    SpeakerTrajectories.tragBlueSpeakerNoteToAmpShooting, 
+  SwerveControllerCommand speakerNoteToAmpShooting = new SwerveControllerCommand(
+    SpeakerTrajectories.tragSpeakerNoteToAmpShooting, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -67,8 +67,8 @@ SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCom
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
   
-  SwerveControllerCommand blueAmpShootingToAmpNote = new SwerveControllerCommand(
-    SpeakerTrajectories.tragBlueAmpShootingToAmpNote, 
+  SwerveControllerCommand ampShootingToAmpNote = new SwerveControllerCommand(
+    SpeakerTrajectories.tragAmpShootingToAmpNote, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -77,8 +77,8 @@ SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCom
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-  SwerveControllerCommand blueAmpNoteRotateToSpeaker = new SwerveControllerCommand(
-    SpeakerTrajectories.tragBlueAmpNoteRotateToSpeaker, 
+  SwerveControllerCommand ampNoteRotateToSpeaker = new SwerveControllerCommand(
+    SpeakerTrajectories.tragAmpNoteRotateToSpeaker, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -86,62 +86,35 @@ SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCom
     AutoConstants.thetaController,
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
+
 
  
   /*
    * AMP Trajectories
    */
 
-  public Blue2Speaker() {
+  public Red1Speaker() {
     addCommands(
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueOriginToStageNote.getInitialPose())),  
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
-          new ParallelRaceGroup(
-            new ShootManual(),
-            new WaitCommand(2)        
-          ),
-          // Go to subwoffer pos;
-          new PIDPivotToPosition(0),
-
-          // Go to next note pos while intaking. 
-          new ParallelCommandGroup(
-            new ParallelRaceGroup(
-              // Ends when intake done or 2 seconds. 
-              new IntakeFromGround(),
-              new WaitCommand(2)
-            ),
-            blueOriginToStageNote
-          ),
-
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-
-          // Go to subwoffer
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueStageNoteToSpeakerShooting.getInitialPose())),
-          blueStageNoteToSpeakerShooting,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-
-          // Aim and shoot
-          new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
-          new ParallelRaceGroup(
-            new ShootManual(),
-            new WaitCommand(2)        
-          ),
-          new PIDPivotToPosition(0),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueSpeakerShootingToSpeakerNote.getInitialPose())),
-
-          // Go to next note pos while intaking. 
-          new ParallelCommandGroup(
-            new ParallelRaceGroup(
-              // Ends when intake done or 2 seconds. 
-              new IntakeFromGround(),
-              new WaitCommand(2)
-            ),
-            blueSpeakerShootingToSpeakerNote
-          ),
-          new InstantCommand(() -> swerveSubsystem.stopModules())
-          );
+      new InstantCommand(() -> swerveSubsystem.stopModules()),
+      new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+      new ParallelRaceGroup(
+        new ShootManual(),
+        new WaitCommand(2)        
+      ),
+      // Go to subwoffer pos;
+      new PIDPivotToPosition(0),
   
+      new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerShootingToSpeakerNote.getInitialPose())),
+      /* SHOULD GET TO SECOND NOTE RIGHT BEHIND IT*/ 
+      new ParallelCommandGroup(
+        new ParallelRaceGroup(
+          // Ends when intake done or 2 seconds. 
+          new IntakeFromGround(),
+          new WaitCommand(2)
+        ),
+        speakerShootingToSpeakerNote
+      ),
+      new InstantCommand(() -> swerveSubsystem.stopModules())
+      );
   }
 }

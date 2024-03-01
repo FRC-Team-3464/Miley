@@ -23,7 +23,7 @@ import frc.robot.trajectories.AmpTrajectories;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Blue2AmpAuto extends SequentialCommandGroup {
+public class Blue1AmpAuto extends SequentialCommandGroup {
         
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   // contruct command to follow trajectory
@@ -87,7 +87,7 @@ public class Blue2AmpAuto extends SequentialCommandGroup {
         swerveSubsystem);
 
 
-  public Blue2AmpAuto() {
+  public Blue1AmpAuto() {
     addCommands(
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueOriginToAmp.getInitialPose())),
       // Go to AMP while pivoting to AMP Pos.
@@ -116,28 +116,7 @@ public class Blue2AmpAuto extends SequentialCommandGroup {
         ),
         blueAmpToAmpN
       ),
-      new InstantCommand(() -> swerveSubsystem.stopModules()),
-
-
-      /* NEW UNTESTED */
-      // Go back to AMP while pivoting
-      new WaitCommand(0.25),
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpNoteToAmp.getInitialPose())),
-      new ParallelCommandGroup(
-        blueAmpNToAmp, 
-        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
-      ),
-      new InstantCommand(() -> swerveSubsystem.stopModules()),
-      new WaitCommand(0.25),
-      
-      // Shoot in AMP for 1.5 Seconds 
-      new ParallelRaceGroup(
-        new WaitCommand(1.5),
-        new ShootAmp()
-      ),
-    
-      // Move arm down to rest pos
-      new PIDPivotToPosition(0)
+      new InstantCommand(() -> swerveSubsystem.stopModules())
       );
   }
 }

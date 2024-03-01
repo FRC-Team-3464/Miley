@@ -9,9 +9,11 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.PivoterConstants;
 import frc.robot.Constants.TragConstants;
+import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
 import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
 import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
 import frc.robot.autos.BlueAlliance.Blue2Speaker;
+import frc.robot.autos.RedAlliance.Red1AmpAuto;
 import frc.robot.autos.RedAlliance.Red2AmpAuto;
 import frc.robot.autos.RedAlliance.Red3AmpHailMary;
 import frc.robot.autos.RedAlliance.Red2Speaker;
@@ -71,15 +73,18 @@ public class RobotContainer {
 
     // where we set the options that user has to choose for autos 
     // Red Autos
-    commandChooser.setDefaultOption("Red 2 Amp ", "R2A");
+    commandChooser.addOption("Red 1 Amp ", "R1A");
+    commandChooser.addOption("Red 2 Amp ", "R2A");
     // commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
-    commandChooser.addOption("Red 2 Speaker", "R2S");
+    commandChooser.setDefaultOption("Red 2 Speaker", "R2S");
     commandChooser.addOption("Red Center Hail Mary", "RCHM");    
     // Blue Autos
+    commandChooser.addOption("Blue 1 Amp", "B1A");
     commandChooser.addOption("Blue 2 Amp", "B2A");
     // commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
     commandChooser.addOption("Blue 2 Speaker", "B2S");
     commandChooser.addOption("Red Center Hail Mary", "BCHM");    
+    
     SmartDashboard.putData("Auto", commandChooser);
 
     // Have our default swerve command to be the one that allows us to drive it. 
@@ -151,7 +156,10 @@ public class RobotContainer {
       swerveSubsystem);
 
     // Chooser selection 
-    if (commandChooser.getSelected() == "R2A"){
+    if (commandChooser.getSelected() == "R1A"){
+      selectedAuto = new Red1AmpAuto();
+      
+    }else if (commandChooser.getSelected() == "R2A"){
       selectedAuto = new Red2AmpAuto();
 
     }else if (commandChooser.getSelected() == "R3AHM"){
@@ -162,6 +170,9 @@ public class RobotContainer {
     }else if(commandChooser.getSelected() == "R2S"){
       selectedAuto = new Red2Speaker();
 
+    }else if (commandChooser.getSelected() == "B1A"){
+      selectedAuto = new Blue1AmpAuto();
+      
     }else if(commandChooser.getSelected() == "B2A"){
       selectedAuto = new Blue2AmpAuto();
 
