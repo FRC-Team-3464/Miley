@@ -183,10 +183,12 @@ public static final class TragConstants {
 
    public static final Double[] coordsStageNoteToSpeakerShootingStart = {0.0, 0.0, 0.0};
   //  public static final Double[] coordsStageNoteToSpeakerShootingWayPoint1 = {-0.508, 1.4478, 0.0};
-   public static final Double[] coordsStageNoteToSpeakerShootingEnd = {-0.508, 1.4478, 0.0};
+   public static final Double[] coordsStageNoteToSpeakerShootingEnd = {-1.3462, 1.5, 0.0};
 
    public static final Double[] coordsSpeakerShootingToSpeakerNoteStart = {0.0, 0.0, 0.0};
-   public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {0.6, 0.0, 0.0};
+  //  public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {0.6, 0.0, 0.0};
+   public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {1.1, 0.0, 0.0};
+
 
    public static final Double[] coordsSpeakerNoteToAmpShootingStart = {0.0, 0.0, 0.0};
    public static final Double[] coordsSpeakerNoteToAmpShootingEnd = {-0.508, 1.4478, 0.0};

@@ -59,6 +59,6 @@ public class IntakeFromGround extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return(startTime.get() > 0.05);
+    return(startTime.get() > 0.011);
   }
 }
