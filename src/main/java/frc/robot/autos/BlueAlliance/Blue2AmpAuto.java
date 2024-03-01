@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos.RedAlliance;
+package frc.robot.autos.BlueAlliance;
 
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -23,12 +23,19 @@ import frc.robot.trajectories.AmpTrajectories;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Red3AmpAuto extends SequentialCommandGroup {
+public class Blue2AmpAuto extends SequentialCommandGroup {
         
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   // contruct command to follow trajectory
-  SwerveControllerCommand orginToAmp = new SwerveControllerCommand(
-    AmpTrajectories.tragOriginToAmp, 
+      /*
+       * 
+       * BLUE Autos
+       * 
+       */
+
+  // contruct command to follow trajectory
+  SwerveControllerCommand blueOrginToAmp = new SwerveControllerCommand(
+    AmpTrajectories.tragBlueOriginToAmp, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -37,8 +44,10 @@ public class Red3AmpAuto extends SequentialCommandGroup {
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-  SwerveControllerCommand ampToSpeaker = new SwerveControllerCommand(
-    AmpTrajectories.tragAmpToSpeakerNote, 
+
+
+  SwerveControllerCommand blueAmpToAmpN = new SwerveControllerCommand(
+    AmpTrajectories.tragBlueAmpToAmpNote, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -47,19 +56,8 @@ public class Red3AmpAuto extends SequentialCommandGroup {
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
 
-
-  SwerveControllerCommand ampToAmpN = new SwerveControllerCommand(
-    AmpTrajectories.tragAmpToAmpNote, 
-    swerveSubsystem::getPose, // Coords
-    DriveConstants.kDriveKinematics, 
-    AutoConstants.xController, 
-    AutoConstants.yController,
-    AutoConstants.thetaController,
-    swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-    swerveSubsystem);
-
-  SwerveControllerCommand ampNToAmp = new SwerveControllerCommand(
-    AmpTrajectories.tragAmpNoteToAmp, 
+  SwerveControllerCommand blueAmpNToAmp = new SwerveControllerCommand(
+    AmpTrajectories.tragBlueAmpNoteToAmp, 
     swerveSubsystem::getPose, // Coords
     DriveConstants.kDriveKinematics, 
     AutoConstants.xController, 
@@ -68,28 +66,33 @@ public class Red3AmpAuto extends SequentialCommandGroup {
     swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
     swerveSubsystem);
   
-  SwerveControllerCommand speakerNoteToAmp = new SwerveControllerCommand(
-    AmpTrajectories.tragSpeakerNoteToAmp, 
-    swerveSubsystem::getPose, // Coords
-    DriveConstants.kDriveKinematics, 
-    AutoConstants.xController, 
-    AutoConstants.yController,
-    AutoConstants.thetaController,
-    swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
-    swerveSubsystem);
+  SwerveControllerCommand blueSpeakerNoteToAmp = new SwerveControllerCommand(
+      AmpTrajectories.tragBlueSpeakerNoteToAmp, 
+      swerveSubsystem::getPose, // Coords
+      DriveConstants.kDriveKinematics, 
+      AutoConstants.xController, 
+      AutoConstants.yController,
+      AutoConstants.thetaController,
+      swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
+      swerveSubsystem);
+  
+      SwerveControllerCommand blueAmpToSpeaker = new SwerveControllerCommand(
+        AmpTrajectories.tragBlueAmpToSpeakerNote, 
+        swerveSubsystem::getPose, // Coords
+        DriveConstants.kDriveKinematics, 
+        AutoConstants.xController, 
+        AutoConstants.yController,
+        AutoConstants.thetaController,
+        swerveSubsystem::setModuleStates, // Function to translate speeds to the modules
+        swerveSubsystem);
 
-  /** Creates a new Red3AmpAuto. */
- 
-  /*
-   * AMP Trajectories
-   */
 
-  public Red3AmpAuto() {
+  public Blue2AmpAuto() {
     addCommands(
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragOriginToAmp.getInitialPose())),
       // Go to AMP while pivoting to AMP Pos.
       new ParallelCommandGroup(
-        orginToAmp, 
+        blueOrginToAmp, 
         new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
       ),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
@@ -111,7 +114,7 @@ public class Red3AmpAuto extends SequentialCommandGroup {
           new IntakeFromGround(),
           new WaitCommand(2)
         ),
-        ampToAmpN
+        blueAmpToAmpN
       ),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
 
@@ -121,7 +124,7 @@ public class Red3AmpAuto extends SequentialCommandGroup {
       new WaitCommand(0.25),
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
       new ParallelCommandGroup(
-        ampNToAmp, 
+        blueAmpNToAmp, 
         new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
       ),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
@@ -137,23 +140,32 @@ public class Red3AmpAuto extends SequentialCommandGroup {
       new PIDPivotToPosition(0)
       
       );
-
-      /*
-       * 
-       * ORIGINAL
-       * 
-       */
-
-      // new WaitCommand(0.25),
-      // new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
-      // ampNToAmp,
-      // new InstantCommand(() -> swerveSubsystem.stopModules()),
-      // new WaitCommand(0.25),
-      // new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpToSpeakerNote.getInitialPose())),
-      // ampToSpeaker,
-      // new InstantCommand(() -> swerveSubsystem.stopModules()),
-      // new WaitCommand(0.25),
-      // new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragSpeakerNoteToAmp.getInitialPose())),
-      // speakerNoteToAmp,
+    /*
+     * 
+     * ORIGINAL
+     * 
+     */
+    // addCommands(
+    //   // Reset odometry to starting pose. 
+    //   new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueOriginToAmp.getInitialPose())),
+    //   blueOrginToAmp,
+    //   new InstantCommand(() -> swerveSubsystem.stopModules()),
+    //   new WaitCommand(0.25),
+    //   new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpToAmpNote.getInitialPose())),
+    //   blueAmpToAmpN,
+    //   new InstantCommand(() -> swerveSubsystem.stopModules()),
+    //   new WaitCommand(0.25),
+    //   new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpNoteToAmp.getInitialPose())),
+    //   blueAmpNToAmp,
+    //   new InstantCommand(() -> swerveSubsystem.stopModules()),
+    //   new WaitCommand(0.25),
+    //   new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpToSpeakerNote.getInitialPose())),
+    //   blueAmpToSpeaker,
+    //   new InstantCommand(() -> swerveSubsystem.stopModules()),
+    //   new WaitCommand(0.25),
+    //   new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueSpeakerNoteToAmp.getInitialPose())),
+    //   blueSpeakerNoteToAmp,
+    //   new InstantCommand(() -> swerveSubsystem.stopModules())
+    //   );
   }
 }

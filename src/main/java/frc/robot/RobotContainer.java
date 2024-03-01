@@ -8,12 +8,12 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.TragConstants;
-import frc.robot.autos.BlueAlliance.Blue3AmpAuto;
+import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
 import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
-import frc.robot.autos.BlueAlliance.Blue3Speaker;
-import frc.robot.autos.RedAlliance.Red3AmpAuto;
+import frc.robot.autos.BlueAlliance.Blue2Speaker;
+import frc.robot.autos.RedAlliance.Red2AmpAuto;
 import frc.robot.autos.RedAlliance.Red3AmpHailMary;
-import frc.robot.autos.RedAlliance.Red3Speaker;
+import frc.robot.autos.RedAlliance.Red2Speaker;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
@@ -138,23 +138,23 @@ public class RobotContainer {
 
     // Chooser selection 
     if (commandChooser.getSelected() == "R3A"){
-      selectedAuto = new Red3AmpAuto();
+      selectedAuto = new Red2AmpAuto();
 
     }else if (commandChooser.getSelected() == "R3AHM"){
       // HAIL MARY
       selectedAuto = new Red3AmpHailMary();
       
     }else if(commandChooser.getSelected() == "R3S"){
-      selectedAuto = new Red3Speaker();
+      selectedAuto = new Red2Speaker();
 
     }else if(commandChooser.getSelected() == "B3A"){
-      selectedAuto = new Blue3AmpAuto();
+      selectedAuto = new Blue2AmpAuto();
 
     }else if (commandChooser.getSelected() == "B3AHM"){
       selectedAuto = new Blue3AmpHailMary();       
 
     }else if(commandChooser.getSelected() == "B3S"){
-      selectedAuto = new Blue3Speaker();
+      selectedAuto = new Blue2Speaker();
     
     }else if(commandChooser.getSelected() == "RCHM"){
         selectedAuto = new SequentialCommandGroup(

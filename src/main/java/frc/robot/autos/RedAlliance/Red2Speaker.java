@@ -23,7 +23,7 @@ import frc.robot.trajectories.SpeakerTrajectories;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Red3Speaker extends SequentialCommandGroup {       
+public class Red2Speaker extends SequentialCommandGroup {       
 
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   
@@ -93,7 +93,7 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
    * AMP Trajectories
    */
 
-  public Red3Speaker() {
+  public Red2Speaker() {
     addCommands(
       new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragOriginToStageNote.getInitialPose())),  
       new InstantCommand(() -> swerveSubsystem.stopModules()),
