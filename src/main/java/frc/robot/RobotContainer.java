@@ -136,6 +136,16 @@ public class RobotContainer {
       swerveSubsystem::setModuleStates,
       swerveSubsystem);
 
+    SwerveControllerCommand blueOriginToFarCenterNote = new SwerveControllerCommand(
+      TragConstants.tragOriginToFarCenterNote, 
+      swerveSubsystem::getPose,
+      DriveConstants.kDriveKinematics,
+      AutoConstants.xController,
+      AutoConstants.yController, 
+      AutoConstants.thetaController, 
+      swerveSubsystem::setModuleStates,
+      swerveSubsystem);
+
     // Chooser selection 
     if (commandChooser.getSelected() == "R3A"){
       selectedAuto = new Red2AmpAuto();
@@ -162,7 +172,12 @@ public class RobotContainer {
           originToFarCenterNote,
           new InstantCommand(() -> swerveSubsystem.stopModules())
           );
-
+    } else if(commandChooser.getSelected() == "BCHM"){
+        selectedAuto = new SequentialCommandGroup(
+          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
+          originToFarCenterNote,
+          new InstantCommand(() -> swerveSubsystem.stopModules())
+          );
     } else{
       selectedAuto = null;
     }
