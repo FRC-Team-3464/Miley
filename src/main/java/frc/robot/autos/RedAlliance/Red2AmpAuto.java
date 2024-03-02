@@ -121,8 +121,8 @@ public class Red2AmpAuto extends SequentialCommandGroup {
       new WaitCommand(0.25),
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
       ampNToAmp, 
-      new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
+      new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations),
       new WaitCommand(0.25),
       
       // Shoot in AMP for 1.5 Seconds 
