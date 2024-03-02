@@ -107,9 +107,9 @@ public class Red2AmpAuto extends SequentialCommandGroup {
       // Drive to AMP Note while intaking
       new ParallelCommandGroup(
         new ParallelRaceGroup(
-          // Ends when intake done or 2 seconds. 
+          // Ends when intake done or 3 seconds. 
           new IntakeFromGround(),
-          new WaitCommand(2)
+          new WaitCommand(3)
         ),
         ampToAmpN
       ),
@@ -120,10 +120,8 @@ public class Red2AmpAuto extends SequentialCommandGroup {
       // Go back to AMP while pivoting
       new WaitCommand(0.25),
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragAmpNoteToAmp.getInitialPose())),
-      new ParallelCommandGroup(
-        ampNToAmp, 
-        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
-      ),
+      ampNToAmp, 
+      new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
       
