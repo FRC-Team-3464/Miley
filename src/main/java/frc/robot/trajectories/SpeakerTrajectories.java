@@ -102,6 +102,25 @@ public class SpeakerTrajectories {
       ),
       AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
 
+
+
+      // NEW FOR STRAIGHT SPEAKER - same for both blue and red alliance
+    public static final Trajectory tragSpeakerNoteToOrigin = TrajectoryGenerator.generateTrajectory(
+      List.of(
+        new Pose2d(
+          TragConstants.coordsSpeakerNoteToOriginStart[0], 
+          TragConstants.coordsSpeakerNoteToOriginStart[1], 
+          Rotation2d.fromDegrees(TragConstants.coordsSpeakerNoteToOriginStart[2])), 
+        new Pose2d(
+          TragConstants.coordsSpeakerNoteToOriginEnd[0], 
+          TragConstants.coordsSpeakerNoteToOriginEnd[1], 
+          Rotation2d.fromDegrees(TragConstants.coordsSpeakerNoteToOriginStart[2]))
+      ),
+      AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
+    
+
+
+
       /*
        * 
        * Blue Alliance Speaker

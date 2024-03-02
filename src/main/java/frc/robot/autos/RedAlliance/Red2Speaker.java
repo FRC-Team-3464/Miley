@@ -17,14 +17,13 @@ import frc.robot.Constants.PivoterConstants;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ShootManual;
-import frc.robot.commands.ShooterIntake.ShootSpeaker;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.trajectories.SpeakerTrajectories;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Red3Speaker extends SequentialCommandGroup {       
+public class Red2Speaker extends SequentialCommandGroup {       
 
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   
@@ -94,7 +93,7 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
    * AMP Trajectories
    */
 
-  public Red3Speaker() {
+  public Red2Speaker() {
     addCommands(
       new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragOriginToStageNote.getInitialPose())),  
       new InstantCommand(() -> swerveSubsystem.stopModules()),
@@ -109,7 +108,7 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       // Go to next note pos while intaking. 
       new ParallelCommandGroup(
         new ParallelRaceGroup(
-          // Ends when intake done or 5 seconds. 
+          // Ends when intake done or 3 seconds. 
           new IntakeFromGround(),
           new WaitCommand(3)
         ),
@@ -119,10 +118,12 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
 
-      // Go to Speaker Note
+      // Go to subwoffer
       new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragStageNoteToSpeakerShooting.getInitialPose())),
       stageNoteToSpeakerShooting,
       new InstantCommand(() -> swerveSubsystem.stopModules()),
+
+      // Aim and shoot
       new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
       new ParallelRaceGroup(
         new ShootManual(),
@@ -134,7 +135,7 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       // Go to next note pos while intaking. 
       new ParallelCommandGroup(
         new ParallelRaceGroup(
-          // Ends when intake done or 5 seconds. 
+          // Ends when intake done or 3 seconds. 
           new IntakeFromGround(),
           new WaitCommand(3)
         ),
@@ -142,6 +143,10 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       ),
       new InstantCommand(() -> swerveSubsystem.stopModules())
       );
+      /*
+       * 
+       * UNFINISHED
+       */
       //   new WaitCommand(0.25),
       //   new InstantCommand(() -> swerveSubsystem.stopModules()),
       //   new WaitCommand(0.25),

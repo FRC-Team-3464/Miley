@@ -188,6 +188,11 @@ public static final class TragConstants {
    public static final Double[] coordsSpeakerShootingToSpeakerNoteStart = {0.0, 0.0, 0.0};
   //  public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {0.6, 0.0, 0.0};
    public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {1.1, 0.0, 0.0};
+   
+  //  NEW - DRIVE Back  to origin
+   public static final Double[] coordsSpeakerNoteToOriginStart = {0.0, 0.0, 0.0};
+   public static final Double[] coordsSpeakerNoteToOriginEnd = {-1.1, 0.0, 0.0};
+   
 
 
    public static final Double[] coordsSpeakerNoteToAmpShootingStart = {0.0, 0.0, 0.0};
@@ -205,7 +210,12 @@ public static final class TragConstants {
     public static final Trajectory tragOriginToFarCenterNote = TrajectoryGenerator.generateTrajectory(
         List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(-45)), 
         new Pose2d(6.9342, -3.4798, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
-  
+
+    /* SHOULD BE TESTED */
+    public static final Trajectory tragBlueOriginToFarCenterNote = TrajectoryGenerator.generateTrajectory(
+        List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(45)), 
+        new Pose2d(6.9342, 3.4798, Rotation2d.fromDegrees(0))), AutoConstants.trajectoryConfig); // change X to 1.3464 because team spirit and nationalism 
+
 }
 
 

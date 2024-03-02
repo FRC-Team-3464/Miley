@@ -6,19 +6,24 @@ package frc.robot.autos.BlueAlliance;
 
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-
+import frc.robot.commands.Pivoter.PIDPivotToPosition;
+import frc.robot.commands.ShooterIntake.IntakeFromGround;
+import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.trajectories.AmpTrajectories;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Blue3AmpAuto extends SequentialCommandGroup {
+public class Blue1AmpAuto extends SequentialCommandGroup {
         
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   // contruct command to follow trajectory
@@ -82,27 +87,35 @@ public class Blue3AmpAuto extends SequentialCommandGroup {
         swerveSubsystem);
 
 
-  public Blue3AmpAuto() {
+  public Blue1AmpAuto() {
     addCommands(
-      // Reset odometry to starting pose. 
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueOriginToAmp.getInitialPose())),
-      blueOrginToAmp,
+      // Go to AMP while pivoting to AMP Pos.
+      new ParallelCommandGroup(
+        blueOrginToAmp, 
+        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
+      ),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
+      
+      // Shoot in AMP for 1.5 Seconds 
+      new ParallelRaceGroup(
+        new WaitCommand(1.5),
+        new ShootAmp()),
+
+      // Move arm down to rest pos
+      new PIDPivotToPosition(0),
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpToAmpNote.getInitialPose())),
-      blueAmpToAmpN,
-      new InstantCommand(() -> swerveSubsystem.stopModules()),
-      new WaitCommand(0.25),
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpNoteToAmp.getInitialPose())),
-      blueAmpNToAmp,
-      new InstantCommand(() -> swerveSubsystem.stopModules()),
-      new WaitCommand(0.25),
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpToSpeakerNote.getInitialPose())),
-      blueAmpToSpeaker,
-      new InstantCommand(() -> swerveSubsystem.stopModules()),
-      new WaitCommand(0.25),
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueSpeakerNoteToAmp.getInitialPose())),
-      blueSpeakerNoteToAmp,
+
+      // Drive to AMP Note while intaking
+      new ParallelCommandGroup(
+        new ParallelRaceGroup(
+          // Ends when intake done or 3 seconds. 
+          new IntakeFromGround(),
+          new WaitCommand(3)
+        ),
+        blueAmpToAmpN
+      ),
       new InstantCommand(() -> swerveSubsystem.stopModules())
       );
   }

@@ -6,19 +6,24 @@ package frc.robot.autos.BlueAlliance;
 
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-
+import frc.robot.Constants.PivoterConstants;
+import frc.robot.commands.Pivoter.PIDPivotToPosition;
+import frc.robot.commands.ShooterIntake.IntakeFromGround;
+import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.trajectories.SpeakerTrajectories;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Blue3Speaker extends SequentialCommandGroup {       
+public class Blue2Speaker extends SequentialCommandGroup {       
 
   SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   
@@ -87,39 +92,56 @@ SwerveControllerCommand blueStageNoteToSpeakerShooting = new SwerveControllerCom
    * AMP Trajectories
    */
 
-  public Blue3Speaker() {
+  public Blue2Speaker() {
     addCommands(
-          // Reset odometry to starting pose. 
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueOriginToStageNote.getInitialPose())),
-          blueOriginToStageNote,
+          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueOriginToStageNote.getInitialPose())),  
+          new InstantCommand(() -> swerveSubsystem.stopModules()),
+          new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+          new ParallelRaceGroup(
+            new ShootManual(),
+            new WaitCommand(2)        
+          ),
+          // Go to subwoffer pos;
+          new PIDPivotToPosition(0),
+
+          // Go to next note pos while intaking. 
+          new ParallelCommandGroup(
+            new ParallelRaceGroup(
+              // Ends when intake done or 3 seconds. 
+              new IntakeFromGround(),
+              new WaitCommand(3)
+            ),
+            blueOriginToStageNote
+          ),
+
           new InstantCommand(() -> swerveSubsystem.stopModules()),
           new WaitCommand(0.25),
-          // Go to Speaker Note
+
+          // Go to subwoffer
           new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueStageNoteToSpeakerShooting.getInitialPose())),
           blueStageNoteToSpeakerShooting,
-          new WaitCommand(0.25),
           new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueSpeakerShootingToSpeakerNote.getInitialPose())),
-          blueSpeakerShootingToSpeakerNote,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-  
-          // Go to Amp Note
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueSpeakerNoteToAmpShooting.getInitialPose())),
-          blueSpeakerNoteToAmpShooting,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueAmpShootingToAmpNote.getInitialPose())),
-          blueAmpShootingToAmpNote,
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new WaitCommand(0.25),
-          // Rotate to speaker
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueAmpNoteRotateToSpeaker.getInitialPose())),
-          blueAmpNoteRotateToSpeaker,
-          new InstantCommand(() -> swerveSubsystem.stopModules())
-          // new WaitCommand(0.25)
 
-      );
+          // Aim and shoot
+          new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+          new ParallelRaceGroup(
+            new ShootManual(),
+            new WaitCommand(2)        
+          ),
+          new PIDPivotToPosition(0),
+          new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragBlueSpeakerShootingToSpeakerNote.getInitialPose())),
+
+          // Go to next note pos while intaking. 
+          new ParallelCommandGroup(
+            new ParallelRaceGroup(
+              // Ends when intake done or 3 seconds. 
+              new IntakeFromGround(),
+              new WaitCommand(3)
+            ),
+            blueSpeakerShootingToSpeakerNote
+          ),
+          new InstantCommand(() -> swerveSubsystem.stopModules())
+          );
+  
   }
 }
