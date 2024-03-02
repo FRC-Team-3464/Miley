@@ -110,9 +110,9 @@ public class Blue2AmpAuto extends SequentialCommandGroup {
       // Drive to AMP Note while intaking
       new ParallelCommandGroup(
         new ParallelRaceGroup(
-          // Ends when intake done or 2 seconds. 
+          // Ends when intake done or 3 seconds. 
           new IntakeFromGround(),
-          new WaitCommand(2)
+          new WaitCommand(3)
         ),
         blueAmpToAmpN
       ),
@@ -123,11 +123,9 @@ public class Blue2AmpAuto extends SequentialCommandGroup {
       // Go back to AMP while pivoting
       new WaitCommand(0.25),
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpNoteToAmp.getInitialPose())),
-      new ParallelCommandGroup(
-        blueAmpNToAmp, 
-        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
-      ),
+      blueAmpNToAmp, 
       new InstantCommand(() -> swerveSubsystem.stopModules()),
+      new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations),
       new WaitCommand(0.25),
       
       // Shoot in AMP for 1.5 Seconds 
