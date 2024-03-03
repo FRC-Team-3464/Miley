@@ -16,6 +16,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.PivoterConstants;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
+import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.trajectories.SpeakerTrajectories;
@@ -103,14 +104,15 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
   public Red2StraightSpeaker() {
     addCommands(
       // GO STRAIGHT FORWARD TO STAGE NOTE AFTER SHOOTING
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerShootingToSpeakerNote.getInitialPose())),  
       new InstantCommand(() -> swerveSubsystem.stopModules()),
+      new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerShootingToSpeakerNote.getInitialPose())),  
       new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
       new ParallelRaceGroup(
         new ShootManual(),
         new WaitCommand(2)        
       ),
-      // Go to subwoffer pos;
+
+      // Go to intake pos
       new PIDPivotToPosition(0),
 
       // Go to next note pos while intaking. 
@@ -126,21 +128,47 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
 
-      // Go to subwoffer
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerNoteToOrigin.getInitialPose())),
-      speakerNoteToOrigin,
-      new InstantCommand(() -> swerveSubsystem.stopModules()),
+      // Go to subwofferr
+      // new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerNoteToOrigin.getInitialPose())),
+      // new ParallelCommandGroup(
+      //   new SequentialCommandGroup(
+      //     speakerNoteToOrigin, 
+      //     new InstantCommand(() -> swerveSubsystem.stopModules()),
+      
+      // new InstantCommand(() -> swerveSubsystem.stopModules()))),
 
       // Aim and shoot
-      // new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
       new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations),
       new ParallelRaceGroup(
+        // Stop our intake after point 0.1 second - so we're not too high
+        new WaitCommand(0.1), 
+        new ReverseIntake()
+        ),
+
+      // ADD A Wait Command
+      new WaitCommand(0.1),
+
+       new ParallelRaceGroup(
         new ShootManual(),
         new WaitCommand(2)        
       ),
-      new PIDPivotToPosition(0)
 
-      );
+      new PIDPivotToPosition(0)
+    );
+      // new InstantCommand(() -> swerveSubsystem.resetOdometry(SpeakerTrajectories.tragSpeakerNoteToOrigin.getInitialPose())),
+      // speakerNoteToOrigin,
+      // new InstantCommand(() -> swerveSubsystem.stopModules()),
+
+      // // Aim and shoot
+      // // new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+      // new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations),
+      // new ParallelRaceGroup(
+      //   new ShootManual(),
+      //   new WaitCommand(2)        
+      // ),
+
+      // new PIDPivotToPosition(0)
+    
       /*
        * 
        * UNFINISHED
