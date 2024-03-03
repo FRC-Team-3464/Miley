@@ -31,6 +31,7 @@ public class IntakeFromGround extends Command {
     startTime = new Timer();
     startTime.reset();
     finish = false;
+    ledSub.setOrange();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,20 +46,19 @@ public class IntakeFromGround extends Command {
     else {
       intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
 
-    }
-      }
-
-  // Called once the command ends or is interrupted.
+    
+    }}
+  
+    // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intakeSub.stopIntake();
     intakeSub.stopRumble();
-    ledSub.setOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return(startTime.get() > 0.011);
+    return(startTime.get() > 0.005);
   }
 }

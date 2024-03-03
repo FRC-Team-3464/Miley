@@ -91,7 +91,7 @@ public class RobotContainer {
     commandChooser.addOption("Blue 1 Speaker ", "B1S");
     commandChooser.addOption("Blue 2 Speaker", "B2S");
     commandChooser.setDefaultOption("Blue 2 Straight Speaker", "B2SS");
-    commandChooser.addOption("Red Center Hail Mary", "BCHM");    
+    commandChooser.addOption("Blue Center Hail Mary", "BCHM");    
     
     SmartDashboard.putData("Auto", commandChooser);
 
@@ -235,7 +235,7 @@ public class RobotContainer {
           ),
           // Go to subwoffer pos;
           new PIDPivotToPosition(0),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
+          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueOriginToFarCenterNote.getInitialPose())),
           
           new ParallelRaceGroup(
             new IntakeFromGround(),

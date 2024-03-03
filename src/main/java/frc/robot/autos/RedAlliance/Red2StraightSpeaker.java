@@ -132,7 +132,8 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       new InstantCommand(() -> swerveSubsystem.stopModules()),
 
       // Aim and shoot
-      new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+      // new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+      new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations),
       new ParallelRaceGroup(
         new ShootManual(),
         new WaitCommand(2)        

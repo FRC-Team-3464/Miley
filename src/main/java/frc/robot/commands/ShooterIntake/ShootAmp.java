@@ -6,6 +6,7 @@ package frc.robot.commands.ShooterIntake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootAmp extends Command {
@@ -13,18 +14,23 @@ public class ShootAmp extends Command {
   
   private ShooterSubsystem shootSub;
   public IntakeSubsystem intakeSub;
+  private LEDSubsystem ledSub;
 
   public ShootAmp() {
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
+    ledSub = LEDSubsystem.getInstance();
     addRequirements(shootSub);
     addRequirements(intakeSub);
+    addRequirements(ledSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    ledSub.setOff();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

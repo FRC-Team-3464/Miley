@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootManual extends Command {
@@ -14,6 +15,7 @@ public class ShootManual extends Command {
   
   private ShooterSubsystem shootSub;
   public IntakeSubsystem intakeSub;
+  private LEDSubsystem ledSub;
 
   private Timer shootTimer;
 
@@ -21,8 +23,10 @@ public class ShootManual extends Command {
     shootTimer = new Timer();
     shootSub = ShooterSubsystem.getInstance();
     intakeSub = IntakeSubsystem.getInstance();
+    ledSub = LEDSubsystem.getInstance();
     addRequirements(shootSub);
     addRequirements(intakeSub);
+    addRequirements(ledSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,6 +35,7 @@ public class ShootManual extends Command {
   public void initialize() {
     shootTimer.reset();
     shootTimer.start();
+    ledSub.setOff();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

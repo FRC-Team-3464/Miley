@@ -50,6 +50,10 @@ public class IntakeSubsystem extends SubsystemBase {
     xbox.setRumble(RumbleType.kBothRumble, 0);
   }
 
+  public double getCurrent(){
+    return intakeMotor.getOutputCurrent();
+  }
+  
   public void runIntake(double speed) {
     intakeMotor.set(speed);
   }

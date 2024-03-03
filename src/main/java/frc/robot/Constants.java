@@ -151,10 +151,14 @@ public static final class TragConstants {
    */
   
    public static final Double[] coordsOriginToAmpStart = {0.0, 0.0, -90.0};
-   public static final Double[] coordsOriginToAmpEnd = {0.427, 0.451, -90.0};
+   public static final Double[] coordsOriginToAmpEnd = {0.427, 0.551, -90.0};
+  //  public static final Double[] coordsOriginToAmpEnd = {0.427, 0.451, -90.0};
 
    public static final Double[] coordsAmpToAmpNoteStart = {0.0, 0.0, -90.0};   
    public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.9, -0.6, -40.0};
+  //  public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.9, -0.6, -40.0};   
+  // public static final Double[] coordsAmpToAmpNoteEnd = {1.13, -0.84, -40.0};
+
    public static final Double[] coordsAmpToAmpNoteEnd = {1.03, -0.74, -40.0};
 
    public static final Double[] coordsAmpToSpeakerNoteStart = {0.0, 0.0, -90.0};    
@@ -187,11 +191,14 @@ public static final class TragConstants {
 
    public static final Double[] coordsSpeakerShootingToSpeakerNoteStart = {0.0, 0.0, 0.0};
   //  public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {0.6, 0.0, 0.0};
-   public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {1.1, 0.0, 0.0};
-   
+  //  public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {1.1, 0.0, 0.0};
+   public static final Double[] coordsSpeakerShootingToSpeakerNoteEnd = {1.42, 0.0, 0.0};
+  
+  
   //  NEW - DRIVE Back  to origin
    public static final Double[] coordsSpeakerNoteToOriginStart = {0.0, 0.0, 0.0};
-   public static final Double[] coordsSpeakerNoteToOriginEnd = {-1.1, 0.0, 0.0};
+  //  public static final Double[] coordsSpeakerNoteToOriginEnd = {-1.1, 0.0, 0.0};
+  public static final Double[] coordsSpeakerNoteToOriginEnd = {-1.42, 0.0, 0.0};
    
 
 
@@ -222,7 +229,10 @@ public static final class TragConstants {
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
   public static final double kSubwofferPivoterRotations = 1.7777; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
-  public static final double kAmpPivoterRotations = 28.5;
+  // public static final double kAmpPivoterRotations = 28.5;
+  
+  public static final double kAmpPivoterRotations = 29;
+
   public static final double kStagePivoterRotations = 8.5;
 
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
