@@ -25,6 +25,7 @@ import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
+import frc.robot.commands.ChaseTagCommand;
 // import frc.robot.commands.ShooterIntake.ShootSpeaker;
 // import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.commands.SwerveJoystickCMD;
@@ -39,10 +40,12 @@ import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
 import frc.robot.commands.Leds.LedFlash;
+import frc.robot.subsystems.PoseEstimatorSubsystem;
 // import frc.robot.subsystems.IntakeSubsystem;
 // import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
+import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -72,6 +75,11 @@ public class RobotContainer {
                 () -> xbox.getRawAxis(OIConstants.kDriverRotAxis),
                 () -> true/*
                 () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx */);
+
+  private final PhotonCamera photonCamera = new PhotonCamera("gloworm");
+  private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(photonCamera);          
+  private final ChaseTagCommand chaseTagCommand = 
+    new ChaseTagCommand(photonCamera, poseEstimator::getCurrentPose);
 
   public RobotContainer() {
 
@@ -130,6 +138,8 @@ public class RobotContainer {
     Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
     Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
+
+    Constants.OperatorConstants.button13.whileTrue(chaseTagCommand);   
 
     // Test positions
     // NON-PID

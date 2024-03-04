@@ -4,10 +4,14 @@
 
 package frc.robot.subsystems;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -56,6 +60,8 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveConstants.kBackRightDriveAbsoluteEncoderPort,
     DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
     DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
+
+  private final SwerveModule[] swerveModules = new SwerveModule[] {frontLeft, frontRight, backLeft, backRight};
 
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
 
@@ -206,4 +212,44 @@ public void setModuleStates(SwerveModuleState[] desiredStates) {
   backLeft.setDesiredState(desiredStates[2]);
   backRight.setDesiredState(desiredStates[3]);
 }
+
+public void drive(ChassisSpeeds desiredChassisSpeeds) {
+  var desiredStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(desiredChassisSpeeds);
+  if(desiredChassisSpeeds.vxMetersPerSecond == 0.0 && desiredChassisSpeeds.vyMetersPerSecond == 0.0
+      && desiredChassisSpeeds.omegaRadiansPerSecond == 0.0) {
+    var currentStates = getModuleStates();
+    // Keep the wheels at their current angle when stopped, don't snap back to straight
+    IntStream.range(0, currentStates.length).forEach(i -> desiredStates[i].angle = currentStates[i].angle);
+  }
+
+  var MAX_VELOCITY_METERS_PER_SECOND = 1; //fixe
+  SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MAX_VELOCITY_METERS_PER_SECOND);
+  setModuleStates(desiredStates);
+
+}
+
+public Rotation2d getGyroscopeRotation() {
+  return gyro.getRotation2d();
+
+  // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
+  // return Rotation2d.fromDegrees(360.0 - navx.getYaw());
+}
+
+  /**
+   * Gets the current drivetrain position, as reported by the modules themselves.
+   * @return current drivetrain state. Array orders are frontLeft, frontRight, backLeft, backRight
+   */
+  public SwerveModulePosition[] getModulePositions() {
+    return Arrays.stream(swerveModules).map(module -> module.getPosition()).toArray(SwerveModulePosition[]::new);
+  }
+
+  /**
+   * Gets the current drivetrain state (velocity, and angle), as reported by the modules themselves.
+   * @return current drivetrain state. Array orders are frontLeft, frontRight, backLeft, backRight
+   */
+  private SwerveModuleState[] getModuleStates() {
+    return Arrays.stream(swerveModules).map(module -> module.getState()).toArray(SwerveModuleState[]::new);
+  }
+
+
 }
