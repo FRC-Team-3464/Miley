@@ -25,7 +25,7 @@ public class ChaseTagCommand extends Command {
   private static final TrapezoidProfile.Constraints Y_CONSTRAINTS = new TrapezoidProfile.Constraints(3, 2);
   private static final TrapezoidProfile.Constraints OMEGA_CONSTRAINTS =   new TrapezoidProfile.Constraints(8, 8);
   
-  private static final int TAG_TO_CHASE = 2; //fixme
+  private static final int TAG_TO_CHASE = 14;
   private static final Transform3d TAG_TO_GOAL = 
       new Transform3d(
           new Translation3d(1.5, 0.0, 0.0),
