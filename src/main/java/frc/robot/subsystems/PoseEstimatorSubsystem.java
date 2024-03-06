@@ -87,27 +87,27 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // Update pose estimator with the best visible target
-    var pipelineResult = photonCamera.getLatestResult();
-    var resultTimestamp = pipelineResult.getTimestampSeconds();
-    if (resultTimestamp != previousPipelineTimestamp && pipelineResult.hasTargets()) {
-      previousPipelineTimestamp = resultTimestamp;
-      var target = pipelineResult.getBestTarget();
-      var fiducialId = target.getFiducialId();
-      if (target.getPoseAmbiguity() <= .2 && fiducialId >= 0 && fiducialId < targetPoses.size()) {
-        var targetPose = targetPoses.get(fiducialId);
-        Transform3d camToTarget = target.getBestCameraToTarget();
-        Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
+    // var pipelineResult = photonCamera.getLatestResult();
+    // var resultTimestamp = pipelineResult.getTimestampSeconds();
+    // if (resultTimestamp != previousPipelineTimestamp && pipelineResult.hasTargets()) {
+    //   previousPipelineTimestamp = resultTimestamp;
+    //   var target = pipelineResult.getBestTarget();
+    //   var fiducialId = target.getFiducialId();
+    //   if (target.getPoseAmbiguity() <= .2 && fiducialId >= 0 && fiducialId < targetPoses.size()) {
+    //     var targetPose = targetPoses.get(fiducialId);
+    //     Transform3d camToTarget = target.getBestCameraToTarget();
+    //     Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
 
-        var visionMeasurement = camPose.transformBy(CAMERA_TO_ROBOT);
-        poseEstimator.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
-      }
-    }
-    // Update pose estimator with drivetrain sensors
-    poseEstimator.update(
-      swerveSubsystem.getGyroscopeRotation(),
-      swerveSubsystem.getModulePositions());
+    //     var visionMeasurement = camPose.transformBy(CAMERA_TO_ROBOT);
+    //     poseEstimator.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
+    //   }
+    // }
+    // // Update pose estimator with drivetrain sensors
+    // poseEstimator.update(
+    //   swerveSubsystem.getGyroscopeRotation(),
+    //   swerveSubsystem.getModulePositions());
 
-    field2d.setRobotPose(getCurrentPose());
+    // field2d.setRobotPose(getCurrentPose());
   }
 
   private String getFomattedPose() {
