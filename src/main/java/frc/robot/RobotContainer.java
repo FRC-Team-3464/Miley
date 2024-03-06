@@ -52,6 +52,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
@@ -76,7 +77,7 @@ public class RobotContainer {
                 () -> true/*
                 () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx */);
 
-  private final PhotonCamera photonCamera = new PhotonCamera("gloworm");
+  private final PhotonCamera photonCamera = new PhotonCamera("Speaker_Camera");
   private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(photonCamera);          
   private final ChaseTagCommand chaseTagCommand = 
     new ChaseTagCommand(photonCamera, poseEstimator::getCurrentPose);
@@ -139,7 +140,9 @@ public class RobotContainer {
     Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
 
-    Constants.OperatorConstants.button13.whileTrue(chaseTagCommand);   
+    Constants.OperatorConstants.button13.whileTrue(
+      Commands.runOnce(poseEstimator::resetFieldPosition, swerveSubsystem)
+      .andThen(chaseTagCommand)); //fixme
 
     // Test positions
     // NON-PID

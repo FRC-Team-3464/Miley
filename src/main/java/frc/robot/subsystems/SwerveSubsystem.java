@@ -222,7 +222,7 @@ public void drive(ChassisSpeeds desiredChassisSpeeds) {
     IntStream.range(0, currentStates.length).forEach(i -> desiredStates[i].angle = currentStates[i].angle);
   }
 
-  var MAX_VELOCITY_METERS_PER_SECOND = 1; //fixe
+  var MAX_VELOCITY_METERS_PER_SECOND = 1; //fixme
   SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MAX_VELOCITY_METERS_PER_SECOND);
   setModuleStates(desiredStates);
 

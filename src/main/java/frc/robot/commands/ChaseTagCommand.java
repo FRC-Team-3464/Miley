@@ -125,6 +125,8 @@ public class ChaseTagCommand extends Command {
 
       swerveSubsystem.drive(
         ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
+
+      lastTarget = null;
     }
   }
 

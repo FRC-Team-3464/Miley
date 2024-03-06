@@ -70,7 +70,7 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
   public PoseEstimatorSubsystem(PhotonCamera photonCamera) {
     this.photonCamera = photonCamera;
 
-    ShuffleboardTab tab = Shuffleboard.getTab("Vision");  //fixme
+    ShuffleboardTab tab = Shuffleboard.getTab("Vision");
 
     poseEstimator =  new SwerveDrivePoseEstimator(
         DriveConstants.kDriveKinematics,
