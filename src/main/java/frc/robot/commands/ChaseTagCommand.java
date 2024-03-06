@@ -5,6 +5,7 @@ import static frc.robot.subsystems.PoseEstimatorSubsystem.ROBOT_TO_CAMERA;
 import java.util.function.Supplier;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -105,7 +106,8 @@ public class ChaseTagCommand extends Command {
     
     if (lastTarget == null) {
       // No target has been visible
-      swerveSubsystem.stopModules();
+      // swerveSubsystem.stopModules();
+      photonCamera.setLED(VisionLEDMode.kOff);
     } else {
       // Drive to the target
       var xSpeed = xController.calculate(robotPose.getX());
@@ -123,9 +125,10 @@ public class ChaseTagCommand extends Command {
         omegaSpeed = 0;
       }
 
-      swerveSubsystem.drive(
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
+      // swerveSubsystem.drive(
+      //   ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
 
+      photonCamera.setLED(VisionLEDMode.kBlink);
       lastTarget = null;
     }
   }
