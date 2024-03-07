@@ -70,8 +70,8 @@ public class RobotContainer {
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverXAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverRotAxis),
-                () -> true/*
-                () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx */);
+                // () -> true/*
+                () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx));
 
   public RobotContainer() {
 
