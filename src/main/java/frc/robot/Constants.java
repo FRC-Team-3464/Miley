@@ -155,11 +155,14 @@ public static final class TragConstants {
   //  public static final Double[] coordsOriginToAmpEnd = {0.427, 0.451, -90.0};
 
    public static final Double[] coordsAmpToAmpNoteStart = {0.0, 0.0, -90.0};   
-   public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.9, -0.6, -40.0};
+   public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.5, -0.3, -30.0};
   //  public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.9, -0.6, -40.0};   
   // public static final Double[] coordsAmpToAmpNoteEnd = {1.13, -0.84, -40.0};
+// public static final Double[] coordsAmpToAmpNoteEnd = {1.15, -0.9, -40.0};
+  public static final Double[] coordsAmpToAmpNoteEnd = {1.33, -1.04, -20.0};
 
-   public static final Double[] coordsAmpToAmpNoteEnd = {1.03, -0.74, -40.0};
+
+  //  public static final Double[] coordsAmpToAmpNoteEnd = {1.03, -0.74, -40.0};
 
    public static final Double[] coordsAmpToSpeakerNoteStart = {0.0, 0.0, -90.0};    
    public static final Double[] coordsAmpToSpeakerNoteWayPoint1 = {0.5, -2.178, -90.0};
@@ -254,7 +257,7 @@ public static final class OIConstants {
   public static final int kDriverYAxis = 1;
   public static final int kDriverXAxis = 0;
   public static final int kDriverRotAxis = 4;
-  public static final int kDriverFieldOrientedButtonIdx = 1;
+  public static final int kDriverFieldOrientedButtonIdx = 5;
 
   public static final double kDeadband = 0.08;
 }
@@ -265,7 +268,7 @@ public static final class SandwichConstants {
 
   public static final double kReverseShootSpeed = -1;
   public static final double kAmpShootSpeed = 0.5;
-  public static final double kSpeakerShootSpeed = 1;
+  public static final double kSpeakerShootSpeed = 0.8;
 
   public static final double kShootVelocityTarget = 5000;
 }
