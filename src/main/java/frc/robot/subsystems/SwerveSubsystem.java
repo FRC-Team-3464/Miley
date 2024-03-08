@@ -18,12 +18,13 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.MotorConstants;
 
 public class SwerveSubsystem extends SubsystemBase {
   // Define the four modules
   private final SwerveModule frontLeft = new SwerveModule(
-    DriveConstants.kFrontLeftDriveMotorPort,
-    DriveConstants.kFrontLeftTurningMotorPort,
+    MotorConstants.kFrontLeftDriveMotorPort,
+    MotorConstants.kFrontLeftTurningMotorPort,
     DriveConstants.kFrontLeftDriveEncoderReversed,
     DriveConstants.kFrontLeftTurningEncoderReversed,
     DriveConstants.kFrontLeftDriveAbsoluteEncoderPort,
@@ -31,8 +32,8 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
 
   private final SwerveModule frontRight = new SwerveModule(
-    DriveConstants.kFrontRightDriveMotorPort,
-    DriveConstants.kFrontRightTurningMotorPort,
+    MotorConstants.kFrontRightDriveMotorPort,
+    MotorConstants.kFrontRightTurningMotorPort,
     DriveConstants.kFrontRightDriveEncoderReversed,
     DriveConstants.kFrontRightTurningEncoderReversed,
     DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
@@ -40,8 +41,8 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
 
   private final SwerveModule backLeft = new SwerveModule(
-    DriveConstants.kBackLeftDriveMotorPort,
-    DriveConstants.kBackLeftTurningMotorPort,
+    MotorConstants.kBackLeftDriveMotorPort,
+    MotorConstants.kBackLeftTurningMotorPort,
     DriveConstants.kBackLeftDriveEncoderReversed,
     DriveConstants.kBackLeftTurningEncoderReversed,
     DriveConstants.kBackLeftDriveAbsoluteEncoderPort,
@@ -49,8 +50,8 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
 
   private final SwerveModule backRight = new SwerveModule(
-    DriveConstants.kBackRightDriveMotorPort,
-    DriveConstants.kBackRightTurningMotorPort,
+    MotorConstants.kBackRightDriveMotorPort,
+    MotorConstants.kBackRightTurningMotorPort,
     DriveConstants.kBackRightDriveEncoderReversed,
     DriveConstants.kBackRightTurningEncoderReversed,
     DriveConstants.kBackRightDriveAbsoluteEncoderPort,

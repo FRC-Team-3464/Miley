@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final CANSparkMax intakeMotor = new CANSparkMax(12, MotorType.kBrushless);
+  private final CANSparkMax miniMotor = new CANSparkMax(15, MotorType.kBrushless);
+
   private final DigitalInput intakeButton = new DigitalInput(6);
   private final XboxController xbox = new XboxController(2);
 
@@ -54,12 +56,17 @@ public class IntakeSubsystem extends SubsystemBase {
     return intakeMotor.getOutputCurrent();
   }
   
+  public void runExtendedIntake(double speed) {
+    miniMotor.set(speed);
+  }
+
   public void runIntake(double speed) {
     intakeMotor.set(speed);
   }
 
   public void stopIntake() {
     intakeMotor.set(0);
+    miniMotor.set(0);
   }
 // hello this is also a test yo0iehnlkan
 

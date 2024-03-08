@@ -31,6 +31,28 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final class MotorConstants {
+    public static final int kFrontLeftDriveMotorPort = 8;
+    public static final int kBackLeftDriveMotorPort = 2;
+    public static final int kFrontRightDriveMotorPort = 6;
+    public static final int kBackRightDriveMotorPort = 4;
+
+    public static final int kFrontLeftTurningMotorPort = 7;
+    public static final int kBackLeftTurningMotorPort = 1;
+    public static final int kFrontRightTurningMotorPort = 5;
+    public static final int kBackRightTurningMotorPort = 3;
+
+    public static final int kLeftElevatorID = 9;
+    public static final int kRightElevatorID = 10;
+
+    public static final int kShootMotorID = 11;
+    public static final int kIntakeMotorID = 12;
+    public static final int kMiniIntakeID = 15;
+
+    public static final int kLeftPivoterID = 13;
+    public static final int kRightPivoterID = 14;
+  }
+
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
     // Level1 Standard Gear Ratios
@@ -55,16 +77,6 @@ public final class Constants {
             new Translation2d(kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
-
-    public static final int kFrontLeftDriveMotorPort = 8;
-    public static final int kBackLeftDriveMotorPort = 2;
-    public static final int kFrontRightDriveMotorPort = 6;
-    public static final int kBackRightDriveMotorPort = 4;
-
-    public static final int kFrontLeftTurningMotorPort = 7;
-    public static final int kBackLeftTurningMotorPort = 1;
-    public static final int kFrontRightTurningMotorPort = 5;
-    public static final int kBackRightTurningMotorPort = 3;
 
     public static final boolean kFrontLeftTurningEncoderReversed = false;
     public static final boolean kBackLeftTurningEncoderReversed = false;

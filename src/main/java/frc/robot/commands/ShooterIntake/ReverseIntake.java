@@ -30,6 +30,7 @@ public class ReverseIntake extends Command {
   public void execute() {
     intakeSub.runIntake(Constants.SandwichConstants.kReverseIntakeSpeed);
     shooterSub.runShooter(Constants.SandwichConstants.kReverseShootSpeed);
+    intakeSub.runExtendedIntake(-0.5);
   }
 
   // Called once the command ends or is interrupted.
