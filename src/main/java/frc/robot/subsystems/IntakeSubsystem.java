@@ -20,6 +20,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private final CANSparkMax miniMotor = new CANSparkMax(15, MotorType.kBrushless);
 
   private final DigitalInput intakeButton = new DigitalInput(6);
+  private final DigitalInput leftPhotoElectric = new DigitalInput(7);
+  private final DigitalInput rightPhotoElectric = new DigitalInput(8);
   private final XboxController xbox = new XboxController(2);
 
   private static IntakeSubsystem instance = null;  
@@ -38,6 +40,14 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public Boolean getIntakeButton() {
     return intakeButton.get();
+  }
+
+  public Boolean getPhotoElectricOne() {
+    return leftPhotoElectric.get();
+  }
+
+  public Boolean getPhotoElectronTwo() {
+    return rightPhotoElectric.get();
   }
   
   public double getIntakeVelocity(){
