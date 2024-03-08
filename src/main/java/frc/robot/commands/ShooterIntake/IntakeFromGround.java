@@ -45,12 +45,14 @@ public class IntakeFromGround extends Command {
     }
     else {
       intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
-      intakeSub.runExtendedIntake(0.5);
+      intakeSub.runExtendedIntake(0.75);
     }}
   
     // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    startTime.stop();
+    startTime.reset();
     intakeSub.stopIntake();
     intakeSub.stopRumble();
   }
