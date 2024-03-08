@@ -30,7 +30,7 @@ public class PivoterSubsystem extends SubsystemBase {
   private final SparkPIDController m_pidController;
   // PID gains for Spark Smart Motion - class defined below
   // private Gains gains = new Gains(0.00025, 0, 0, 0.00025, 0, 1);
-  private Gains gains = new Gains(0.0002, 0, 0, 0.0008, 0, 0.25);
+  private Gains gains = new Gains(0.000, 0, 0, 0.000275, 0, 1);
 
   private static final int SMART_MOTION_SLOT = 0;
 
@@ -39,10 +39,10 @@ public class PivoterSubsystem extends SubsystemBase {
     // private static final double MIN_VELOCITY_RPM = 0;
     // private static final double MAX_ACCELERATION_RPM_PER_SEC = 1_500;
     // private static final double ALLOWED_ERROR = 0.1; //motor rotations
-    private static final double MAX_VELOCITY_RPM = 500; // NEO free speed 5676 RPM
+    private static final double MAX_VELOCITY_RPM = 1000; // NEO free speed 5676 RPM
     private static final double MIN_VELOCITY_RPM = 0;
-    private static final double MAX_ACCELERATION_RPM_PER_SEC = 250;
-    private static final double ALLOWED_ERROR = 0.04; //motor rota
+    private static final double MAX_ACCELERATION_RPM_PER_SEC = 1500;
+    private static final double ALLOWED_ERROR = 0.075; //motor rota
 
     // Voltage needed to maintain horizontal arm position.
     private static final double horizontalArbFF = 0.00; 
