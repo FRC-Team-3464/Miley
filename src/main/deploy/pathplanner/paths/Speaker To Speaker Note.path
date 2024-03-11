@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.08,
-        "y": 7.419566003027493
+        "x": 1.3473171105845272,
+        "y": 5.554723360164464
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.7540328825075715,
-        "y": 7.039325432570105
+        "x": 2.7389214892348797,
+        "y": 5.554723360164464
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.3576779647621067,
-        "y": 5.518363150740554
+        "x": 2.8909454969865997,
+        "y": 5.554723360164464
       },
       "prevControl": {
-        "x": 4.04861123261439,
-        "y": 6.259344775221617
+        "x": 2.107437149343123,
+        "y": 5.5781116690493455
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4 Note Hail Mary",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
