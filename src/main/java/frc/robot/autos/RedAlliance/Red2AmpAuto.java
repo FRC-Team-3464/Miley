@@ -97,7 +97,7 @@ public class Red2AmpAuto extends SequentialCommandGroup {
       
       // Shoot in AMP for 1.5 Seconds 
       new ParallelRaceGroup(
-        new WaitCommand(1.5),
+        new WaitCommand(0.5),
         new ShootAmp()),
 
       // Move arm down to rest pos
