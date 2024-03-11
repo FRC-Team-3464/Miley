@@ -51,6 +51,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -65,6 +69,10 @@ public class RobotContainer {
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   // private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
+
+  // Build an auto chooser. This will use Commands.none() as the default option.
+  SendableChooser<Command> autoChooser;
+
   
     private final SwerveJoystickCMD swerveCMD = new SwerveJoystickCMD(
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
@@ -75,28 +83,39 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    // where we set the options that user has to choose for autos 
-    // Red Autos
-    commandChooser.addOption("Red 1 Amp ", "R1A");
-    commandChooser.addOption("Red 2 Amp ", "R2A");
-    // commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
-    commandChooser.addOption("Red 1 Speaker ", "R1S");
-    commandChooser.setDefaultOption("Red 2 Speaker", "R2S");
-    commandChooser.setDefaultOption("Red 2 Straight Speaker", "R2SS");
-    commandChooser.addOption("Red Center Hail Mary", "RCHM");    
-    // Blue Autos
-    commandChooser.addOption("Blue 1 Amp", "B1A");
-    commandChooser.addOption("Blue 2 Amp", "B2A");
-    // commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
-    commandChooser.addOption("Blue 1 Speaker ", "B1S");
-    commandChooser.addOption("Blue 2 Speaker", "B2S");
-    commandChooser.setDefaultOption("Blue 2 Straight Speaker", "B2SS");
-    commandChooser.addOption("Blue Center Hail Mary", "BCHM");    
+    // // where we set the options that user has to choose for autos 
+    // // Red Autos
+    // commandChooser.addOption("Red 1 Amp ", "R1A");
+    // commandChooser.addOption("Red 2 Amp ", "R2A");
+    // // commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
+    // commandChooser.addOption("Red 1 Speaker ", "R1S");
+    // commandChooser.setDefaultOption("Red 2 Speaker", "R2S");
+    // commandChooser.setDefaultOption("Red 2 Straight Speaker", "R2SS");
+    // commandChooser.addOption("Red Center Hail Mary", "RCHM");    
+    // // Blue Autos
+    // commandChooser.addOption("Blue 1 Amp", "B1A");
+    // commandChooser.addOption("Blue 2 Amp", "B2A");
+    // // commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
+    // commandChooser.addOption("Blue 1 Speaker ", "B1S");
+    // commandChooser.addOption("Blue 2 Speaker", "B2S");
+    // commandChooser.setDefaultOption("Blue 2 Straight Speaker", "B2SS");
+    // commandChooser.addOption("Blue Center Hail Mary", "BCHM");    
     
-    SmartDashboard.putData("Auto", commandChooser);
+    // SmartDashboard.putData("Auto", commandChooser);
 
-    // Have our default swerve command to be the one that allows us to drive it. 
+    // // Have our default swerve command to be the one that allows us to drive it. 
     CommandScheduler.getInstance().setDefaultCommand(swerveSubsystem, swerveCMD);
+
+    /* --------------------- PATHPLANNER --------------------- */ 
+    NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations));
+    NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
+    
+    NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
+    NamedCommands.registerCommand("Intake From Ground", new IntakeFromGround());
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    
     configureBindings();
   }
 
@@ -143,113 +162,114 @@ public class RobotContainer {
     // Config our theta controller to calculate error in a circle.
     AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
-    SwerveControllerCommand originToFarCenterNote = new SwerveControllerCommand(
-      TragConstants.tragOriginToFarCenterNote, 
-      swerveSubsystem::getPose,
-      DriveConstants.kDriveKinematics,
-      AutoConstants.xController,
-      AutoConstants.yController, 
-      AutoConstants.thetaController, 
-      swerveSubsystem::setModuleStates,
-      swerveSubsystem);
+    // SwerveControllerCommand originToFarCenterNote = new SwerveControllerCommand(
+    //   TragConstants.tragOriginToFarCenterNote, 
+    //   swerveSubsystem::getPose,
+    //   DriveConstants.kDriveKinematics,
+    //   AutoConstants.xController,
+    //   AutoConstants.yController, 
+    //   AutoConstants.thetaController, 
+    //   swerveSubsystem::setModuleStates,
+    //   swerveSubsystem);
 
-    SwerveControllerCommand blueOriginToFarCenterNote = new SwerveControllerCommand(
-      TragConstants.tragBlueOriginToFarCenterNote, 
-      swerveSubsystem::getPose,
-      DriveConstants.kDriveKinematics,
-      AutoConstants.xController,
-      AutoConstants.yController, 
-      AutoConstants.thetaController, 
-      swerveSubsystem::setModuleStates,
-      swerveSubsystem);
+    // SwerveControllerCommand blueOriginToFarCenterNote = new SwerveControllerCommand(
+    //   TragConstants.tragBlueOriginToFarCenterNote, 
+    //   swerveSubsystem::getPose,
+    //   DriveConstants.kDriveKinematics,
+    //   AutoConstants.xController,
+    //   AutoConstants.yController, 
+    //   AutoConstants.thetaController, 
+    //   swerveSubsystem::setModuleStates,
+    //   swerveSubsystem);
 
-    // Chooser selection 
-    if (commandChooser.getSelected() == "R1A"){
-      selectedAuto = new Red1AmpAuto();
+    // // Chooser selection 
+    // if (commandChooser.getSelected() == "R1A"){
+    //   selectedAuto = new Red1AmpAuto();
       
-    }else if (commandChooser.getSelected() == "R2A"){
-      selectedAuto = new Red2AmpAuto();
+    // }else if (commandChooser.getSelected() == "R2A"){
+    //   selectedAuto = new Red2AmpAuto();
 
-    }else if (commandChooser.getSelected() == "R3AHM"){
-      /* NOT USED FOR HARTFORD */
-      // HAIL MARY
-      selectedAuto = new Red3AmpHailMary();
+    // }else if (commandChooser.getSelected() == "R3AHM"){
+    //   /* NOT USED FOR HARTFORD */
+    //   // HAIL MARY
+    //   selectedAuto = new Red3AmpHailMary();
       
-    }else if(commandChooser.getSelected() == "R1S"){
-      selectedAuto = new Red1Speaker();
+    // }else if(commandChooser.getSelected() == "R1S"){
+    //   selectedAuto = new Red1Speaker();
 
-    }else if(commandChooser.getSelected() == "R2S"){
-      selectedAuto = new Red2Speaker();
+    // }else if(commandChooser.getSelected() == "R2S"){
+    //   selectedAuto = new Red2Speaker();
 
-    }else if(commandChooser.getSelected() == "R2SS"){
-      selectedAuto = new Red2StraightSpeaker();
+    // }else if(commandChooser.getSelected() == "R2SS"){
+    //   selectedAuto = new Red2StraightSpeaker();
 
-    }else if (commandChooser.getSelected() == "B1A"){
-      selectedAuto = new Blue1AmpAuto();
+    // }else if (commandChooser.getSelected() == "B1A"){
+    //   selectedAuto = new Blue1AmpAuto();
       
-    }else if(commandChooser.getSelected() == "B2A"){
-      selectedAuto = new Blue2AmpAuto();
+    // }else if(commandChooser.getSelected() == "B2A"){
+    //   selectedAuto = new Blue2AmpAuto();
 
-    }else if (commandChooser.getSelected() == "B3AHM"){
-      /* NOT USED FOR HARTFORD */
-      selectedAuto = new Blue3AmpHailMary();       
+    // }else if (commandChooser.getSelected() == "B3AHM"){
+    //   /* NOT USED FOR HARTFORD */
+    //   selectedAuto = new Blue3AmpHailMary();       
 
-    }else if(commandChooser.getSelected() == "B1S"){
-      selectedAuto = new Blue1Speaker();
+    // }else if(commandChooser.getSelected() == "B1S"){
+    //   selectedAuto = new Blue1Speaker();
 
-    }else if(commandChooser.getSelected() == "B2S"){
-      selectedAuto = new Blue2Speaker();
+    // }else if(commandChooser.getSelected() == "B2S"){
+    //   selectedAuto = new Blue2Speaker();
     
-    }else if(commandChooser.getSelected() == "B2SS"){
-      selectedAuto = new Blue2StraightSpeaker();
+    // }else if(commandChooser.getSelected() == "B2SS"){
+    //   selectedAuto = new Blue2StraightSpeaker();
     
-    }else if(commandChooser.getSelected() == "RCHM"){
-      selectedAuto = new SequentialCommandGroup(
-        // Shoot first into speaker
-        new InstantCommand(() -> swerveSubsystem.stopModules()),
-        new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
-        new ParallelRaceGroup(
-          new ShootManual(),
-          new WaitCommand(2)        
-        ),
-        // Go to subwoffer pos;
-        new PIDPivotToPosition(0),
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
-            // IF we reach a note and intake it - great. No need for fussy dual parallel commands
-        new ParallelRaceGroup(
-          new IntakeFromGround(),
-          originToFarCenterNote
-        ),
+    // }else if(commandChooser.getSelected() == "RCHM"){
+    //   selectedAuto = new SequentialCommandGroup(
+    //     // Shoot first into speaker
+    //     new InstantCommand(() -> swerveSubsystem.stopModules()),
+    //     new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+    //     new ParallelRaceGroup(
+    //       new ShootManual(),
+    //       new WaitCommand(2)        
+    //     ),
+    //     // Go to subwoffer pos;
+    //     new PIDPivotToPosition(0),
+    //     new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
+    //         // IF we reach a note and intake it - great. No need for fussy dual parallel commands
+    //     new ParallelRaceGroup(
+    //       new IntakeFromGround(),
+    //       originToFarCenterNote
+    //     ),
 
-        new InstantCommand(() -> swerveSubsystem.stopModules())
-        );
+    //     new InstantCommand(() -> swerveSubsystem.stopModules())
+    //     );
 
-    } else if(commandChooser.getSelected() == "BCHM"){
-        selectedAuto = new SequentialCommandGroup(
-          // Shoot first into speaker
-          new InstantCommand(() -> swerveSubsystem.stopModules()),
-          new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
-          new ParallelRaceGroup(
-           new ShootManual(),
-           new WaitCommand(2)        
-          ),
-          // Go to subwoffer pos;
-          new PIDPivotToPosition(0),
-          new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueOriginToFarCenterNote.getInitialPose())),
+    // } else if(commandChooser.getSelected() == "BCHM"){
+    //     selectedAuto = new SequentialCommandGroup(
+    //       // Shoot first into speaker
+    //       new InstantCommand(() -> swerveSubsystem.stopModules()),
+    //       new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
+    //       new ParallelRaceGroup(
+    //        new ShootManual(),
+    //        new WaitCommand(2)        
+    //       ),
+    //       // Go to subwoffer pos;
+    //       new PIDPivotToPosition(0),
+    //       new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueOriginToFarCenterNote.getInitialPose())),
           
-          new ParallelRaceGroup(
-            new IntakeFromGround(),
-            blueOriginToFarCenterNote
+    //       new ParallelRaceGroup(
+    //         new IntakeFromGround(),
+    //         blueOriginToFarCenterNote
 
-          ),
-          new InstantCommand(() -> swerveSubsystem.stopModules())
-          );
+    //       ),
+    //       new InstantCommand(() -> swerveSubsystem.stopModules())
+    //       );
 
-    } else{
-      selectedAuto = null;
-    }
+    // } else{
+    //   selectedAuto = null;
+    // }
 
-    // Return our selected auto to be run. 
-    return selectedAuto;
+    // // Return our selected auto to be run. 
+    // return selectedAuto;
+    return autoChooser.getSelected();
   }
 }
