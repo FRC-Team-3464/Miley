@@ -111,11 +111,14 @@ public class RobotContainer {
     /* --------------------- PATHPLANNER --------------------- */ 
     NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations));
     NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
+    NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations));
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Trigger Intake", new RunIntake());
+    NamedCommands.registerCommand("Reverse Intake", );
     
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
+    NamedCommands.registerCommand("Stop Shooter", new ShooterVelocityPID(0));
 
     NamedCommands.registerCommand("Intake From Ground", new IntakeFromGround());
 

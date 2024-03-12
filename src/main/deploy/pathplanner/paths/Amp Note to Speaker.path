@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.35,
-        "y": 5.554723360164464
+        "x": 1.289429657244114,
+        "y": 5.518363150740554
       },
       "prevControl": {
-        "x": 2.371652819315141,
-        "y": 6.405591148474459
+        "x": 2.3110824765592555,
+        "y": 6.369230939050549
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4 Note Speaker",
+  "folder": "Speaker Points",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
