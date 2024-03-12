@@ -243,7 +243,7 @@ public static final class TragConstants {
 
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
-  public static final double kSubwofferPivoterRotations = 1.7777; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
+  public static final double kSubwofferPivoterRotations = 2; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
   // public static final double kAmpPivoterRotations = 28.5;
   
   public static final double kAmpPivoterRotations = 29;

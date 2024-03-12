@@ -23,8 +23,10 @@ import frc.robot.autos.RedAlliance.Red2Speaker;
 import frc.robot.autos.RedAlliance.Red2StraightSpeaker;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
+import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
+import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 // import frc.robot.commands.ShooterIntake.ShootSpeaker;
 // import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.commands.SwerveJoystickCMD;
@@ -111,6 +113,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
+    NamedCommands.registerCommand("Trigger Intake", new RunIntake());
+    
+    NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
+
     NamedCommands.registerCommand("Intake From Ground", new IntakeFromGround());
 
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -127,7 +133,7 @@ public class RobotContainer {
     Constants.OperatorConstants.buttonY.onTrue(new LedFlash());
 
     // Commands regarding the intake sandwich  and Elevator
-    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(5000));
+    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
     Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
