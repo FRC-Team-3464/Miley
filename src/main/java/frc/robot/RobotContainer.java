@@ -115,7 +115,7 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Trigger Intake", new RunIntake());
-    NamedCommands.registerCommand("Reverse Intake", );
+    NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
     NamedCommands.registerCommand("Stop Shooter", new ShooterVelocityPID(0));
