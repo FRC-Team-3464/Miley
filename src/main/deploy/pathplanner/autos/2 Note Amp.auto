@@ -24,7 +24,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Pivot to Amp"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot Amp"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.6
                 }
               }
             ]
@@ -75,10 +94,35 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Pivot to Amp"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot Amp"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.6
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pivot to Ground"
           }
         }
       ]

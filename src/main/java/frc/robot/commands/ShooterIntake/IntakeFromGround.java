@@ -17,6 +17,7 @@ public class IntakeFromGround extends Command {
   private LEDSubsystem ledSub;
   Timer startTime;
   Boolean finish;
+  Boolean note;
 
   public IntakeFromGround() {
     intakeSub = IntakeSubsystem.getInstance();
@@ -31,35 +32,50 @@ public class IntakeFromGround extends Command {
     startTime = new Timer();
     startTime.reset();
     finish = false;
+    note = false;
     ledSub.setOrange();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!intakeSub.getIntakeButton()) {
+    // if(!intakeSub.getIntakeButton()) {
+    //   buttonTime.start();
+    //   // change LED light color
+    //   ledSub.setGreen();
+    //   intakeSub.rumbleDude();
+    //   note = true;
+    // }
+    if(intakeSub.getPhotoElectricRight() || intakeSub.getPhotoElectricLeft()){
       startTime.start();
-      // change LED light color
-      ledSub.setGreen();
-      intakeSub.rumbleDude();
+      ledSub.setYellow();
+      note = true;
     }
-    else {
+
+    if(note){
+      intakeSub.runIntake(-0.5);
+      intakeSub.rumbleDude();
+    }else{
       intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
       intakeSub.runExtendedIntake(0.85);
-    }}
+    }
+  }
   
     // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     startTime.stop();
     startTime.reset();
+    // ledSub.setGreen();
     intakeSub.stopIntake();
     intakeSub.stopRumble();
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return(startTime.get() > 0.005 || !intakeSub.getPhotoElectricOne() || !intakeSub.getPhotoElectronTwo());
+    return(startTime.get() > 0.05);
+
   }
 }

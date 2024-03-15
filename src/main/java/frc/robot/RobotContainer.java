@@ -22,6 +22,7 @@ import frc.robot.autos.RedAlliance.Red3AmpHailMary;
 import frc.robot.autos.RedAlliance.Red2Speaker;
 import frc.robot.autos.RedAlliance.Red2StraightSpeaker;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
+import frc.robot.commands.ShooterIntake.ManualIntake;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
@@ -114,6 +115,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations));
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
+    NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
     NamedCommands.registerCommand("Trigger Intake", new RunIntake());
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     
@@ -144,6 +146,7 @@ public class RobotContainer {
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
+    Constants.OperatorConstants.button12.whileTrue(new ManualIntake());
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
@@ -151,7 +154,7 @@ public class RobotContainer {
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
     Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
     Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
-    Constants.OperatorConstants.button12.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // Manual Up
+    // Constants.OperatorConstants.button12.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // Manual Up
 
     // Commands for elevator hahahah lmao
     Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
