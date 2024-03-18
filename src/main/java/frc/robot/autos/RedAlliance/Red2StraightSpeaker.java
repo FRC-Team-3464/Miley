@@ -140,8 +140,8 @@ SwerveControllerCommand stageNoteToSpeakerShooting = new SwerveControllerCommand
       // Aim and shoot
       new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations),
       new ParallelRaceGroup(
-        // Stop our intake after point 0.1 second - so we're not too high
-        new WaitCommand(0.1), 
+        // Stop our intake after point 0.05 second - so we're not too high
+        new WaitCommand(0.05), 
         new ReverseIntake()
         ),
 

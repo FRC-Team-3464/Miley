@@ -32,11 +32,11 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor.setInverted(false); 
     // shooterMotor.setSmartCurrentLimit(30);
 //   PID coefficients (ง'̀-'́)ง
-    kP = 0.0001;
+    kP = 0.000;
     kI = 0;
     kD = 0;
     kIz = 0;
-    kFF = 0.0001625;
+    kFF = 0.00019;
     kMaxOutput = 1;
     kMinOutput = -1;
     maxRPM = 5700;

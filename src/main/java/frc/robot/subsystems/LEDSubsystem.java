@@ -83,6 +83,18 @@ public class LEDSubsystem extends SubsystemBase {
      ledStrip.setData(ledBuffer);
   }
 
+    public void setYellow() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+        // Sets the specified LED to the RGB values for red
+        ledBuffer.setRGB(i, 255, 255, 0);
+     }
+      ledState = "Orange";
+     ledStrip.setData(ledBuffer);
+  }
+
+
+
+
   public void setPurple() {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
       ledBuffer.setRGB(i,150,0,150);

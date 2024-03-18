@@ -31,6 +31,28 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final class MotorConstants {
+    public static final int kFrontLeftDriveMotorPort = 8;
+    public static final int kBackLeftDriveMotorPort = 2;
+    public static final int kFrontRightDriveMotorPort = 6;
+    public static final int kBackRightDriveMotorPort = 4;
+
+    public static final int kFrontLeftTurningMotorPort = 7;
+    public static final int kBackLeftTurningMotorPort = 1;
+    public static final int kFrontRightTurningMotorPort = 5;
+    public static final int kBackRightTurningMotorPort = 3;
+
+    public static final int kLeftElevatorID = 9;
+    public static final int kRightElevatorID = 10;
+
+    public static final int kShootMotorID = 11;
+    public static final int kIntakeMotorID = 12;
+    public static final int kMiniIntakeID = 15;
+
+    public static final int kLeftPivoterID = 13;
+    public static final int kRightPivoterID = 14;
+  }
+
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
     // Level1 Standard Gear Ratios
@@ -55,16 +77,6 @@ public final class Constants {
             new Translation2d(kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
-
-    public static final int kFrontLeftDriveMotorPort = 8;
-    public static final int kBackLeftDriveMotorPort = 2;
-    public static final int kFrontRightDriveMotorPort = 6;
-    public static final int kBackRightDriveMotorPort = 4;
-
-    public static final int kFrontLeftTurningMotorPort = 7;
-    public static final int kBackLeftTurningMotorPort = 1;
-    public static final int kFrontRightTurningMotorPort = 5;
-    public static final int kBackRightTurningMotorPort = 3;
 
     public static final boolean kFrontLeftTurningEncoderReversed = false;
     public static final boolean kBackLeftTurningEncoderReversed = false;
@@ -103,7 +115,8 @@ public final class Constants {
     public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.25;
+    // public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.25;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.069;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
             kPhysicalMaxAngularSpeedRadiansPerSecond / 2.75;
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
@@ -155,11 +168,14 @@ public static final class TragConstants {
   //  public static final Double[] coordsOriginToAmpEnd = {0.427, 0.451, -90.0};
 
    public static final Double[] coordsAmpToAmpNoteStart = {0.0, 0.0, -90.0};   
-   public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.9, -0.6, -40.0};
+   public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.5, -0.3, -30.0};
   //  public static final Double[] coordsAmpToAmpNoteWayPoint1 = {0.9, -0.6, -40.0};   
   // public static final Double[] coordsAmpToAmpNoteEnd = {1.13, -0.84, -40.0};
+// public static final Double[] coordsAmpToAmpNoteEnd = {1.15, -0.9, -40.0};
+  public static final Double[] coordsAmpToAmpNoteEnd = {1.33, -1.04, -20.0};
 
-   public static final Double[] coordsAmpToAmpNoteEnd = {1.03, -0.74, -40.0};
+
+  //  public static final Double[] coordsAmpToAmpNoteEnd = {1.03, -0.74, -40.0};
 
    public static final Double[] coordsAmpToSpeakerNoteStart = {0.0, 0.0, -90.0};    
    public static final Double[] coordsAmpToSpeakerNoteWayPoint1 = {0.5, -2.178, -90.0};
@@ -228,10 +244,10 @@ public static final class TragConstants {
 
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
-  public static final double kSubwofferPivoterRotations = 1.7777; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
+  public static final double kSubwofferPivoterRotations = 2; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
   // public static final double kAmpPivoterRotations = 28.5;
   
-  public static final double kAmpPivoterRotations = 29;
+  public static final double kAmpPivoterRotations = 29.7;
 
   public static final double kStagePivoterRotations = 8.5;
 
@@ -254,18 +270,18 @@ public static final class OIConstants {
   public static final int kDriverYAxis = 1;
   public static final int kDriverXAxis = 0;
   public static final int kDriverRotAxis = 4;
-  public static final int kDriverFieldOrientedButtonIdx = 1;
+  public static final int kDriverFieldOrientedButtonIdx = 6;
 
   public static final double kDeadband = 0.08;
 }
 
 public static final class SandwichConstants {
   public static final double kIntakeSpeed = 0.5;
-  public static final double kReverseIntakeSpeed = -1;
+  public static final double kReverseIntakeSpeed = -0.75;
 
-  public static final double kReverseShootSpeed = -1;
+  public static final double kReverseShootSpeed = -0.75;
   public static final double kAmpShootSpeed = 0.5;
-  public static final double kSpeakerShootSpeed = 1;
+  public static final double kSpeakerShootSpeed = 0.8;
 
   public static final double kShootVelocityTarget = 5000;
 }
