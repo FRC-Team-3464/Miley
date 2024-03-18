@@ -122,7 +122,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
               var alliance = DriverStation.getAlliance();
               if (alliance.isPresent()) {
-                return alliance.get() == DriverStation.Alliance.Red;
+                return !(alliance.get() == DriverStation.Alliance.Red);
               }
               return false;
             },
@@ -222,7 +222,7 @@ public class SwerveSubsystem extends SubsystemBase {
         backRight.getPosition()
     });
 
-    SmartDashboard.putBoolean("Red Alliance?", (DriverStation.getAlliance().get() == Alliance.Red));
+    // SmartDashboard.putBoolean("Red Alliance?", (DriverStation.getAlliance().get() == Alliance.Red));
     SmartDashboard.putNumber("Robot Heading", getHeading());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
 

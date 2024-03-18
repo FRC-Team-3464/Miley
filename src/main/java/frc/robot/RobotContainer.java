@@ -31,6 +31,7 @@ import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 // import frc.robot.commands.ShooterIntake.ShootSpeaker;
 // import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.commands.SwerveJoystickCMD;
+import frc.robot.commands.Pivoter.ManualPivotUp;
 // import frc.robot.commands.Pivoter.ManualPivotDown;
 // import frc.robot.commands.Pivoter.ManualPivotUp;
 import frc.robot.commands.Pivoter.PIDManual;
@@ -42,6 +43,7 @@ import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
 import frc.robot.commands.Leds.LedFlash;
+import frc.robot.subsystems.PivoterSubsystem;
 // import frc.robot.subsystems.IntakeSubsystem;
 // import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -70,6 +72,7 @@ public class RobotContainer {
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
+  private final PivoterSubsystem pivotSub = PivoterSubsystem.getInstance();
   // private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
 
@@ -153,13 +156,17 @@ public class RobotContainer {
     Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations)); // Subwoofer Angle
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
     Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
-    Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
+    // Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
+    Constants.OperatorConstants.button11.onTrue(new InstantCommand(() -> pivotSub.resetEncoder(0)));
+    Constants.OperatorConstants.pancakeUp.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); 
+    Constants.OperatorConstants.pancakeDown.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5)));
+    // Constants.OperatorConstants.pancakeUp.whileTrue(new ManualPivotUp());
     // Constants.OperatorConstants.button12.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // Manual Up
 
     // Commands for elevator hahahah lmao
-    Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
-    Constants.OperatorConstants.pancakeDown.whileTrue(new LowerLeftElevator());
-    Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
+    // Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
+    Constants.OperatorConstants.pancakeRight.whileTrue(new LowerLeftElevator());
+    // Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
 
     // Test positions
