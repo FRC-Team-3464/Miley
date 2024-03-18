@@ -81,6 +81,7 @@ public class PivoterSubsystem extends SubsystemBase {
   }
 
   public void pivot(double speed) {
+    leftPivoter.setInverted(true);
     if(speed < 0 && getLowerSwitchToggled()){
       // If we hit the switch and we're going down, stop the motor and reset the encoder
       resetEncoder(0);
@@ -143,7 +144,10 @@ public class PivoterSubsystem extends SubsystemBase {
 
   // Method to run the motor to our target input using PID. 
   public void PIDPivot(double rotations){
-    // Don't do anything if target is out of bounds. 
+    // Don't do anything if target is out of bounds.    
+    leftPivoter.setInverted(true);
+    rightPivoter.follow(leftPivoter, true);
+
     if ((rotations >= PivoterConstants.kMaxPivoterRotations) || rotations < 0){
       System.out.println("ABORT");
     }else{
