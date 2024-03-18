@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +23,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private final DigitalInput intakeButton = new DigitalInput(6);
   private final DigitalInput rightPhotoElectric = new DigitalInput(7);
   private final DigitalInput leftPhotoElectric = new DigitalInput(8);
+
+  private final Servo servoStop = new Servo(1);
 
   private final XboxController xbox = new XboxController(2);
 
@@ -41,6 +44,10 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public Boolean getIntakeButton() {
     return intakeButton.get();
+  }
+
+  public void runServo(double position) {
+    servoStop.set(position);
   }
 
   public Boolean getPhotoElectricLeft() {

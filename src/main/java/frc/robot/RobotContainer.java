@@ -43,6 +43,7 @@ import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
 import frc.robot.commands.Leds.LedFlash;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
 // import frc.robot.subsystems.IntakeSubsystem;
 // import frc.robot.subsystems.LEDSubsystem;
@@ -73,6 +74,7 @@ public class RobotContainer {
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivotSub = PivoterSubsystem.getInstance();
+  private final IntakeSubsystem intakeSub = IntakeSubsystem.getInstance();
   // private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
 
@@ -143,13 +145,18 @@ public class RobotContainer {
     // Commands regarding the intake sandwich  and Elevator
     // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
-    Constants.OperatorConstants.button1.whileTrue(new ShootManual());
+    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
+    Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
+    // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
-    Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
+    // Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
-    Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
+    // Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
     Constants.OperatorConstants.button12.whileTrue(new ManualIntake());
+
+    // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
+    // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));

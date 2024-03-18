@@ -34,6 +34,7 @@ public class IntakeFromGround extends Command {
     finish = false;
     note = false;
     ledSub.setOrange();
+    intakeSub.runServo(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,12 +49,12 @@ public class IntakeFromGround extends Command {
     // }
     if(intakeSub.getPhotoElectricRight() || intakeSub.getPhotoElectricLeft()){
       startTime.start();
-      ledSub.setYellow();
+      ledSub.setGreen();
       note = true;
     }
 
     if(note){
-      intakeSub.runIntake(-0.5);
+      intakeSub.runIntake(0.1);
       intakeSub.rumbleDude();
     }else{
       intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
@@ -69,6 +70,9 @@ public class IntakeFromGround extends Command {
     // ledSub.setGreen();
     intakeSub.stopIntake();
     intakeSub.stopRumble();
+    if(note == false) {
+      ledSub.setOff();
+    }
 
   }
 
