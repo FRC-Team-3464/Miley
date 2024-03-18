@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8909454969865997,
-        "y": 5.554723360164464
+        "x": 0.7531929553170285,
+        "y": 4.3678916811515345
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9788014504803932,
-        "y": 5.566417514601411
+        "x": 1.679419985918358,
+        "y": 3.0419245636591037
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Speaker"
     },
     {
       "anchor": {
-        "x": 1.2601803825935456,
-        "y": 5.554723360164464
+        "x": 8.046012101525392,
+        "y": 0.7604811409147759
       },
       "prevControl": {
-        "x": 2.476372444607299,
-        "y": 5.531335051274091
+        "x": 6.388553204659854,
+        "y": 0.46798839440909257
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Mail Hary 1"
     }
   ],
   "rotationTargets": [],
@@ -43,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker Points",
+  "folder": "Mail Hary",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -60.25511870305787,
     "velocity": 0
   },
   "useDefaultConstraints": true
