@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8909454969865997,
-        "y": 5.554723360164464
+        "x": 2.059660556375746,
+        "y": 3.2954182772973626
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9788014504803932,
-        "y": 5.566417514601411
+        "x": 4.809092373523896,
+        "y": 0.048748791083569776
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Stage Shoot"
     },
     {
       "anchor": {
-        "x": 1.2601803825935456,
-        "y": 5.554723360164464
+        "x": 8.12401016726024,
+        "y": 2.378941004912889
       },
       "prevControl": {
-        "x": 2.476372444607299,
-        "y": 5.531335051274091
+        "x": 6.144809249233181,
+        "y": 1.2967178428411508
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Mail Hary 2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": 25.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -38,14 +44,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0,
+    "velocity": 0.0,
+    "rotation": 24.943905263424544,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker Points",
+  "folder": "Mail Hary",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -57.38075692880728,
     "velocity": 0
   },
   "useDefaultConstraints": true
