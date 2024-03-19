@@ -20,7 +20,7 @@ public class ShootSpeaker extends SequentialCommandGroup {
       new ShooterVelocityPID(Constants.SandwichConstants.kShootVelocityTarget),
 
       // Run our intake for 3 seconds
-      new RunIntake(),
+      new RunIntake(1),
 
       new InstantCommand(ShooterSubsystem.getInstance()::stopShooter));
   }

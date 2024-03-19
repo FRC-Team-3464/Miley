@@ -121,7 +121,7 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
-    NamedCommands.registerCommand("Trigger Intake", new RunIntake());
+    NamedCommands.registerCommand("Trigger Intake", new RunIntake(Constants.SandwichConstants.kIntakeSpeed));
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
@@ -154,9 +154,11 @@ public class RobotContainer {
     // Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
     Constants.OperatorConstants.button12.whileTrue(new ManualIntake());
+    Constants.OperatorConstants.button11.onTrue(new RunIntake(0.8));
 
-    // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
-    // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
+
+    Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
+    Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
@@ -164,7 +166,6 @@ public class RobotContainer {
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
     Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
     // Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
-    Constants.OperatorConstants.button11.onTrue(new InstantCommand(() -> pivotSub.resetEncoder(0)));
     Constants.OperatorConstants.pancakeUp.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); 
     Constants.OperatorConstants.pancakeDown.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5)));
     // Constants.OperatorConstants.pancakeUp.whileTrue(new ManualPivotUp());

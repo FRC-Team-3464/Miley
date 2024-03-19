@@ -6,6 +6,7 @@ package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterVelocityPID extends Command {
@@ -21,7 +22,8 @@ public class ShooterVelocityPID extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   @Override
   public void execute() {
