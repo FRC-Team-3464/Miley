@@ -118,6 +118,10 @@ public class PivoterSubsystem extends SubsystemBase {
     return getPivoterRotation() * 360; 
   }
 
+  public double degreesToMotorRotations(double degrees) {
+    return degrees / PivoterConstants.kPivoterGearRatio / 360;
+  }
+
   public void resetEncoder(double position){
     // Set the encoder back to normal
     leftEncoder.setPosition(position);
