@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker Points",
+  "folder": "Speaker (no rotation) Points",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

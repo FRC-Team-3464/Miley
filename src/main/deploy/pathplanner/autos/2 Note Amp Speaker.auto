@@ -69,7 +69,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Speaker"
+                  "pathName": "Amp Note to Right Stage"
                 }
               },
               {
@@ -84,6 +84,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "tiny weak autos",
   "choreoAuto": false
 }

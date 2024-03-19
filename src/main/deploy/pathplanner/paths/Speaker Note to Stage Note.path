@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.046012101525392,
-        "y": 0.7604811409147759
+        "x": 2.7908924226399536,
+        "y": 5.557362183607978
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.671296192948681,
-        "y": 0.5264869437102309
+        "x": 2.332653786447717,
+        "y": 5.352617261054
       },
       "isLocked": false,
-      "linkedName": "Mail Hary 1"
+      "linkedName": "Speaker Note"
     },
     {
       "anchor": {
-        "x": 2.059660556375746,
-        "y": 3.2954182772973626
+        "x": 2.6056470165196877,
+        "y": 4.211895549681836
       },
       "prevControl": {
-        "x": 2.722644115121961,
-        "y": 2.222944873443192
+        "x": 1.7086692605689264,
+        "y": 4.260644340766117
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": "Stage Note"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -52.65065095535945,
+    "rotation": -23.317708386755093,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Mail Hary",
+  "folder": "Speaker (rotation) points",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

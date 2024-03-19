@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7531929553170285,
-      "y": 4.3678916811515345
+      "x": 1.3576779647621067,
+      "y": 5.557362183607978
     },
-    "rotation": -57.771242564901506
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -18,19 +18,72 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Left Speaker to Mail Hary 1"
+                  "pathName": "Speaker to Amp Note"
                 }
-              },
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
               {
-                "type": "wait",
+                "type": "path",
                 "data": {
-                  "waitTime": 2.0
+                  "pathName": "Amp Note to Right Stage"
                 }
-              },
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Intake From Ground"
+                  "pathName": "Right Stage to Speaker Note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker Note to Stage Note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage Note - Forward"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "forward to Mail Hary 1"
                 }
               }
             ]
@@ -45,18 +98,6 @@
                 "data": {
                   "pathName": "Mail Hary 1 to Stage"
                 }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Subwoofer"
-                }
               }
             ]
           }
@@ -68,44 +109,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Stage to Mail Hary 2"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Mail Hary 2 to Stage"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": null
+                  "pathName": "Stage to Center Note"
                 }
               }
             ]

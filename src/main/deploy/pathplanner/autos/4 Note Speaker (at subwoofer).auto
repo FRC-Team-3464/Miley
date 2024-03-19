@@ -57,6 +57,12 @@
                 "data": {
                   "name": "Pivot to Ground"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Stop Shooter"
+                }
               }
             ]
           }
@@ -113,6 +119,12 @@
                 "data": {
                   "name": "Pivot to Ground"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Stop Shooter"
+                }
               }
             ]
           }
@@ -124,13 +136,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Speaker"
+                  "pathName": "Amp Note to Speaker 2"
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "Pivot to Subwoofer"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Start Shooter"
                 }
               }
             ]
@@ -163,6 +181,12 @@
                 "data": {
                   "pathName": "Speaker to Stage Note"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Stop Shooter"
+                }
               }
             ]
           }
@@ -181,6 +205,12 @@
                 "type": "named",
                 "data": {
                   "name": "Pivot to Subwoofer"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Start Shooter"
                 }
               }
             ]

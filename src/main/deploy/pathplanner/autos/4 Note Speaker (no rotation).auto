@@ -106,7 +106,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker to Amp Note"
+                  "pathName": "Speaker to Amp Note 2"
                 }
               },
               {
@@ -131,7 +131,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Speaker"
+                  "pathName": "Amp Note to Speaker 2"
                 }
               },
               {
@@ -228,6 +228,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Speaker Autos",
   "choreoAuto": false
 }

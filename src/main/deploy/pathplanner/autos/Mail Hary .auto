@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4259262722800992,
-      "y": 7.30256890442522
+      "x": 0.7531929553170285,
+      "y": 4.3678916811515345
     },
-    "rotation": -90.0
+    "rotation": -57.771242564901506
   },
   "command": {
     "type": "sequential",
@@ -18,64 +18,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Origin to Amp"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Amp"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Amp"
+                  "pathName": "Left Speaker to Mail Hary 1"
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.6
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
+                  "waitTime": 2.0
                 }
               },
               {
-                "type": "race",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Pivotable Amp to Amp Note"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake From Ground"
-                      }
-                    }
-                  ]
+                  "name": "Intake From Ground"
                 }
               }
             ]
@@ -88,46 +43,102 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Amp"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Amp"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Amp"
+                  "pathName": "Mail Hary 1 to Stage"
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.6
+                  "waitTime": 0.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Stage"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Pivot to Ground"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage to Mail Hary 2"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Mail Hary 2 to Stage"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Stage"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage to Center Note"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
-  "folder": "tiny weak autos",
+  "folder": null,
   "choreoAuto": false
 }

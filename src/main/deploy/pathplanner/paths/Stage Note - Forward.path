@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.23,
-        "y": 7.26
+        "x": 2.6056470165196877,
+        "y": 4.211895549681836
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3232724858323826,
-        "y": 6.50926861730208
+        "x": 2.44965088504999,
+        "y": 3.9681515942604335
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Stage Note"
     },
     {
       "anchor": {
-        "x": 1.289429657244114,
-        "y": 5.518363150740554
+        "x": 2.059660556375746,
+        "y": 3.2954182772973626
       },
       "prevControl": {
-        "x": 2.3110824765592555,
-        "y": 6.369230939050549
+        "x": 2.205906929628587,
+        "y": 3.5099129580681963
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Stage Shoot"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -43.31531568210373,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker Points",
+  "folder": "Speaker (rotation) points",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -22.328656378019108,
     "velocity": 0
   },
   "useDefaultConstraints": true
