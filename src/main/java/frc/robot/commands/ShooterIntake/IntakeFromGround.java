@@ -57,7 +57,7 @@ public class IntakeFromGround extends Command {
     if(note){
       // intakeSub.runIntake(0.1);
       intakeSub.rumbleDude();
-      intakeSub.stopIntake();
+      intakeSub.runIntake(-0.1);
     }
     else{
       intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
@@ -76,6 +76,7 @@ public class IntakeFromGround extends Command {
       ledSub.setOff();
     }
     intakeSub.runServo(0);
+    intakeSub.stopIntake();
 
 
   }
@@ -83,9 +84,6 @@ public class IntakeFromGround extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(startTime.get() > 0.5) {
-      return true;
-    }
-    return false;
+    return startTime.get() > 0.5;
   }
 }
