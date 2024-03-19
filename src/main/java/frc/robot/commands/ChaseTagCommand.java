@@ -147,10 +147,10 @@ private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
 
       //driveToTarget();
 
-      // swerveSubsystem.drive(
-      //   ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
+      swerveSubsystem.drive(
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
 
-      pivotToDegrees();
+      // pivotToDegrees();
 
       photonCamera.setLED(VisionLEDMode.kOn);
     }
@@ -186,33 +186,33 @@ private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
         lastTarget == null ? 0 : lastTarget.getPitch());
   }
 
-  private void driveToTarget() {
-    var x = goalPose.getX();
-    var speed = 0.0;
-    var y = camToTarget.getY();
-    var rotation = 0.0;
+  // private void driveToTarget() {
+  //   var x = goalPose.getX();
+  //   var speed = 0.0;
+  //   var y = camToTarget.getY();
+  //   var rotation = 0.0;
 
-    if (y < -0.2) {
-      rotation = 0.2;
-    } else if (y > 0.2) {
-      rotation = -0.2;
-    }
+  //   if (y < -0.2) {
+  //     rotation = 0.2;
+  //   } else if (y > 0.2) {
+  //     rotation = -0.2;
+  //   }
 
-    if (x > -0.45) { // forward
-      drive = "forward";
-      speed = 0.2;
-    } else if (x < -0.55) { // backward
-      drive = "backward";
-      speed = -0.2;
-    } else {
-      drive = "stop";
-      speed = 0.0;
-    }
+  //   if (x > -0.45) { // forward
+  //     drive = "forward";
+  //     speed = 0.2;
+  //   } else if (x < -0.55) { // backward
+  //     drive = "backward";
+  //     speed = -0.2;
+  //   } else {
+  //     drive = "stop";
+  //     speed = 0.0;
+  //   }
 
-    if (speed != 0.0 || rotation != 0.0)
-      drivetrainSub.arcadeDrive(speed, rotation);
+  //   if (speed != 0.0 || rotation != 0.0)
+  //     drivetrainSub.arcadeDrive(speed, rotation);
 
-  }
+  // }
 
   private void pivotToDegrees(){
 
@@ -222,8 +222,8 @@ private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
 
     var rotations = pivoterSub.degreesToMotorRotations(degrees);
 
-    if (rotations > PivoterConstants.kPivoterMaxValue){
-      rotations = PivoterConstants.kPivoterMaxValue;
+    if (rotations > PivoterConstants.kMaxPivoterRotations){
+      rotations = PivoterConstants.kMaxPivoterRotations;
     } else if (rotations < 0){
       rotations = 0;
     }
