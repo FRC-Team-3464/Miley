@@ -43,6 +43,8 @@ import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
 import frc.robot.commands.Leds.LedFlash;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
 // import frc.robot.subsystems.IntakeSubsystem;
 // import frc.robot.subsystems.LEDSubsystem;
@@ -73,6 +75,8 @@ public class RobotContainer {
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivotSub = PivoterSubsystem.getInstance();
+  private final IntakeSubsystem intakeSub = IntakeSubsystem.getInstance();
+  private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   // private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
 
@@ -120,7 +124,7 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
-    NamedCommands.registerCommand("Trigger Intake", new RunIntake());
+    NamedCommands.registerCommand("Trigger Intake", new RunIntake(Constants.SandwichConstants.kIntakeSpeed));
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
@@ -144,13 +148,20 @@ public class RobotContainer {
     // Commands regarding the intake sandwich  and Elevator
     // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
-    Constants.OperatorConstants.button1.whileTrue(new ShootManual());
+    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
+    Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
+    // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
     Constants.OperatorConstants.button12.whileTrue(new ManualIntake());
+    Constants.OperatorConstants.button11.onTrue(new RunIntake(0.8));
+
+
+    // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
+    // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
@@ -158,7 +169,6 @@ public class RobotContainer {
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
     Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
     // Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
-    Constants.OperatorConstants.button11.onTrue(new InstantCommand(() -> pivotSub.resetEncoder(0)));
     Constants.OperatorConstants.pancakeUp.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); 
     Constants.OperatorConstants.pancakeDown.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5)));
     // Constants.OperatorConstants.pancakeUp.whileTrue(new ManualPivotUp());

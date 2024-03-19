@@ -6,22 +6,27 @@ package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterVelocityPID extends Command {
   /** Creates a new ShootPID. */
   private ShooterSubsystem shootSub;
+  private LEDSubsystem ledSub;
   private double setPoint;
   private double error; 
 
   public ShooterVelocityPID(double target) {
     shootSub = ShooterSubsystem.getInstance();
+    ledSub = LEDSubsystem.getInstance();
     addRequirements(shootSub);
+    // addRequirements(ledSub);
     setPoint = target;
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   @Override
   public void execute() {
@@ -35,7 +40,9 @@ public class ShooterVelocityPID extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    ledSub.setPurple();
+  }
 
 
   @Override

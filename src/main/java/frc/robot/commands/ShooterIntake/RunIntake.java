@@ -13,11 +13,13 @@ public class RunIntake extends Command {
  
   private Timer runtime;
   private IntakeSubsystem intakeSub;
+  private double speedo;
 
-  public RunIntake() {
+  public RunIntake(double speed) {
     intakeSub = IntakeSubsystem.getInstance();
     runtime = new Timer();
     addRequirements(intakeSub);
+    speedo = speed;
   }
 
   @Override
@@ -27,7 +29,7 @@ public class RunIntake extends Command {
 
   @Override
   public void execute() {
-    intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
+    intakeSub.runIntake(speedo);
   }
 
   @Override

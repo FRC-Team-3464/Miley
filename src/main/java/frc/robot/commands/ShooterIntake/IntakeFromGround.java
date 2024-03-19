@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -34,6 +35,7 @@ public class IntakeFromGround extends Command {
     finish = false;
     note = false;
     ledSub.setOrange();
+    intakeSub.runServo(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,14 +50,16 @@ public class IntakeFromGround extends Command {
     // }
     if(intakeSub.getPhotoElectricRight() || intakeSub.getPhotoElectricLeft()){
       startTime.start();
-      ledSub.setYellow();
+      ledSub.setGreen();
       note = true;
     }
 
     if(note){
-      intakeSub.runIntake(-0.5);
+      // intakeSub.runIntake(0.1);
       intakeSub.rumbleDude();
-    }else{
+      intakeSub.runIntake(-0.1);
+    }
+    else{
       intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
       intakeSub.runExtendedIntake(0.85);
     }
@@ -67,15 +71,19 @@ public class IntakeFromGround extends Command {
     startTime.stop();
     startTime.reset();
     // ledSub.setGreen();
-    intakeSub.stopIntake();
     intakeSub.stopRumble();
+    if(note == false) {
+      ledSub.setOff();
+    }
+    intakeSub.runServo(0);
+    intakeSub.stopIntake();
+
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return(startTime.get() > 0.05);
-
+    return startTime.get() > 0.5;
   }
 }
