@@ -1,19 +1,10 @@
 package frc.robot.commands;
 
-import static frc.robot.subsystems.PoseEstimatorSubsystem.ROBOT_TO_CAMERA;
-
-import java.util.function.Supplier;
-
 import org.photonvision.PhotonCamera;
 import org.photonvision.common.hardware.VisionLEDMode;
-import org.photonvision.targeting.PhotonTrackedTarget;
-
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
@@ -37,7 +28,8 @@ public class AimSpeaker extends Command {
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
 
-  private final ProfiledPIDController rotationController = new ProfiledPIDController(2, 0, 0, OMEGA_CONSTRAINTS);
+  private static final TrapezoidProfile.Constraints ROTATION_CONSTRAINTS = new TrapezoidProfile.Constraints(8, 8);
+  private final ProfiledPIDController rotationController = new ProfiledPIDController(2, 0, 0, ROTATION_CONSTRAINTS);
 
   private Transform3d camToTarget = new Transform3d();
 
@@ -100,12 +92,13 @@ public class AimSpeaker extends Command {
   private void rotateToSpeaker() {
       var rotation = getRotationToSpeaker();
 
-    if (rotation != 0.0) {
+    if (rotation.getDegrees() != 0.0) {
       var drivetrainHeading = swerveSubsystem.getRotation2d();
       var targetHeading = drivetrainHeading.plus(rotation);
       rotationController.setGoal(targetHeading.getRadians());
       var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
       swerveSubsystem.drive(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
+    }
   }
 
   private void pivotToSpeaker(){
@@ -120,11 +113,13 @@ public class AimSpeaker extends Command {
     }
   }
 
-  private double getRotationToSpeaker() {
-    return Math.atan2(
+  private Rotation2d getRotationToSpeaker() {
+    var rotationDegrees =  Math.atan2(
       camToTarget.getY() + CAMERA_TO_ROBOT_Y,
       camToTarget.getX() + CAMERA_TO_ROBOT_X)
       * 180 / Math.PI;
+
+    return Rotation2d.fromDegrees(rotationDegrees);
   }
 
   private double getDegreesToSpeaker() {
