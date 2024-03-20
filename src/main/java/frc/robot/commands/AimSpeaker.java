@@ -24,11 +24,7 @@ import frc.robot.Constants.PivoterConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
 
-public class AimSpeakerCommand extends Command {
-
-  private static final TrapezoidProfile.Constraints X_CONSTRAINTS = new TrapezoidProfile.Constraints(3, 2);
-  private static final TrapezoidProfile.Constraints Y_CONSTRAINTS = new TrapezoidProfile.Constraints(3, 2);
-  private static final TrapezoidProfile.Constraints OMEGA_CONSTRAINTS = new TrapezoidProfile.Constraints(8, 8);
+public class AimSpeaker extends Command {
 
   private static final int RED_SPEAKER_TAG = 4;
   private static final int BLUE_SPEAKER_TAG = 8;
@@ -45,7 +41,7 @@ public class AimSpeakerCommand extends Command {
 
   ShuffleboardTab tab = Shuffleboard.getTab("Vision");
 
-  public AimSpeakerCommand(PhotonCamera photonCamera) {
+  public AimSpeaker(PhotonCamera photonCamera) {
     this.photonCamera = photonCamera;
     addRequirements(swerveSubsystem);
     addRequirements(pivoterSub);
@@ -73,11 +69,11 @@ public class AimSpeakerCommand extends Command {
         camToTarget = target.getBestCameraToTarget();
         rotateToSpeaker(); //fixme: parallelize
         pivotToSpeaker();
-        photonCamera.setLedMode(VisionLEDMode.kOn);
+        photonCamera.setLED(VisionLEDMode.kOn);
       }
     } else {
       camToTarget = null;
-      photonCamera.setLedMode(VisionLEDMode.kOff);
+      photonCamera.setLED(VisionLEDMode.kOff);
     }
   }
 
@@ -121,8 +117,8 @@ public class AimSpeakerCommand extends Command {
   }
 
   private double getDegreesToSpeaker() {
-    var degrees = Math.atan2(
-      camToTarget.getZ() + CAMERA_TO_ROBOT_Z,
+    return Math.atan2(
+      camToTarget.getZ() + CAMERA_TO_ROBOT_Z + TAG_TO_SPEAKER_Z,
       Math.sqrt(Math.pow(camToTarget.getX() + CAMERA_TO_ROBOT_X, 2) + Math.pow(camToTarget.getY() + CAMERA_TO_ROBOT_Y, 2)))
       * 180 / Math.PI;
   }
