@@ -31,6 +31,7 @@ public class AimSpeaker extends Command {
   private final Timer aimTimer = new Timer();
 
   private final PhotonCamera photonCamera;
+  private final boolean[] success;
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
 
@@ -41,8 +42,9 @@ public class AimSpeaker extends Command {
 
   ShuffleboardTab tab = Shuffleboard.getTab("Vision");
 
-  public AimSpeaker(PhotonCamera photonCamera) {
+  public AimSpeaker(PhotonCamera photonCamera, boolean[] success) {
     this.photonCamera = photonCamera;
+    this.success = success;
 
     rotationController.setTolerance(Units.degreesToRadians(3));
     rotationController.enableContinuousInput(-Math.PI, Math.PI);
@@ -96,6 +98,7 @@ public class AimSpeaker extends Command {
   public boolean isFinished() {
 
     if (aimTimer.hasElapsed(AIM_TIME)) {
+      success[0] = false;
       return true;
     } else if (camToTarget != null) {
       var rotationDegrees = getRotationDegreesToSpeaker();
@@ -103,7 +106,8 @@ public class AimSpeaker extends Command {
       var pivotDegrees = getPivotDegreesToSpeaker();
       var pivoterDegrees = pivoterSub.getPivoterDegrees();
       var isPivoterOnTarget = Math.abs(pivoterDegrees - pivotDegrees) < PIVOT_DEGREES_TOLERANCE;
-      return isRotationOnTarget && isPivoterOnTarget;      
+      success[0] = isRotationOnTarget && isPivoterOnTarget;
+      return success[0];
     }
     return false;
   }
