@@ -24,6 +24,11 @@ public class AimSpeaker extends Command {
   public static double CAMERA_TO_ROBOT_Y = 0; //fixme: get real value
   public static double CAMERA_TO_ROBOT_Z = 0.15; //fixme: get real value
 
+  public static final double ROTATION_DEGREES_TOLERANCE = 1;
+  public static final double PIVOT_DEGREES_TOLERANCE = 1;
+  private static final double AIM_TIME = 3;
+  private final Timer aimTimer = new Timer();
+
   private final PhotonCamera photonCamera;
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
@@ -50,6 +55,8 @@ public class AimSpeaker extends Command {
   @Override
   public void initialize() {
     camToTarget = null;
+    aimTimer.reset();
+    aimTimer.start();
     rotationController.reset(swerveSubsystem.getRotation2d().getRadians());
   }
 
@@ -86,15 +93,26 @@ public class AimSpeaker extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;  //fixme: when to end?
+
+    if (aimTimer.hasElapsed(AIM_TIME)) {
+      return true;
+    } else if (camToTarget != null) {
+      var rotationDegrees = getRotationDegreesToSpeaker();
+      var isRotationOnTarget = Math.abs(rotationDegrees) < ROTATION_DEGREES_TOLERANCE;
+      var pivotDegrees = getPivotDegreesToSpeaker();
+      var pivoterDegrees = pivoterSub.getPivoterDegrees();
+      var isPivoterOnTarget = Math.abs(pivoterDegrees - pivotDegrees) < PIVOT_DEGREES_TOLERANCE;
+      return isRotationOnTarget && isPivoterOnTarget;      
+    }
+    return false;
   }
 
   private void rotateToSpeaker() {
-      var rotation = getRotationToSpeaker();
+      var rotationDegrees = getRotationDegreesToSpeaker();
 
-    if (rotation.getDegrees() != 0.0) {
+    if (rotationDegrees != 0.0) {
       var drivetrainHeading = swerveSubsystem.getRotation2d();
-      var targetHeading = drivetrainHeading.plus(rotation);
+      var targetHeading = drivetrainHeading.plus(Rotation2d.fromDegrees(rotationDegrees));
       rotationController.setGoal(targetHeading.getRadians());
       var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
       swerveSubsystem.drive(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
@@ -102,27 +120,25 @@ public class AimSpeaker extends Command {
   }
 
   private void pivotToSpeaker(){
-    var degrees = getDegreesToSpeaker();
-    var rotations = pivoterSub.degreesToMotorRotations(degrees);
+    var pivotDegrees = getPivotDegreesToSpeaker();
+    var pivotRotations = pivoterSub.degreesToMotorRotations(pivotDegrees);
 
-    if (rotations > PivoterConstants.kMaxPivoterRotations || rotations < 0) {
+    if (pivotRotations > PivoterConstants.kMaxPivoterRotations || pivotRotations < 0) {
       photonCamera.setLED(VisionLEDMode.kBlink);
     } else {
-      pivoterSub.PIDPivot(rotations);
+      pivoterSub.PIDPivot(pivotRotations);
       photonCamera.setLED(VisionLEDMode.kOff);
     }
   }
 
-  private Rotation2d getRotationToSpeaker() {
-    var rotationDegrees =  Math.atan2(
+  private double getRotationDegreesToSpeaker() {
+    return Math.atan2(
       camToTarget.getY() + CAMERA_TO_ROBOT_Y,
       camToTarget.getX() + CAMERA_TO_ROBOT_X)
       * 180 / Math.PI;
-
-    return Rotation2d.fromDegrees(rotationDegrees);
   }
 
-  private double getDegreesToSpeaker() {
+  private double getPivotDegreesToSpeaker() {
     return Math.atan2(
       camToTarget.getZ() + CAMERA_TO_ROBOT_Z + TAG_TO_SPEAKER_Z,
       Math.sqrt(Math.pow(camToTarget.getX() + CAMERA_TO_ROBOT_X, 2) + Math.pow(camToTarget.getY() + CAMERA_TO_ROBOT_Y, 2)))
