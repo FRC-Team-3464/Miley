@@ -8,6 +8,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.PivoterConstants;
+import frc.robot.Constants.SandwichConstants;
 import frc.robot.Constants.TragConstants;
 import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
 import frc.robot.autos.BlueAlliance.Blue1Speaker;
@@ -27,6 +28,7 @@ import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
+import frc.robot.commands.ShooterIntake.ShootPID;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 // import frc.robot.commands.ShooterIntake.ShootSpeaker;
 // import frc.robot.commands.ShooterIntake.ShootManual;
@@ -124,7 +126,19 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
-    NamedCommands.registerCommand("Trigger Intake", new RunIntake(Constants.SandwichConstants.kIntakeSpeed));
+    NamedCommands.registerCommand("Trigger Intake", new SequentialCommandGroup(
+      new ParallelRaceGroup(
+        new WaitCommand(0.05),
+        new ReverseIntake()
+      ),
+      new RunIntake(1))); 
+    NamedCommands.registerCommand("Shoot PID Speaker", new ShootPID());
+    
+    // NamedCommands  
+      // NamedCommands.registerCommand("Trigger Intake", new RunIntake(SandwichConstants.kIntakeSpeed)));   
+    
+      
+
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
@@ -146,10 +160,10 @@ public class RobotContainer {
     Constants.OperatorConstants.buttonY.onTrue(new LedFlash());
 
     // Commands regarding the intake sandwich  and Elevator
-    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
+    Constants.OperatorConstants.button1.onTrue(new ShootPID());
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
-    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
-    Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
+    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
+    // Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());

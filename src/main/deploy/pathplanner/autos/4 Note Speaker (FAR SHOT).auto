@@ -160,15 +160,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Stage Note to Speaker"
+                  "name": "Pivot to Stage"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "pathName": "Stage Note AIM"
                 }
               }
             ]
