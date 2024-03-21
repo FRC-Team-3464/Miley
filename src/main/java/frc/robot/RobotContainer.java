@@ -5,23 +5,23 @@
 package frc.robot;
 
 import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
+// import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.PivoterConstants;
-import frc.robot.Constants.SandwichConstants;
-import frc.robot.Constants.TragConstants;
-import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
-import frc.robot.autos.BlueAlliance.Blue1Speaker;
-import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
-import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
-import frc.robot.autos.BlueAlliance.Blue2Speaker;
-import frc.robot.autos.BlueAlliance.Blue2StraightSpeaker;
-import frc.robot.autos.RedAlliance.Red1AmpAuto;
-import frc.robot.autos.RedAlliance.Red1Speaker;
-import frc.robot.autos.RedAlliance.Red2AmpAuto;
-import frc.robot.autos.RedAlliance.Red3AmpHailMary;
-import frc.robot.autos.RedAlliance.Red2Speaker;
-import frc.robot.autos.RedAlliance.Red2StraightSpeaker;
+// import frc.robot.Constants.PivoterConstants;
+// import frc.robot.Constants.SandwichConstants;
+// import frc.robot.Constants.TragConstants;
+// import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
+// import frc.robot.autos.BlueAlliance.Blue1Speaker;
+// import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
+// import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
+// import frc.robot.autos.BlueAlliance.Blue2Speaker;
+// import frc.robot.autos.BlueAlliance.Blue2StraightSpeaker;
+// import frc.robot.autos.RedAlliance.Red1AmpAuto;
+// import frc.robot.autos.RedAlliance.Red1Speaker;
+// import frc.robot.autos.RedAlliance.Red2AmpAuto;
+// import frc.robot.autos.RedAlliance.Red3AmpHailMary;
+// import frc.robot.autos.RedAlliance.Red2Speaker;
+// import frc.robot.autos.RedAlliance.Red2StraightSpeaker;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ManualIntake;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
@@ -30,6 +30,7 @@ import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.commands.ShooterIntake.ShootPID;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
+import frc.robot.commands.Swerve.SwerveAimSpeaker;
 import frc.robot.commands.Swerve.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.ManualPivotUp;
 // import frc.robot.commands.Pivoter.ManualPivotDown;
@@ -60,6 +61,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
+import org.photonvision.PhotonCamera;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -89,8 +92,8 @@ public class RobotContainer {
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverXAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverRotAxis),
-                // () -> true/*
-                () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx));
+                () -> true);
+                // () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx));
 
   public RobotContainer() {
 
@@ -136,7 +139,6 @@ public class RobotContainer {
     // NamedCommands  
       // NamedCommands.registerCommand("Trigger Intake", new RunIntake(SandwichConstants.kIntakeSpeed)));   
     
-      
 
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     
@@ -154,24 +156,25 @@ public class RobotContainer {
   private void configureBindings() {
     // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
-    // Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> ledSub.setPurple()));
+    // Constants.OperatorConstants.buttonY.whileTrue(new SwerveAimSpeaker());
+    Constants.OperatorConstants.buttonRB.whileTrue(new SwerveAimSpeaker());
     // Indicate that we want to boost
-    Constants.OperatorConstants.button1.onTrue(new LedFlash());
+    // Constants.OperatorConstants.button1.onTrue(new LedFlash());
 
     // Commands regarding the intake sandwich  and Elevator
     // Constants.OperatorConstants.button1.onTrue(new ShootPID());
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
-    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
-    // Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
+    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
+    Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
     // Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     // Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
-    Constants.OperatorConstants.button12.whileTrue(new ManualIntake());
-    Constants.OperatorConstants.button11.onTrue(new PIDPivotToZero(0));
-
+    Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero(0));
+    // Intake Trigger
+    Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
 
     Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
     Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));

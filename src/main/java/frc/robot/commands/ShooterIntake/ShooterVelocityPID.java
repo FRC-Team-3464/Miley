@@ -34,23 +34,23 @@ public class ShooterVelocityPID extends Command {
   @Override
   public void execute() {
     shootSub.runShooterPID(setPoint);
+    ledSub.rainbow();
 
     error = Math.abs(setPoint - shootSub.getVelocity());
     SmartDashboard.putNumber("Shoot Setpoint", setPoint);
     SmartDashboard.putNumber("Shoot Velocity", shootSub.getVelocity());
     SmartDashboard.putNumber("Shoot Error", error);
-
   }
 
   @Override
   public void end(boolean interrupted) {
-    ledSub.setPurple();
+      ledSub.setPurple();
   }
 
 
   @Override
   public boolean isFinished() {
     // End command once we're within tolerance. 
-    return (error < 300);
+    return (error < 100);
   }
 }

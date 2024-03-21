@@ -311,6 +311,8 @@ public static final class SandwichConstants {
     
     public static final JoystickButton buttonX = new JoystickButton(xbox, 3);
     public static final JoystickButton buttonY = new JoystickButton(xbox, 4);
+    public static final JoystickButton buttonRB = new JoystickButton(xbox, 6);
+    
  
     //hello this is a test yahoooohoiuawhoi
   }

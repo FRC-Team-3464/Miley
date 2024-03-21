@@ -79,6 +79,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void runIntake(double speed) {
+    intakeMotor.setInverted(true);
     intakeMotor.set(speed);
   }
 
