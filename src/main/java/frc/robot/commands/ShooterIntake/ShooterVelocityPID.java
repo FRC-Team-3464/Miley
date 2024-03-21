@@ -26,6 +26,9 @@ public class ShooterVelocityPID extends Command {
 
   @Override
   public void initialize() {
+    if(setPoint == 0) {
+      ledSub.setOff();
+    }
   }
 
   @Override

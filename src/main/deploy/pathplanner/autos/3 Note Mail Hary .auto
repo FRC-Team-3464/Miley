@@ -20,18 +20,6 @@
                 "data": {
                   "pathName": "Left Speaker to Mail Hary 1"
                 }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
               }
             ]
           }
@@ -44,18 +32,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "Mail Hary 1 to Stage"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Stage"
                 }
               }
             ]
@@ -84,6 +60,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": []
           }
         },
         {
@@ -139,6 +121,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Four + Autos",
   "choreoAuto": false
 }

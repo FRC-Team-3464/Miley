@@ -24,7 +24,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Pivot to Amp"
                 }
               }
             ]
@@ -75,7 +75,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Pivot to Stage"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot PID Speaker"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.0
                 }
               }
             ]
@@ -84,6 +103,6 @@
       ]
     }
   },
-  "folder": "tiny weak autos",
+  "folder": "Single Action Autos",
   "choreoAuto": false
 }

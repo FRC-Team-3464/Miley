@@ -30,7 +30,7 @@ public class ShootAmp extends Command {
   @Override
   public void initialize() {
     ledSub.setOff();
-    intakeSub.runServo(0);
+    intakeSub.runServo(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

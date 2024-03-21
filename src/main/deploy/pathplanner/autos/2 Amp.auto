@@ -50,9 +50,15 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "race",
           "data": {
             "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Pivotable Amp to Amp Note"
+                }
+              },
               {
                 "type": "named",
                 "data": {
@@ -60,22 +66,9 @@
                 }
               },
               {
-                "type": "race",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Pivotable Amp to Amp Note"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake From Ground"
-                      }
-                    }
-                  ]
+                  "name": "Intake From Ground"
                 }
               }
             ]
@@ -128,6 +121,6 @@
       ]
     }
   },
-  "folder": "tiny weak autos",
+  "folder": "Single Action Autos",
   "choreoAuto": false
 }

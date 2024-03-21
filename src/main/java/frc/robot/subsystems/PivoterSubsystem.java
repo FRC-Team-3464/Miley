@@ -148,7 +148,7 @@ public class PivoterSubsystem extends SubsystemBase {
     leftPivoter.setInverted(true);
     rightPivoter.follow(leftPivoter, true);
 
-    if ((rotations >= PivoterConstants.kMaxPivoterRotations) || rotations < 0){
+    if ((rotations >= PivoterConstants.kMaxPivoterRotations) || rotations < -5){
       System.out.println("ABORT");
     }else{
       m_pidController.setReference(

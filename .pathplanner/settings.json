@@ -6,12 +6,14 @@
     "Amp Points",
     "Hail Mary Points",
     "Mail Hary",
-    "Speaker (rotation) points",
-    "Speaker (no rotation) Points"
+    "New Folder",
+    "Speaker (no rotation) Points",
+    "Speaker (rotation) points"
   ],
   "autoFolders": [
-    "Speaker Autos",
-    "tiny weak autos"
+    "Four + Autos",
+    "New Folder",
+    "Single Action Autos"
   ],
   "defaultMaxVel": 4.75,
   "defaultMaxAccel": 4.0,

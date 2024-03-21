@@ -38,7 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
     kIz = 0;
     // kFF = 0.00019;
 
-    kFF = 0.0002;
+    kFF = 0.000187;
     kMaxOutput = 1;
     kMinOutput = -1;
     maxRPM = 5700;

@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7158327706968803,
-        "y": 4.397002070357417
+        "x": 0.7041386162544403,
+        "y": 6.689056341075646
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.159911049166827,
-        "y": 1.6839582397113522
+        "x": 1.7041386162544419,
+        "y": 6.689056341075646
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.397003397332211,
-        "y": 0.7409816244810651
+        "x": 3.113134431397068,
+        "y": 6.993104356579084
       },
       "prevControl": {
-        "x": 6.43427429305001,
-        "y": 0.8887557376254367
+        "x": 2.113134431397068,
+        "y": 6.993104356579084
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.1,
-      "rotationDegrees": 0.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -49,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hail Mary Points",
+  "folder": "New Folder",
   "previewStartingState": {
-    "rotation": -59.30027744918555,
+    "rotation": 59.30027744918557,
     "velocity": 0
   },
   "useDefaultConstraints": true
