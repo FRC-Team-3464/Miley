@@ -32,11 +32,11 @@ public class SwerveAimSpeaker extends Command {
 
   public static final double ROTATION_DEGREES_TOLERANCE = 1;
   public static final double PIVOT_DEGREES_TOLERANCE = 1;
-  private static final double AIM_TIME = 3;
+  private static final double AIM_TIME = 5;
   private final Timer aimTimer = new Timer();
 
   private final PhotonCamera photonCamera;
-  private final ArrayList<Boolean> success = new ArrayList<Boolean>();
+  // private final ArrayList<Boolean> success = new ArrayList<Boolean>();
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
