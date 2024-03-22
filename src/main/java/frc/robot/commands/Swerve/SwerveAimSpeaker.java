@@ -126,8 +126,8 @@ public class SwerveAimSpeaker extends Command {
       return true;
     } 
     
+    var drivetrainHeading = swerveSubsystem.getRotation2d();
     if (camToTarget != null) {
-      var drivetrainHeading = swerveSubsystem.getRotation2d();
       var rotationDegrees = getRotationDegreesToSpeaker();
       targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
     }
@@ -148,10 +148,11 @@ public class SwerveAimSpeaker extends Command {
 
   private void rotateToSpeaker() {
 
+    var drivetrainHeading = swerveSubsystem.getRotation2d();
     if (camToTarget != null) {
       var rotationDegrees = getRotationDegreesToSpeaker();
-      var drivetrainHeading = swerveSubsystem.getRotation2d();
       targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
+      SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
     }
 
     if (targetHeading != null) {
@@ -162,7 +163,6 @@ public class SwerveAimSpeaker extends Command {
       }
       swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
     
-      SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
       SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
       SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());
     }
