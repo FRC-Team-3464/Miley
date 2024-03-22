@@ -124,13 +124,14 @@ public class SwerveAimSpeaker extends Command {
         rotateToSpeaker(previousAngle); 
     
       } else {
-      System.out.println("NO REF FOUND");
-      // Reset previous angle to be undefined
-      previousAngle = -1;
-      swerveSubsystem.stopModules();
-      ledSub.setRed();
-      camToTarget = null;
-      photonCamera.setLED(VisionLEDMode.kOff);
+        System.out.println("NO REF FOUND");
+        // Reset previous angle to be undefined
+        previousAngle = -1;
+        swerveSubsystem.stopModules();
+        ledSub.setRed();
+        camToTarget = null;
+        photonCamera.setLED(VisionLEDMode.kOff);
+      }
     }
   }
 
