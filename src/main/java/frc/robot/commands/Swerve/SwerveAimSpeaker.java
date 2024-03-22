@@ -59,7 +59,8 @@ public class SwerveAimSpeaker extends Command {
       0,
       AutoConstants.kThetaControllerConstraints);
   
-  private Transform3d camToTarget = new Transform3d();
+  private Transform3d camToTarget;
+  private Rotation2d targetHeading;
   ShuffleboardTab tab = Shuffleboard.getTab("Vision");
 
   public SwerveAimSpeaker() {
@@ -81,6 +82,7 @@ public class SwerveAimSpeaker extends Command {
   public void initialize() {
     // Start counting seconds of aim-time
     camToTarget = null;
+    targetHeading = null;
     aimTimer.reset();
     aimTimer.start();
     rotationController.reset(swerveSubsystem.getRotation2d().getRadians());
@@ -128,9 +130,7 @@ public class SwerveAimSpeaker extends Command {
       swerveSubsystem.stopModules();
       ledSub.setRed();
       camToTarget = null;
-      // photonCamera.setLED(VisionLEDMode.kOff);
-      }
-
+      photonCamera.setLED(VisionLEDMode.kOff);
     }
   }
 
@@ -152,10 +152,13 @@ public class SwerveAimSpeaker extends Command {
       return true;
     } 
     
+    var drivetrainHeading = swerveSubsystem.getRotation2d();
     if (camToTarget != null) {
-      var drivetrainHeading = swerveSubsystem.getRotation2d();
       var rotationDegrees = getRotationDegreesToSpeaker();
-      var targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
+      targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
+    }
+
+    if (targetHeading != null) {
       var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - drivetrainHeading.getDegrees()) < ROTATION_DEGREES_TOLERANCE;
       if (isRotationOnTarget){
         ledSub.setGreen();
@@ -168,6 +171,7 @@ public class SwerveAimSpeaker extends Command {
       // success[0] = isRotationOnTarget && isPivoterOnTarget;
       // return success[0];
     }
+    
     return false;
   }
 
@@ -179,9 +183,11 @@ public class SwerveAimSpeaker extends Command {
       var targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
       rotationController.setGoal(targetHeading.getRadians());
       var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
+      if (rotationController.atGoal()) {
+        rotationSpeed = 0;
+      }
       swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
     
-      SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
       SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
       SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());
     }
