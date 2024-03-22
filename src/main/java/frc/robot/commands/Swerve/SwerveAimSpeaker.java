@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.PivoterConstants;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.PhotonSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
 
@@ -30,6 +31,12 @@ public class SwerveAimSpeaker extends Command {
   public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); //fixme: get real value
   public static double CAMERA_TO_ROBOT_Z = Units.inchesToMeters(14.5); //fixme: get real value
 
+// DEBUG: if we miss the apriltag - reference a previous angle
+  public static double previousAngle = -1; 
+  // Used to count how many times that we're off. 
+  public static double previousAngleCounter = 0;
+
+
   public static final double ROTATION_DEGREES_TOLERANCE = 1;
   public static final double PIVOT_DEGREES_TOLERANCE = 1;
   private static final double AIM_TIME = 5;
@@ -40,6 +47,7 @@ public class SwerveAimSpeaker extends Command {
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
+  private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
 
   // private static final TrapezoidProfile.Constraints ROTATION_CONSTRAINTS = new TrapezoidProfile.Constraints(8, 8);
   // private final ProfiledPIDController rotationController = new ProfiledPIDController(2, 0, 0, ROTATION_CONSTRAINTS);
@@ -92,14 +100,37 @@ public class SwerveAimSpeaker extends Command {
       if (targetOpt.isPresent()) {
         var target = targetOpt.get();
         camToTarget = target.getBestCameraToTarget();
-        photonCamera.setLED(VisionLEDMode.kOn);
-        rotateToSpeaker(); 
+        // photonCamera.setLED(VisionLEDMode.kOn);
+        ledSub.setBlue();
+        var rotationDegrees = getRotationDegreesToSpeaker();
+        // update our angle
+        previousAngle = rotationDegrees;
+        previousAngleCounter = 0;
+        rotateToSpeaker(rotationDegrees); 
         // pivotToSpeaker();
       }
 
     } else {
+      // If no target found, see if we have a previous angle we can use as a reference. 
+      if (previousAngle != -1 && previousAngleCounter < 10){
+        System.out.print("USING PREVIOUS Count:");
+        System.out.println(previousAngleCounter);
+
+        // previousAngle = -1;
+        previousAngleCounter += 1;
+        ledSub.setYellow();
+        rotateToSpeaker(previousAngle); 
+    
+      } else {
+      System.out.println("NO REF FOUND");
+      // Reset previous angle to be undefined
+      previousAngle = -1;
+      swerveSubsystem.stopModules();
+      ledSub.setRed();
       camToTarget = null;
-      photonCamera.setLED(VisionLEDMode.kOff);
+      // photonCamera.setLED(VisionLEDMode.kOff);
+      }
+
     }
   }
 
@@ -108,6 +139,7 @@ public class SwerveAimSpeaker extends Command {
     swerveSubsystem.stopModules();
     // pivoterSub.stopMotor();
     photonCamera.setLED(VisionLEDMode.kOff);
+
   }
 
   // Returns true when the command should end.
@@ -125,6 +157,9 @@ public class SwerveAimSpeaker extends Command {
       var rotationDegrees = getRotationDegreesToSpeaker();
       var targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
       var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - drivetrainHeading.getDegrees()) < ROTATION_DEGREES_TOLERANCE;
+      if (isRotationOnTarget){
+        ledSub.setGreen();
+      };
       return isRotationOnTarget;
       
       // var pivotDegrees = getPivotDegreesToSpeaker();
@@ -136,9 +171,9 @@ public class SwerveAimSpeaker extends Command {
     return false;
   }
 
-  private void rotateToSpeaker() {
-    var rotationDegrees = getRotationDegreesToSpeaker();
-
+  private void rotateToSpeaker(double rotateDegrees) {
+    // var rotationDegrees = getRotationDegreesToSpeaker();
+    var rotationDegrees = rotateDegrees;
     if (rotationDegrees != 0.0) {
       var drivetrainHeading = swerveSubsystem.getRotation2d();
       var targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));

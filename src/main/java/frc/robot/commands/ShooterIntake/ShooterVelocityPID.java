@@ -44,7 +44,7 @@ public class ShooterVelocityPID extends Command {
 
   @Override
   public void end(boolean interrupted) {
-      ledSub.setPurple();
+      ledSub.setRed();
   }
 
 

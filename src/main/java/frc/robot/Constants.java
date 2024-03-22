@@ -119,8 +119,8 @@ public final class Constants {
     public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.069;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
             kPhysicalMaxAngularSpeedRadiansPerSecond / 2.75;
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4;
+    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3.5;
 }
 
 public static final class AutoConstants {
@@ -256,7 +256,7 @@ public static final class PivoterConstants{
   
   public static final double kAmpPivoterRotations = 29.7;
 
-  public static final double kStagePivoterRotations = 7.8;
+  public static final double kStagePivoterRotations = 8;
   // public static final double kStagePivoterRotations = 8.35;
   public static final double kAmpStagePivoterRotations = 8.75;
     // public static final double kAmpStagePivoterRotations = 9;
