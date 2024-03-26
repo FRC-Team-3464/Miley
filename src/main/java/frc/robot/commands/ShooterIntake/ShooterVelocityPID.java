@@ -34,7 +34,7 @@ public class ShooterVelocityPID extends Command {
   @Override
   public void execute() {
     shootSub.runShooterPID(setPoint);
-    ledSub.rainbow();
+    ledSub.setRed();
 
     error = Math.abs(setPoint - shootSub.getVelocity());
     SmartDashboard.putNumber("Shoot Setpoint", setPoint);
@@ -44,7 +44,7 @@ public class ShooterVelocityPID extends Command {
 
   @Override
   public void end(boolean interrupted) {
-      ledSub.setRed();
+      ledSub.rainbow();
   }
 
 
