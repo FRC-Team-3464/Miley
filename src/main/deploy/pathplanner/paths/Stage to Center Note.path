@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center Note"
     }
   ],
   "rotationTargets": [
@@ -65,7 +65,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Mail Hary",
+  "folder": "Hairy Males",
   "previewStartingState": {
     "rotation": -47.045408488887205,
     "velocity": 0

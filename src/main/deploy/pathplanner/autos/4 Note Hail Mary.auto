@@ -2,15 +2,52 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4259262722800992,
-      "y": 7.30256890442522
+      "x": 0.7041386162544403,
+      "y": 6.689056341075646
     },
-    "rotation": -90.0
+    "rotation": 55.72022534834144
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right to Amp Note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Note to Right Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
         {
           "type": "parallel",
           "data": {
@@ -18,36 +55,17 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Origin to Amp"
+                  "pathName": "Right to Hail Mary 1"
                 }
               },
               {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Amp"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              },
-              {
-                "type": "race",
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "Pivotable Amp to Amp Note"
+                        "waitTime": 1.5
                       }
                     },
                     {
@@ -63,46 +81,51 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Hail Mary 1 to Right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Right Stage"
+                  "pathName": "Right to Hail Mary 2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Stage"
+                  "name": "Intake From Ground"
                 }
               }
             ]
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot PID Speaker"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.0
-                }
-              }
-            ]
+            "pathName": "Hail Mary 2 to Right Stage"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
           }
         }
       ]
     }
   },
-  "folder": "small, stupid, weak and dumb Autos",
+  "folder": "Four + Autos",
   "choreoAuto": false
 }

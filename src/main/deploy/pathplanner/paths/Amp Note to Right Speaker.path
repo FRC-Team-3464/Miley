@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.065511617959103,
-        "y": 2.3691912466960323
+        "x": 3.113134431397068,
+        "y": 6.993104356579084
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.534799577912697,
-        "y": 1.2674685681912936
+        "x": 2.6543958076061185,
+        "y": 6.961327366832117
       },
       "isLocked": false,
-      "linkedName": "Mail Hary 2"
+      "linkedName": "AN"
     },
     {
       "anchor": {
-        "x": 2.059660556375746,
-        "y": 3.2954182772973626
+        "x": 0.7041386162544403,
+        "y": 6.689056341075646
       },
       "prevControl": {
-        "x": 2.976137828760219,
-        "y": 1.8329545447689473
+        "x": 1.5721726455350913,
+        "y": 6.844330268229844
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": "Right Speaker"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -46.73570458892841,
+    "rotation": 59.75231187168616,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hairy Males",
+  "folder": "Amp Points",
   "previewStartingState": {
-    "rotation": 23.749494492866866,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -3,17 +3,17 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Amp Points",
-    "Hail Mary Points",
-    "Mail Hary",
-    "New Folder",
+    "Speaker (rotation) points",
     "Speaker (no rotation) Points",
-    "Speaker (rotation) points"
+    "New Folder",
+    "Hairy Males",
+    "Hail Mary Points",
+    "Amp Points"
   ],
   "autoFolders": [
     "Four + Autos",
     "New Folder",
-    "Single Action Autos"
+    "small, stupid, weak and dumb Autos"
   ],
   "defaultMaxVel": 4.75,
   "defaultMaxAccel": 4.0,

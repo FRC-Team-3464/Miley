@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3576779647621067,
-      "y": 5.557362183607978
+      "x": 0.7041386162544403,
+      "y": 6.689056341075646
     },
-    "rotation": 0
+    "rotation": 55.72022534834144
   },
   "command": {
     "type": "sequential",
@@ -31,25 +31,25 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker to Amp Note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
+                  "pathName": "Right to Amp Note"
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
                 }
               }
             ]
@@ -62,7 +62,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Right Stage"
+                  "pathName": "Hail Mary Amp Note to Right Stage"
                 }
               },
               {
@@ -81,38 +81,13 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Right Stage to Speaker Note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Stage"
+                  "pathName": "Right Stage to Hail Mary 1"
                 }
               },
               {
@@ -122,13 +97,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.25
+                        "waitTime": 1.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Shoot PID Speaker"
+                        "name": "Intake From Ground"
                       }
                     }
                   ]
@@ -144,82 +119,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker Note to Stage Note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Stage Note - Forward"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Stage"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot PID Speaker"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "forward to Mail Hary 1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Mail Hary 1 to Stage"
+                  "pathName": "Hail Mary 1 to Right Stage"
                 }
               },
               {
@@ -229,7 +129,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.75
+                        "waitTime": 1.0
                       }
                     },
                     {
@@ -257,13 +157,32 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Stage to Center Note"
+                  "pathName": "Right Stage to Hail Mary 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "Pivot to Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Hail Mary 2 to Right Stage"
                 }
               },
               {
@@ -279,10 +198,47 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake From Ground"
+                        "name": "Pivot to Stage"
                       }
                     }
                   ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Stage to Center Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
                 }
               }
             ]

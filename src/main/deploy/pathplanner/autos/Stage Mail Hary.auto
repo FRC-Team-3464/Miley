@@ -2,36 +2,48 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7158327706968803,
-      "y": 4.397002070357417
+      "x": 0.6849446477990359,
+      "y": 4.387391197585246
     },
-    "rotation": -61.0735741647464
+    "rotation": -63.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "named",
+          "data": {
+            "name": "Pivot to Subwoofer"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "Shoot PID Speaker"
+                  "waitTime": 1.5
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Shoot Speaker"
                 }
               }
             ]
           }
         },
         {
-          "type": "deadline",
+          "type": "named",
+          "data": {
+            "name": "Pivot to Ground"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -45,12 +57,6 @@
                 "data": {
                   "name": "Intake From Ground"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
               }
             ]
           }
@@ -58,6 +64,6 @@
       ]
     }
   },
-  "folder": "Single Action Autos",
+  "folder": "small, stupid, weak and dumb Autos",
   "choreoAuto": false
 }

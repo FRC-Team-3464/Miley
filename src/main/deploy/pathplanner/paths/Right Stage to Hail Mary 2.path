@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.065511617959103,
-        "y": 2.3691912466960323
+        "x": 2.3179319293111518,
+        "y": 6.6188914144210065
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.534799577912697,
-        "y": 1.2674685681912936
+        "x": 4.126609298349239,
+        "y": 7.0490751907869615
       },
       "isLocked": false,
-      "linkedName": "Mail Hary 2"
+      "linkedName": "Right Stage Shoot"
     },
     {
       "anchor": {
-        "x": 2.059660556375746,
-        "y": 3.2954182772973626
+        "x": 8.270256540513081,
+        "y": 5.791356380812524
       },
       "prevControl": {
-        "x": 2.976137828760219,
-        "y": 1.8329545447689473
+        "x": 6.6225474018644,
+        "y": 6.239845258787905
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,13 +45,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -46.73570458892841,
+    "rotation": -15.068488159492173,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hairy Males",
+  "folder": "Hail Mary Points",
   "previewStartingState": {
-    "rotation": 23.749494492866866,
+    "rotation": 35.12302220906992,
     "velocity": 0
   },
   "useDefaultConstraints": true

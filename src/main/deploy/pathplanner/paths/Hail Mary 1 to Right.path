@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.065511617959103,
-        "y": 2.3691912466960323
+        "x": 8.280006298729937,
+        "y": 7.439065519461206
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.534799577912697,
-        "y": 1.2674685681912936
+        "x": 7.89976572827255,
+        "y": 7.370817211943212
       },
       "isLocked": false,
-      "linkedName": "Mail Hary 2"
+      "linkedName": "Hail Mary 1"
     },
     {
       "anchor": {
-        "x": 2.059660556375746,
-        "y": 3.2954182772973626
+        "x": 0.7041386162544403,
+        "y": 6.689056341075646
       },
       "prevControl": {
-        "x": 2.976137828760219,
-        "y": 1.8329545447689473
+        "x": 1.386927239412675,
+        "y": 6.795581477148703
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": "Right Speaker"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -46.73570458892841,
+    "rotation": 60.63107495808614,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hairy Males",
+  "folder": "Hail Mary Points",
   "previewStartingState": {
-    "rotation": 23.749494492866866,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

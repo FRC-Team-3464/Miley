@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7531929553170285,
-        "y": 4.3678916811515345
+        "x": 0.7141939224496041,
+        "y": 4.397140955802102
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.679419985918358,
-        "y": 3.0419245636591037
+        "x": 1.6404209530509337,
+        "y": 3.071173838309671
       },
       "isLocked": false,
       "linkedName": "Left Speaker"
@@ -20,15 +20,21 @@
         "y": 0.7604811409147759
       },
       "prevControl": {
-        "x": 6.388553204659854,
-        "y": 0.46798839440909257
+        "x": 5.901065293817049,
+        "y": 1.1309719531553086
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Mail Hary 1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -43,7 +49,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Mail Hary",
+  "folder": "Hairy Males",
   "previewStartingState": {
     "rotation": -60.25511870305787,
     "velocity": 0

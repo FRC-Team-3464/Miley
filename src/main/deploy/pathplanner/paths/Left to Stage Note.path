@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.065511617959103,
-        "y": 2.3691912466960323
+        "x": 0.7141939224496041,
+        "y": 4.397140955802102
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.534799577912697,
-        "y": 1.2674685681912936
+        "x": 1.6599204694846463,
+        "y": 4.328892648284108
       },
       "isLocked": false,
-      "linkedName": "Mail Hary 2"
+      "linkedName": "Left Speaker"
     },
     {
       "anchor": {
-        "x": 2.059660556375746,
-        "y": 3.2954182772973626
+        "x": 2.9026396514331485,
+        "y": 4.1046482092964185
       },
       "prevControl": {
-        "x": 2.976137828760219,
-        "y": 1.8329545447689473
+        "x": 1.9026396514331485,
+        "y": 4.1046482092964185
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": "Stage Note"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,13 +45,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -46.73570458892841,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hairy Males",
+  "folder": "Speaker (rotation) points",
   "previewStartingState": {
-    "rotation": 23.749494492866866,
+    "rotation": -59.47029410006589,
     "velocity": 0
   },
   "useDefaultConstraints": true
