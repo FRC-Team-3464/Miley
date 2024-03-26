@@ -133,6 +133,10 @@ public class SwerveAimSpeaker extends Command {
         photonCamera.setLED(VisionLEDMode.kOff);
       }
     }
+
+    /*
+     * If the error in rotation is within tolerance, start driving PID to the correct distance for shooting. 
+     */
   }
 
   @Override
@@ -143,9 +147,9 @@ public class SwerveAimSpeaker extends Command {
 
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // If the timer has elapsed for aiming - end the command
     if (aimTimer.hasElapsed(AIM_TIME)) {
       System.out.println("NO TARGET FOUND");
       // success[0] = false;

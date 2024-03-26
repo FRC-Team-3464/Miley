@@ -15,6 +15,7 @@ public class LEDSubsystem extends SubsystemBase {
   private final AddressableLEDBuffer ledBuffer;
   private static LEDSubsystem instance = null;  
   private int rainbowFirstPixelHue = 1;
+  private int huet = 0;
   String ledState;
 
   public LEDSubsystem() {
@@ -54,6 +55,17 @@ public class LEDSubsystem extends SubsystemBase {
     }
    ledState = "off";
    ledStrip.setData(ledBuffer); 
+  }
+
+  public void redPulse() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {   
+    ledBuffer.setRGB(i, huet, 10, 10);
+    }
+    huet += 5;
+    if(huet >= 250) {
+      huet = 0;
+    }
+    ledStrip.setData(ledBuffer);
   }
 
   public void rainbow() {
