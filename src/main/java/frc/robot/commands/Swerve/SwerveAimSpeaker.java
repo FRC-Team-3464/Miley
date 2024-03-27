@@ -39,7 +39,6 @@ public class SwerveAimSpeaker extends Command {
 
   public static Rotation2d targetHeading;
 
-
   public static final double ROTATION_DEGREES_TOLERANCE = 1;
   public static final double PIVOT_DEGREES_TOLERANCE = 1;
   private static final double AIM_TIME = 5;
@@ -115,7 +114,7 @@ public class SwerveAimSpeaker extends Command {
           // Update our target heading - calculate how much the robot needs to rotate to center at the apriltag.
           targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
           rotateToSpeaker(targetHeading, drivetrainHeading); 
-          // pivotToSpeaker();
+          pivotToSpeaker();
 
         }
       }
@@ -123,10 +122,11 @@ public class SwerveAimSpeaker extends Command {
     } else {
       // If no target found, see if we have a previous angle we can use as a reference. 
       if (targetHeading.getRadians() != 0){
-        System.out.print("USING PREVIOUS Target:");
-
-        // previousAngleCounter += 1;
+        // System.out.print("USING PREVIOUS Target of:");
+        // System.out.println(targetHeading.getRadians());
         ledSub.setYellow();
+
+        // Rotate using our previous target
         rotateToSpeaker(targetHeading, swerveSubsystem.getRotation2d()); 
     
       } else {
@@ -152,9 +152,9 @@ public class SwerveAimSpeaker extends Command {
 
     // Rotate using relative speeds. 
     swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
-  
     SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
     SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());  
+
   }    
 
   @Override
@@ -177,18 +177,18 @@ public class SwerveAimSpeaker extends Command {
     var drivetrainHeading = swerveSubsystem.getRotation2d();
     if (camToTarget != null) {
       var rotationDegrees = getRotationDegreesToSpeaker();
-      targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
-    }
-
-    // If we have a target heading, see if the error is within tolarance. 
-    if (targetHeading != null) {
-      var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - drivetrainHeading.getDegrees()) < ROTATION_DEGREES_TOLERANCE;
-      if (isRotationOnTarget){
-        ledSub.setGreen();
-      };
-
-      return isRotationOnTarget;
+      Rotation2d verifyTargetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
       
+      // If we have a target heading, see if the error is within tolarance. 
+      if (verifyTargetHeading != null) {
+        var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - drivetrainHeading.getDegrees()) < ROTATION_DEGREES_TOLERANCE;
+        
+        if (isRotationOnTarget){
+          ledSub.setGreen();
+        };
+
+        return isRotationOnTarget;
+    }
       // var pivotDegrees = getPivotDegreesToSpeaker();
       // var pivoterDegrees = pivoterSub.getPivoterDegrees();
       // var isPivoterOnTarget = Math.abs(pivoterDegrees - pivotDegrees) < PIVOT_DEGREES_TOLERANCE;
@@ -199,24 +199,23 @@ public class SwerveAimSpeaker extends Command {
     return false;
   }
 
-  // private void rotateToSpeaker(double rotateDegrees) {
-    // var rotationDegrees = getRotationDegreesToSpeaker();
-    // var rotationDegrees = rotateDegrees;
-    // if (rotationDegrees != 0.0) {
 
-    //   var targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
-  //   var drivetrainHeading = swerveSubsystem.getRotation2d();
-  //   rotationController.setGoal(targetHeading.getRadians());
-  //     var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
-  //     if (rotationController.atGoal()) {
-  //       rotationSpeed = 0;
-  //     }
-  //     swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
-    
-  //     SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
-  //     SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());
-  //   }
-  // }
+  private void pivotToSpeaker(){
+    var pivotDegrees = getPivotDegreesToSpeaker();
+    var pivotRotations = pivoterSub.convertDegreesToMotorRotations(pivotDegrees);
+
+    if (pivotRotations < PivoterConstants.kMaxPivoterRotations && pivotRotations > 0) {
+      // print()
+      photonCamera.setLED(VisionLEDMode.kBlink);
+    } else {
+      photonCamera.setLED(VisionLEDMode.kOff);
+    }
+
+    // SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
+
+  }
+
+
 
   // private void pivotToSpeaker(){
   //   var pivotDegrees = getPivotDegreesToSpeaker();
