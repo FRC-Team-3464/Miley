@@ -37,7 +37,7 @@ public class SwerveAimSpeaker extends Command {
   public static double previousAngleCounter = 0;
   
 
-  public static Rotation2d targetHeading = new Rotation2d(0);
+  public static Rotation2d targetHeading;
 
 
   public static final double ROTATION_DEGREES_TOLERANCE = 1;
@@ -84,7 +84,7 @@ public class SwerveAimSpeaker extends Command {
   public void initialize() {
     // Start counting seconds of aim-time
     camToTarget = null;
-    targetHeading = null;
+    targetHeading = new Rotation2d(0);
     aimTimer.reset();
     aimTimer.start();
     rotationController.reset(swerveSubsystem.getRotation2d().getRadians());
@@ -180,7 +180,7 @@ public class SwerveAimSpeaker extends Command {
       targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
     }
 
-    // If we have a target heading, see if the error is iiwthin tolarance. 
+    // If we have a target heading, see if the error is within tolarance. 
     if (targetHeading != null) {
       var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - drivetrainHeading.getDegrees()) < ROTATION_DEGREES_TOLERANCE;
       if (isRotationOnTarget){
