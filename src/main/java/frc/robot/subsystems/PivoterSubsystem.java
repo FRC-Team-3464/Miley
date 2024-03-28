@@ -47,7 +47,6 @@ public class PivoterSubsystem extends SubsystemBase {
     // Voltage needed to maintain horizontal arm position.
     private static final double horizontalArbFF = 0.00; 
 
-
   public PivoterSubsystem() {
     leftPivoter.restoreFactoryDefaults();
     rightPivoter.restoreFactoryDefaults();
@@ -82,16 +81,22 @@ public class PivoterSubsystem extends SubsystemBase {
 
   public void pivot(double speed) {
     leftPivoter.setInverted(true);
-    if(speed < 0 && getLowerSwitchToggled()){
-      // If we hit the switch and we're going down, stop the motor and reset the encoder
-      resetEncoder(0);
-      leftPivoter.set(0);
-    }else if (speed > 0 && (getHigherSwitchToggled())) {
-      // If we're going up and exceed our degrees for the pivoter, stop. 
-      leftPivoter.set(0);
-
-    } else {
-      leftPivoter.set(speed);
+    rightPivoter.follow(leftPivoter, true);
+    
+    // Add input safety measure. 
+    if(Math.abs(speed) > 1){
+      System.out.println("SPEED TARGET EXCEEDS LIMIT");
+    } else{
+      if(speed < 0 && getLowerSwitchToggled()){
+        // If we hit the switch and we're going down, stop the motor and reset the encoder
+        resetEncoder(0);
+        leftPivoter.set(0);
+      }else if (speed > 0 && (getHigherSwitchToggled())) {
+        // If we're going up and exceed our degrees for the pivoter, stop. 
+        leftPivoter.set(0);
+      } else {
+        leftPivoter.set(speed);
+      }  
     }
   }
 
