@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.715819887696784,
-        "y": 1.121222194938452
+        "x": 5.316079800805683,
+        "y": 1.140721711372164
       },
       "isLocked": false,
       "linkedName": "Left Stage Shoot"
@@ -20,8 +20,8 @@
         "y": 2.3691912466960323
       },
       "prevControl": {
-        "x": 6.154559007455308,
-        "y": 1.7354569626003862
+        "x": 6.564048852563263,
+        "y": 1.6087101057812565
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.55,
       "rotationDegrees": 25.0,
       "rotateFast": false
     }

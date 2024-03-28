@@ -2,74 +2,67 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7531929553170285,
-      "y": 4.3678916811515345
+      "x": 1.3473171105845272,
+      "y": 5.554723360164464
     },
-    "rotation": -57.771242564901506
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Pivot to Subwoofer"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker To Speaker Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker Note to Speaker"
+                }
+              },
               {
                 "type": "named",
                 "data": {
                   "name": "Pivot to Subwoofer"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot PID Speaker"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Left to Mail Hary 1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Mail Hary 1 to Stage"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Stage"
-                }
               }
             ]
           }
@@ -87,19 +80,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Stage to Mail Hary 2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
+                  "pathName": "Speaker to Center Note"
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
                 }
               }
             ]
@@ -112,13 +105,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Mail Hary 2 to Stage"
+                  "pathName": "Center Note to Speaker"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Stage"
+                  "name": "Pivot to Subwoofer"
                 }
               }
             ]
@@ -128,31 +121,6 @@
           "type": "named",
           "data": {
             "name": "Shoot PID Speaker"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Stage to Center Note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              }
-            ]
           }
         }
       ]

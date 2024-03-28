@@ -3,35 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7158327706968803,
-        "y": 4.397002070357417
+        "x": 0.7141939224496041,
+        "y": 4.397140955802102
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.159911049166827,
-        "y": 1.6839582397113522
+        "x": 1.6404209530509337,
+        "y": 3.071173838309671
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Speaker"
     },
     {
       "anchor": {
-        "x": 8.397003397332211,
-        "y": 0.7409816244810651
+        "x": 8.046012101525392,
+        "y": 0.7604811409147759
       },
       "prevControl": {
-        "x": 6.43427429305001,
-        "y": 0.8887557376254367
+        "x": 6.856541599068947,
+        "y": 0.6239845258787919
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Mail Hary 1"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.1,
-      "rotationDegrees": 0.0,
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
@@ -49,9 +49,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Hairy Males",
   "previewStartingState": {
-    "rotation": -59.30027744918555,
+    "rotation": -60.25511870305787,
     "velocity": 0
   },
   "useDefaultConstraints": true

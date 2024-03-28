@@ -3,35 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7141939224496041,
-        "y": 4.397140955802102
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 1.6404209530509337,
-        "y": 3.071173838309671
-      },
-      "isLocked": false,
-      "linkedName": "Left Speaker"
-    },
-    {
-      "anchor": {
         "x": 8.046012101525392,
         "y": 0.7604811409147759
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.969313601335043,
+        "y": 0.8774782395170491
+      },
+      "isLocked": false,
+      "linkedName": "Mail Hary 1"
+    },
+    {
+      "anchor": {
+        "x": 0.7141939224496041,
+        "y": 4.397140955802102
+      },
       "prevControl": {
-        "x": 5.901065293817049,
-        "y": 1.1309719531553086
+        "x": 1.2406808661605906,
+        "y": 3.5976607820248425
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Mail Hary 1"
+      "linkedName": "Left Speaker"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 0.65,
+      "rotationDegrees": -30.0,
       "rotateFast": false
     }
   ],
@@ -45,13 +45,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -58.52316065025106,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Hairy Males",
   "previewStartingState": {
-    "rotation": -60.25511870305787,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

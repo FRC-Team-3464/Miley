@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.534799577912696,
-        "y": 7.595061650930903
+        "x": 7.002787972321789,
+        "y": 6.3470925991733225
       },
       "isLocked": false,
       "linkedName": "Right Speaker"
@@ -20,8 +20,8 @@
         "y": 5.791356380812524
       },
       "prevControl": {
-        "x": 6.505550303262128,
-        "y": 5.693858798643963
+        "x": 6.97353869767122,
+        "y": 6.200846225920481
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": -30.0,
       "rotateFast": false
     }
   ],
@@ -45,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -22.0362269401454,
     "rotateFast": false
   },
   "reversed": false,

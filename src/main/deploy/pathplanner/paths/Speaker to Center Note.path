@@ -3,34 +3,55 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7141939224496041,
-        "y": 4.397140955802102
+        "x": 1.3576779647621067,
+        "y": 5.557362183607978
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6599204694846463,
-        "y": 4.328892648284108
+        "x": 4.672595758498902,
+        "y": 5.381866535706435
       },
       "isLocked": false,
-      "linkedName": "Left Speaker"
+      "linkedName": "Center Speaker"
     },
     {
       "anchor": {
-        "x": 2.6543958076039678,
-        "y": 4.172896516814411
+        "x": 5.043086570739434,
+        "y": 4.2996433736354085
       },
       "prevControl": {
-        "x": 1.6543958076039678,
-        "y": 4.172896516814411
+        "x": 4.307262324920818,
+        "y": 4.57073651683174
+      },
+      "nextControl": {
+        "x": 5.784068195220498,
+        "y": 4.026650143563438
+      },
+      "isLocked": false,
+      "linkedName": "Middle Stage"
+    },
+    {
+      "anchor": {
+        "x": 8.075261376175959,
+        "y": 4.07539893464585
+      },
+      "prevControl": {
+        "x": 6.476301028617282,
+        "y": 4.143647242165711
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Stage Note"
+      "linkedName": "Center Note"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
+      "rotationDegrees": -30.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.55,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -51,7 +72,7 @@
   "reversed": false,
   "folder": "Speaker (rotation) points",
   "previewStartingState": {
-    "rotation": -59.47029410006589,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

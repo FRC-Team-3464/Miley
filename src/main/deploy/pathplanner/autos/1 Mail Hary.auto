@@ -37,7 +37,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker to Hail Mary"
+                  "pathName": "Left to Mail Hary 1"
                 }
               },
               {
@@ -53,6 +53,24 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Mail Hary 1 to Left"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pivot to Subwoofer"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
           }
         }
       ]
