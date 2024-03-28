@@ -35,7 +35,9 @@ public class SwerveAimSpeaker extends Command {
   public static double previousAngle = -1; 
   // Used to count how many times that we're off. 
   public static double previousAngleCounter = 0;
+  
 
+  public static Rotation2d targetHeading;
 
   public static final double ROTATION_DEGREES_TOLERANCE = 1;
   public static final double PIVOT_DEGREES_TOLERANCE = 1;
@@ -60,7 +62,6 @@ public class SwerveAimSpeaker extends Command {
       AutoConstants.kThetaControllerConstraints);
   
   private Transform3d camToTarget;
-  private Rotation2d targetHeading;
   ShuffleboardTab tab = Shuffleboard.getTab("Vision");
 
   public SwerveAimSpeaker() {
@@ -82,7 +83,7 @@ public class SwerveAimSpeaker extends Command {
   public void initialize() {
     // Start counting seconds of aim-time
     camToTarget = null;
-    targetHeading = null;
+    targetHeading = new Rotation2d(0);
     aimTimer.reset();
     aimTimer.start();
     rotationController.reset(swerveSubsystem.getRotation2d().getRadians());
@@ -102,26 +103,31 @@ public class SwerveAimSpeaker extends Command {
       if (targetOpt.isPresent()) {
         var target = targetOpt.get();
         camToTarget = target.getBestCameraToTarget();
-        // photonCamera.setLED(VisionLEDMode.kOn);
         ledSub.setBlue();
+
+        // Calculate how far off we are rotation-wise from facing the apriltag's center. 
         var rotationDegrees = getRotationDegreesToSpeaker();
-        // update our angle
-        previousAngle = rotationDegrees;
-        previousAngleCounter = 0;
-        rotateToSpeaker(rotationDegrees); 
-        // pivotToSpeaker();
+        if (rotationDegrees != 0.0) {
+          // Get where the swerve is heading
+          var drivetrainHeading = swerveSubsystem.getRotation2d();
+          
+          // Update our target heading - calculate how much the robot needs to rotate to center at the apriltag.
+          targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
+          rotateToSpeaker(targetHeading, drivetrainHeading); 
+          pivotToSpeaker();
+
+        }
       }
 
     } else {
       // If no target found, see if we have a previous angle we can use as a reference. 
-      if (previousAngle != -1 && previousAngleCounter < 10){
-        System.out.print("USING PREVIOUS Count:");
-        System.out.println(previousAngleCounter);
-
-        // previousAngle = -1;
-        previousAngleCounter += 1;
+      if (targetHeading.getRadians() != 0){
+        // System.out.print("USING PREVIOUS Target of:");
+        // System.out.println(targetHeading.getRadians());
         ledSub.setYellow();
-        rotateToSpeaker(previousAngle); 
+
+        // Rotate using our previous target
+        rotateToSpeaker(targetHeading, swerveSubsystem.getRotation2d()); 
     
       } else {
         System.out.println("NO REF FOUND");
@@ -130,10 +136,26 @@ public class SwerveAimSpeaker extends Command {
         swerveSubsystem.stopModules();
         ledSub.setRed();
         camToTarget = null;
-        photonCamera.setLED(VisionLEDMode.kOff);
       }
     }
+
   }
+
+  // Set our controller's target to the targets radians, and have it turn 
+  private void rotateToSpeaker(Rotation2d target, Rotation2d drivetrainHeading ) {
+    rotationController.setGoal(target.getRadians());
+
+    var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
+    if (rotationController.atGoal()) {
+      rotationSpeed = 0;
+    }
+
+    // Rotate using relative speeds. 
+    swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
+    SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
+    SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());  
+
+  }    
 
   @Override
   public void end(boolean interrupted) {
@@ -143,29 +165,30 @@ public class SwerveAimSpeaker extends Command {
 
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // If the timer has elapsed for aiming - end the command
     if (aimTimer.hasElapsed(AIM_TIME)) {
       System.out.println("NO TARGET FOUND");
-      // success[0] = false;
-      // times up
       return true;
     } 
     
+    // Get our current target heading
     var drivetrainHeading = swerveSubsystem.getRotation2d();
     if (camToTarget != null) {
       var rotationDegrees = getRotationDegreesToSpeaker();
-      targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
-    }
-
-    if (targetHeading != null) {
-      var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - drivetrainHeading.getDegrees()) < ROTATION_DEGREES_TOLERANCE;
-      if (isRotationOnTarget){
-        ledSub.setGreen();
-      };
-      return isRotationOnTarget;
+      Rotation2d verifyTargetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
       
+      // If we have a target heading, see if the error is within tolarance. 
+      if (verifyTargetHeading != null) {
+        var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - drivetrainHeading.getDegrees()) < ROTATION_DEGREES_TOLERANCE;
+        
+        if (isRotationOnTarget){
+          ledSub.setGreen();
+        };
+
+        return isRotationOnTarget;
+    }
       // var pivotDegrees = getPivotDegreesToSpeaker();
       // var pivoterDegrees = pivoterSub.getPivoterDegrees();
       // var isPivoterOnTarget = Math.abs(pivoterDegrees - pivotDegrees) < PIVOT_DEGREES_TOLERANCE;
@@ -176,23 +199,23 @@ public class SwerveAimSpeaker extends Command {
     return false;
   }
 
-  private void rotateToSpeaker(double rotateDegrees) {
-    // var rotationDegrees = getRotationDegreesToSpeaker();
-    var rotationDegrees = rotateDegrees;
-    if (rotationDegrees != 0.0) {
-      var drivetrainHeading = swerveSubsystem.getRotation2d();
-      var targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
-      rotationController.setGoal(targetHeading.getRadians());
-      var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
-      if (rotationController.atGoal()) {
-        rotationSpeed = 0;
-      }
-      swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
-    
-      SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
-      SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());
+
+  private void pivotToSpeaker(){
+    var pivotDegrees = getPivotDegreesToSpeaker();
+    var pivotRotations = pivoterSub.convertDegreesToMotorRotations(pivotDegrees);
+
+    if (pivotRotations < PivoterConstants.kMaxPivoterRotations && pivotRotations > 0) {
+      // print()
+      photonCamera.setLED(VisionLEDMode.kBlink);
+    } else {
+      photonCamera.setLED(VisionLEDMode.kOff);
     }
+
+    // SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
+
   }
+
+
 
   // private void pivotToSpeaker(){
   //   var pivotDegrees = getPivotDegreesToSpeaker();
@@ -210,6 +233,7 @@ public class SwerveAimSpeaker extends Command {
   //   }
   // }
 
+  // Return the degree the camera makes with the apriltag - how much we're off from being dead center to the apriltag. 
   private double getRotationDegreesToSpeaker() {
     return Math.atan2(
       camToTarget.getY() + CAMERA_TO_ROBOT_Y,
