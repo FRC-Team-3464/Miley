@@ -20,6 +20,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.PhotonSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class SwerveAimAndPivot extends Command {
   private static final int RED_SPEAKER_TAG = 4;
@@ -35,6 +36,7 @@ public class SwerveAimAndPivot extends Command {
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
   private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
+  private final ShooterSubsystem shootSub = ShooterSubsystem.getInstance();
 
   // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
@@ -138,6 +140,7 @@ public class SwerveAimAndPivot extends Command {
           System.out.println(targetPivoterRotations);
 
           pivoterSub.PIDPivot(targetPivoterRotations);
+          // shootSub.runShooterPID(4000);
         }else{
           System.out.print("NO WORK");
           System.out.println(targetPivoterRotations);
