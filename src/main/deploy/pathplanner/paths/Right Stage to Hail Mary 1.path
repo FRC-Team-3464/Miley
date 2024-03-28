@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.3179319293111518,
-        "y": 6.6188914144210065
+        "x": 2.4582617826204314,
+        "y": 6.431784943341967
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.317931929311152,
-        "y": 6.6188914144210065
+        "x": 2.855863033663389,
+        "y": 7.086657592118603
       },
       "isLocked": false,
       "linkedName": "Right Stage Shoot"
     },
     {
       "anchor": {
-        "x": 8.280006298729937,
-        "y": 7.439065519461206
+        "x": 8.936823343732158,
+        "y": 7.3322348354098414
       },
       "prevControl": {
-        "x": 7.280006298729937,
-        "y": 7.439065519461206
+        "x": 7.936823343732158,
+        "y": 7.3322348354098414
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Hail Mary 1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.35,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {

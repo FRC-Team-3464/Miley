@@ -13,9 +13,9 @@ public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
   private final AddressableLED ledStrip;
   private final AddressableLEDBuffer ledBuffer;
+  private int firstRedV = 1;
   private static LEDSubsystem instance = null;  
   private int rainbowFirstPixelHue = 1;
-  private int huet = 0;
   String ledState;
 
   public LEDSubsystem() {
@@ -58,13 +58,20 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
   public void redPulse() {
-    for (var i = 0; i < ledBuffer.getLength(); i++) {   
-    ledBuffer.setHSV(i, 1, 255, huet);
+    for (var i = 0; i < ledBuffer.getLength(); i++) {  
+      final var huet = (firstRedV + (i * 180 / ledBuffer.getLength())) % 250;
+      ledBuffer.setHSV(i, 1, 255, huet);
     }
-    huet += 5;
-    if(huet >= 250) {
-      huet = 0;
+    firstRedV = (firstRedV + 5) % 250;
+    ledStrip.setData(ledBuffer);
+  }
+
+  public void bluePulse() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {  
+      final var huet = (firstRedV + (i * 180 / (Math.floorDiv(ledBuffer.getLength(), 3)))) % 250;
+      ledBuffer.setHSV(i, 100, 255, huet);
     }
+    firstRedV = (firstRedV + 10) % 250;
     ledStrip.setData(ledBuffer);
   }
 

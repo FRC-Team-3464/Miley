@@ -49,6 +49,8 @@ public class ShooterVelocityPID extends Command {
   @Override
   public boolean isFinished() {
     // End command once we're within tolerance. 
-    return (error < 300);
+    // return (error < 300);    
+    return (error < 500);
+
   }
 }
