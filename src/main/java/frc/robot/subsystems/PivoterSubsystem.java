@@ -82,7 +82,7 @@ public class PivoterSubsystem extends SubsystemBase {
   public void pivot(double speed) {
     leftPivoter.setInverted(true);
     rightPivoter.follow(leftPivoter, true);
-    
+
     // Add input safety measure. 
     if(Math.abs(speed) > 1){
       System.out.println("SPEED TARGET EXCEEDS LIMIT");
@@ -176,8 +176,6 @@ public class PivoterSubsystem extends SubsystemBase {
     return Math.cos(radians) * horizontalArbFF; // We need "max" ff when degrees is 0
   }
 
-
-
   @Override
   public void periodic() {
 
@@ -189,7 +187,6 @@ public class PivoterSubsystem extends SubsystemBase {
     };
 
 
-    
     // Print debug information
     SmartDashboard.putBoolean("4 - Pivotor Left Switch", getLowerSwitchToggled());
     SmartDashboard.putBoolean("5 - Pivotor Right Switch", getHigherSwitchToggled());

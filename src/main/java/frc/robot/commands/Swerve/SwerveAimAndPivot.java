@@ -1,6 +1,8 @@
 package frc.robot.commands.Swerve;
 
+
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
 import org.photonvision.common.hardware.VisionLEDMode;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -19,51 +21,54 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.PhotonSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
 
-public class SwerveAimSpeaker extends Command {
-
+public class SwerveAimAndPivot extends Command {
   private static final int RED_SPEAKER_TAG = 4;
   private static final int BLUE_SPEAKER_TAG = 8;
   private static final double TAG_TO_SPEAKER_Z = 0.5;  //fixme: get real value
-  public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); //fixme: get real value
+
+  public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); // Robot Height
   public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); //fixme: get real value
-  public static double CAMERA_TO_ROBOT_Z = Units.inchesToMeters(14.5); //fixme: get real value
-
-// DEBUG: if we miss the apriltag - reference a previous angle
-  public static double previousAngle = -1; 
-  // Used to count how many times that we're off. 
-  public static double previousAngleCounter = 0;
-  
-
-  public static Rotation2d targetHeading;
-
-  public static final double ROTATION_DEGREES_TOLERANCE = 1;
-  public static final double PIVOT_DEGREES_TOLERANCE = 1;
-  private static final double AIM_TIME = 5;
-  private final Timer aimTimer = new Timer();
+  public static double CAMERA_TO_ROBOT_Z = Units.inchesToMeters(14.5); //Robot distance from center
 
   private final PhotonCamera photonCamera;
-  // private final ArrayList<Boolean> success = new ArrayList<Boolean>();
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
   private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
 
-  // private static final TrapezoidProfile.Constraints ROTATION_CONSTRAINTS = new TrapezoidProfile.Constraints(8, 8);
-  // private final ProfiledPIDController rotationController = new ProfiledPIDController(2, 0, 0, ROTATION_CONSTRAINTS);
+  // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
+  public static ProfiledPIDController rotationController = new ProfiledPIDController(
+    AutoConstants.kPThetaController,
+    0,
+    0,
+    AutoConstants.kThetaControllerConstraints);
 
-    // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
-    public static ProfiledPIDController rotationController = new ProfiledPIDController(
-      AutoConstants.kPThetaController,
-      0,
-      0,
-      AutoConstants.kThetaControllerConstraints);
-  
   private Transform3d camToTarget;
   ShuffleboardTab tab = Shuffleboard.getTab("Vision");
 
-  public SwerveAimSpeaker() {
-    // this.success = success;
+  // Timer that tracks our aiming time. 
+  private static final double AIM_TIME = 5;
+  private final Timer aimTimer = new Timer();
+    
+  // Our rotation target
+  public static Rotation2d targetHeading;
+  public static final double ROTATION_DEGREES_TOLERANCE = 1;
+  public static final double PIVOT_DEGREES_TOLERANCE = 1;
 
+  // PIVOT Calculations:
+  // Lookup table for doubles
+  double[][] pivoterLookUpTable = {
+    {1, 8}, // Fixme: update values. 
+    {2, 10},
+    {3, 12},
+    {4, 16}
+  };
+
+  // Track our pivoter target 
+  double targetPivoterRotations;
+
+  public SwerveAimAndPivot() {
+    // this.success = success;
     rotationController.setTolerance(Units.degreesToRadians(3));
     rotationController.enableContinuousInput(-Math.PI, Math.PI);
 
@@ -71,6 +76,7 @@ public class SwerveAimSpeaker extends Command {
     addRequirements(photonSub);
     addRequirements(pivoterSub);
 
+    // Get the apriltag position. 
     photonCamera = photonSub.getAprilCamera();
 
     tab.addString("CameraToTarget", this::getFomattedTransform3d).withPosition(0, 5).withSize(2, 2);
@@ -81,6 +87,7 @@ public class SwerveAimSpeaker extends Command {
     // Start counting seconds of aim-time
     camToTarget = null;
     targetHeading = new Rotation2d(0);
+    targetPivoterRotations = -6; // Value to which the pivoter will not rotate down to. 
     aimTimer.reset();
     aimTimer.start();
     rotationController.reset(swerveSubsystem.getRotation2d().getRadians());
@@ -96,12 +103,12 @@ public class SwerveAimSpeaker extends Command {
           .filter(t -> t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
           .findFirst();
       
-      // If we find an optimal target: 
       if (targetOpt.isPresent()) {
         var target = targetOpt.get();
         camToTarget = target.getBestCameraToTarget();
         ledSub.setBlue();
-
+    
+        // ROTATION COMMAND
         // Calculate how far off we are rotation-wise from facing the apriltag's center. 
         var rotationDegrees = getRotationDegreesToSpeaker();
         if (rotationDegrees != 0.0) {
@@ -111,16 +118,30 @@ public class SwerveAimSpeaker extends Command {
           // Update our target heading - calculate how much the robot needs to rotate to center at the apriltag.
           targetHeading = drivetrainHeading.minus(Rotation2d.fromDegrees(rotationDegrees));
           rotateToSpeaker(targetHeading, drivetrainHeading); 
-          pivotToSpeaker();
-
         }
+
+        // Auto Pivot Mothod. 
+        double tagDistance = PhotonUtils.calculateDistanceToTargetMeters(
+          CAMERA_TO_ROBOT_X, 
+          Units.inchesToMeters(59.65), 
+          Math.PI / 6, 
+          targetOpt.get().getPitch());
+
+        double lookUpVal = getPivoterOutputTable(tagDistance);
+        
+        if((lookUpVal != -6) && (lookUpVal > PivoterConstants.kSubwofferPivoterRotations) && (lookUpVal < PivoterConstants.kMaxPivoterRotations) ){
+          targetPivoterRotations = lookUpVal;
+          // pivotToSpeaker();
+        }
+
+        SmartDashboard.putNumber("Apriltag Distance", tagDistance);    
+        SmartDashboard.putNumber("LookUpVal", lookUpVal);   
+        SmartDashboard.putNumber("Target Pivot Rotations", targetPivoterRotations);   
       }
 
     } else {
       // If no target found, see if we have a previous angle we can use as a reference. 
       if (targetHeading.getRadians() != 0){
-        // System.out.print("USING PREVIOUS Target of:");
-        // System.out.println(targetHeading.getRadians());
         ledSub.setYellow();
 
         // Rotate using our previous target
@@ -129,19 +150,65 @@ public class SwerveAimSpeaker extends Command {
       } else {
         System.out.println("NO REF FOUND");
         // Reset previous angle to be undefined
-        previousAngle = -1;
         swerveSubsystem.stopModules();
         ledSub.setRed();
         camToTarget = null;
       }
     }
+  }
 
+  /*
+   * 
+   * Pivot To Speaker and Rotate To Speaker Helper Functions
+   * 
+   */
+
+  private double getPivoterOutputTable(double distance){
+    // 1. go through each value in distance table. 
+    // 2. Find the two indexes whose distances are inbetween the two. 
+    // 3. Interpolate between the two to find the resulting distance. 
+    for(int i = 0; i < pivoterLookUpTable.length - 1; i++){
+      if((pivoterLookUpTable[i][0] < distance) && (distance < pivoterLookUpTable[i + 1][0])){
+        System.out.print("TARGET [LOWER] AND [TOP]: ");
+        System.out.print(pivoterLookUpTable[i][0]);
+        System.out.print(pivoterLookUpTable[i + 1][0]);
+        System.out.println();
+ 
+        // Get our pivoter values
+        double lowerDistanceVal = pivoterLookUpTable[i][0];
+        double lowerPivoterVal = pivoterLookUpTable[i][1];
+        
+        double higherDistanceVal = pivoterLookUpTable[i][0];
+        double higherPivoterVal = pivoterLookUpTable[i + 1][1];
+
+        double slope = (higherPivoterVal - lowerPivoterVal) / (higherDistanceVal - lowerDistanceVal);
+        double targetPivotVal = lowerPivoterVal + (distance - lowerDistanceVal) * (slope);
+        
+        return targetPivotVal;
+      }
+    }
+    
+    System.out.println(" | NO TARGET FOUND");
+    return -6; // This is a value that doesn't cause any rotation. 
+  }
+
+
+  private void pivotToSpeaker(){
+    var pivotDegrees = getPivotDegreesToSpeaker();
+    var pivotRotations = pivoterSub.convertDegreesToMotorRotations(pivotDegrees);
+
+    if (pivotRotations < PivoterConstants.kMaxPivoterRotations && pivotRotations > 0) {
+      // print()
+      photonCamera.setLED(VisionLEDMode.kBlink);
+    } else {
+      photonCamera.setLED(VisionLEDMode.kOff);
+    }
+    // SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
   }
 
   // Set our controller's target to the targets radians, and have it turn 
   private void rotateToSpeaker(Rotation2d target, Rotation2d drivetrainHeading ) {
     rotationController.setGoal(target.getRadians());
-
     var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
     if (rotationController.atGoal()) {
       rotationSpeed = 0;
@@ -194,22 +261,6 @@ public class SwerveAimSpeaker extends Command {
     }
     
     return false;
-  }
-
-
-  private void pivotToSpeaker(){
-    var pivotDegrees = getPivotDegreesToSpeaker();
-    var pivotRotations = pivoterSub.convertDegreesToMotorRotations(pivotDegrees);
-
-    if (pivotRotations < PivoterConstants.kMaxPivoterRotations && pivotRotations > 0) {
-      // print()
-      photonCamera.setLED(VisionLEDMode.kBlink);
-    } else {
-      photonCamera.setLED(VisionLEDMode.kOff);
-    }
-
-    // SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
-
   }
 
 
