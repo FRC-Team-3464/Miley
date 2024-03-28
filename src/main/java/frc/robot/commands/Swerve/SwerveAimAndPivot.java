@@ -58,10 +58,12 @@ public class SwerveAimAndPivot extends Command {
   // PIVOT Calculations:
   // Lookup table for doubles
   double[][] pivoterLookUpTable = {
-    {1, 8}, // Fixme: update values. 
-    {2, 10},
-    {3, 12},
-    {4, 16}
+    {1, 2}, // Fixme: update values. 
+    {1.25, 3.8},
+    {1.5, 4.6},
+    {1.7, 5.88},
+    {2, 7},
+    
   };
 
   // Track our pivoter target 
@@ -104,6 +106,7 @@ public class SwerveAimAndPivot extends Command {
           .findFirst();
       
       if (targetOpt.isPresent()) {
+        photonCamera.setLED(VisionLEDMode.kBlink);
         var target = targetOpt.get();
         camToTarget = target.getBestCameraToTarget();
         ledSub.setBlue();
@@ -125,15 +128,22 @@ public class SwerveAimAndPivot extends Command {
           CAMERA_TO_ROBOT_X, 
           Units.inchesToMeters(59.65), 
           Math.PI / 6, 
-          targetOpt.get().getPitch());
+          Units.degreesToRadians(targetOpt.get().getPitch()));
 
         double lookUpVal = getPivoterOutputTable(tagDistance);
         
         if((lookUpVal != -6) && (lookUpVal > PivoterConstants.kSubwofferPivoterRotations) && (lookUpVal < PivoterConstants.kMaxPivoterRotations) ){
           targetPivoterRotations = lookUpVal;
-          // pivotToSpeaker();
-        }
+          System.out.print("Running at: ");
+          System.out.println(targetPivoterRotations);
 
+          pivoterSub.PIDPivot(targetPivoterRotations);
+        }else{
+          System.out.print("NO WORK");
+          System.out.println(targetPivoterRotations);
+          
+        }
+        SmartDashboard.putNumber("Tag Pitch", targetOpt.get().getPitch());    
         SmartDashboard.putNumber("Apriltag Distance", tagDistance);    
         SmartDashboard.putNumber("LookUpVal", lookUpVal);   
         SmartDashboard.putNumber("Target Pivot Rotations", targetPivoterRotations);   
@@ -148,7 +158,9 @@ public class SwerveAimAndPivot extends Command {
         rotateToSpeaker(targetHeading, swerveSubsystem.getRotation2d()); 
     
       } else {
-        System.out.println("NO REF FOUND");
+        photonCamera.setLED(VisionLEDMode.kOff);
+        System.out.print("NO REF FOUND");
+        System.out.println(targetPivoterRotations);
         // Reset previous angle to be undefined
         swerveSubsystem.stopModules();
         ledSub.setRed();
@@ -169,21 +181,34 @@ public class SwerveAimAndPivot extends Command {
     // 3. Interpolate between the two to find the resulting distance. 
     for(int i = 0; i < pivoterLookUpTable.length - 1; i++){
       if((pivoterLookUpTable[i][0] < distance) && (distance < pivoterLookUpTable[i + 1][0])){
-        System.out.print("TARGET [LOWER] AND [TOP]: ");
+        System.out.print("[LOWER] AND [TOP]: ");
         System.out.print(pivoterLookUpTable[i][0]);
+        System.out.print(" | ");
         System.out.print(pivoterLookUpTable[i + 1][0]);
-        System.out.println();
+        System.out.print(" | RESULT:");
  
         // Get our pivoter values
         double lowerDistanceVal = pivoterLookUpTable[i][0];
         double lowerPivoterVal = pivoterLookUpTable[i][1];
         
-        double higherDistanceVal = pivoterLookUpTable[i][0];
+        double higherDistanceVal = pivoterLookUpTable[i + 1][0];
         double higherPivoterVal = pivoterLookUpTable[i + 1][1];
 
         double slope = (higherPivoterVal - lowerPivoterVal) / (higherDistanceVal - lowerDistanceVal);
         double targetPivotVal = lowerPivoterVal + (distance - lowerDistanceVal) * (slope);
-        
+       
+        System.out.print(targetPivotVal);
+        System.out.println();
+
+        SmartDashboard.putNumber("Lower PivoterVal", lowerPivoterVal);  
+          
+        SmartDashboard.putNumber("Slope", slope);    
+        SmartDashboard.putNumber("Lower Distance", lowerDistanceVal); 
+        SmartDashboard.putNumber("Higher Distance", higherDistanceVal); 
+          
+        SmartDashboard.putNumber("Target", targetPivotVal);   
+
+
         return targetPivotVal;
       }
     }

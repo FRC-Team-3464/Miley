@@ -31,9 +31,9 @@ public class PIDManual extends Command {
   public void initialize() {
     currentPivoterReading = pivoterSub.getPivoterRawRotation();
     if (isUp){
-      target = currentPivoterReading + 2;
+      target = currentPivoterReading + 0.5;
     }else{
-      target = currentPivoterReading - 1.5;
+      target = currentPivoterReading - 1;
     }
     SmartDashboard.putNumber("Manual Pivoter Target Rotation", target);
 

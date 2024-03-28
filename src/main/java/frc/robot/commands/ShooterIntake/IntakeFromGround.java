@@ -58,7 +58,8 @@ public class IntakeFromGround extends Command {
       // intakeSub.runIntake(0.1);
       intakeSub.rumbleDude();
       intakeSub.runExtendedIntake(0);
-      intakeSub.runIntake(-0.08);
+      // intakeSub.runIntake(-0.05);
+      intakeSub.runIntake(-0.05);
 
       // intakeSub.runIntake(-0.1);
     }

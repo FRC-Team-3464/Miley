@@ -29,8 +29,12 @@ public class ShooterVelocityPID extends Command {
   @Override
   public void execute() {
     shootSub.runShooterPID(setPoint);
+    if(error > 300) {
     ledSub.redPulse();
-
+    }
+    else {
+      ledSub.rainbow();
+    }
     error = Math.abs(setPoint - shootSub.getVelocity());
     SmartDashboard.putNumber("Shoot Setpoint", setPoint);
     SmartDashboard.putNumber("Shoot Velocity", shootSub.getVelocity());

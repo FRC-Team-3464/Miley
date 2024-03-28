@@ -59,7 +59,7 @@ public class LEDSubsystem extends SubsystemBase {
 
   public void redPulse() {
     for (var i = 0; i < ledBuffer.getLength(); i++) {   
-    ledBuffer.setRGB(i, huet, 10, 10);
+    ledBuffer.setHSV(i, 1, 255, huet);
     }
     huet += 5;
     if(huet >= 250) {

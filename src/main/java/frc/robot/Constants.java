@@ -286,7 +286,9 @@ public static final class OIConstants {
 }
 
 public static final class SandwichConstants {
-  public static final double kIntakeSpeed = 0.5;
+  // public static final double kIntakeSpeed = 0.5;
+  public static final double kIntakeSpeed = 0.7;
+  
   public static final double kReverseIntakeSpeed = -0.75;
 
   public static final double kReverseShootSpeed = -0.75;

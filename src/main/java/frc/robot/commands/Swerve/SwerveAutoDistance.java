@@ -85,7 +85,7 @@ public class SwerveAutoDistance extends Command {
             targetOpt.get().getPitch());
 
         System.out.println(range);
-        SmartDashboard.putNumber("Apriltag Distance", range);
+        SmartDashboard.putNumber("Apriltag Distance", Units.metersToInches(range));
 
         // distancePidController.setSetpoint(TARGET_DISTANCE);
         // double forwardPIDSpeed = distancePidController.calculate(range);
