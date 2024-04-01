@@ -292,7 +292,9 @@ public static final class SandwichConstants {
   public static final double kReverseIntakeSpeed = -0.75;
 
   public static final double kReverseShootSpeed = -0.75;
-  public static final double kAmpShootSpeed = 0.5;
+  // public static final double kAmpShootSpeed = 0.5;
+  public static final double kAmpShootSpeed = 0.75;
+
   public static final double kSpeakerShootSpeed = 0.8;
 
   public static final double kShootVelocityTarget = 5000;
