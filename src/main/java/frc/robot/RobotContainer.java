@@ -170,16 +170,16 @@ public class RobotContainer {
     Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
-    // Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
+    Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
-    // Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
+    Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
     Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero(0));
     // Intake Trigger
     Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
 
-    Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
-    Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
+    // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
+    // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));

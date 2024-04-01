@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270256540513081,
-        "y": 5.791356380812524
+        "x": 8.644469482671159,
+        "y": 5.659970750140931
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.612797643647544,
-        "y": 6.4445901813418836
+        "x": 6.9870105858056215,
+        "y": 6.3132045506702905
       },
       "isLocked": false,
       "linkedName": "Hail Mary 2"
     },
     {
       "anchor": {
-        "x": 2.3179319293111518,
-        "y": 6.6188914144210065
+        "x": 2.4582617826204314,
+        "y": 6.431784943341967
       },
       "prevControl": {
-        "x": 3.69295338586617,
-        "y": 6.891162440180618
+        "x": 3.8332832391754494,
+        "y": 6.704055969101578
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Right Stage Shoot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.45,
+      "rotationDegrees": 14.384841873901799,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 30.250365545324634,
+    "rotation": 13.324531261890751,
     "rotateFast": false
   },
   "reversed": false,

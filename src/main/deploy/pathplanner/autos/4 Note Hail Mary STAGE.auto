@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7041386162544403,
-      "y": 6.689056341075646
+      "x": 0.8210801606788397,
+      "y": 6.607197259978566
     },
     "rotation": 55.72022534834144
   },
@@ -12,15 +12,34 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Shoot PID Speaker"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot PID Speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right to Amp Note"
+                }
+              },
               {
                 "type": "named",
                 "data": {
@@ -28,9 +47,9 @@
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Right to Amp Note"
+                  "name": "Pivot to Ground"
                 }
               }
             ]
@@ -55,7 +74,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -65,31 +84,37 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake From Ground"
-                      }
-                    }
-                  ]
+                  "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Hail Mary 1 to Right Stage"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Hail Mary 1 to Right Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
           }
         },
         {
@@ -105,7 +130,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -119,14 +144,33 @@
                 "data": {
                   "name": "Intake From Ground"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Hail Mary 2 to Right Stage"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Hail Mary 2 to Right Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
           }
         },
         {
