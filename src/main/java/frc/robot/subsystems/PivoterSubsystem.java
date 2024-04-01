@@ -30,7 +30,7 @@ public class PivoterSubsystem extends SubsystemBase {
   private final SparkPIDController m_pidController;
   // PID gains for Spark Smart Motion - class defined below
   // private Gains gains = new Gains(0.00025, 0, 0, 0.00025, 0, 1);
-  private Gains gains = new Gains(0.0001, 0, 0, 0.00035, 0, 1);
+  private Gains gains = new Gains(0.0001, 0, 0, 0.0004, 0, 1);
 
   private static final int SMART_MOTION_SLOT = 0;
 

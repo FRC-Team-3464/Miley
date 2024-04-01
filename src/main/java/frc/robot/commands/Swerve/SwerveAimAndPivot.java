@@ -62,10 +62,11 @@ public class SwerveAimAndPivot extends Command {
   double[][] pivoterLookUpTable = {
     {1, 2}, // Fixme: update values. 
     {1.25, 3.8},
-    {1.5, 4.6},
+    {1.5, 4.7},
     {1.7, 5.88},
     {2, 7},
-    
+    {2.25, 7.88},
+    {2.5, 8.36}
   };
 
   // Track our pivoter target 
@@ -134,18 +135,28 @@ public class SwerveAimAndPivot extends Command {
 
         double lookUpVal = getPivoterOutputTable(tagDistance);
         
+        // double equationVal = (2.13 + 6.98*Math.log(tagDistance)); logarithmic equation
+        double equationVal = (-6.18 + (9.9*tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
+
+        System.out.println(equationVal);
+
+        SmartDashboard.putNumber("Equation Pivoter Value", equationVal);
+        
         if((lookUpVal != -6) && (lookUpVal > PivoterConstants.kSubwofferPivoterRotations) && (lookUpVal < PivoterConstants.kMaxPivoterRotations) ){
           targetPivoterRotations = lookUpVal;
           System.out.print("Running at: ");
           System.out.println(targetPivoterRotations);
 
-          pivoterSub.PIDPivot(targetPivoterRotations);
+          // pivoterSub.PIDPivot(targetPivoterRotations);
+          pivoterSub.PIDPivot(equationVal);
           // shootSub.runShooterPID(4000);
         }else{
           System.out.print("NO WORK");
           System.out.println(targetPivoterRotations);
           
-        }
+        }    
+        pivoterSub.PIDPivot(equationVal);
+
         SmartDashboard.putNumber("Tag Pitch", targetOpt.get().getPitch());    
         SmartDashboard.putNumber("Apriltag Distance", tagDistance);    
         SmartDashboard.putNumber("LookUpVal", lookUpVal);   
