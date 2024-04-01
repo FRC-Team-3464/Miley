@@ -176,7 +176,8 @@ public class RobotContainer {
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
     Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero(0));
     // Intake Trigger
-    Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
+    // Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
+    Constants.OperatorConstants.button11.onTrue(new RunIntake(0.9));
 
     // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
     // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
