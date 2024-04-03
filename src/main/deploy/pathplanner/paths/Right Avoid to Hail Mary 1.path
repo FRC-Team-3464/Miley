@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.4582617826204314,
-        "y": 6.431784943341967
+        "x": 0.72394368066646,
+        "y": 6.67858437854643
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9143338058755885,
-        "y": 6.712444649960525
+        "x": 0.8604402957024457,
+        "y": 8.189796902159125
       },
       "isLocked": false,
-      "linkedName": "Right Stage Shoot"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.878352571519958,
-        "y": 5.5430292057165325
+        "x": 8.819881799307758,
+        "y": 7.437482225391801
       },
       "prevControl": {
-        "x": 7.230643432871277,
-        "y": 5.991518083691913
+        "x": 5.173472226203576,
+        "y": 7.651976906162636
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,9 +30,9 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.05,
       "rotationDegrees": 0,
-      "rotateFast": true
+      "rotateFast": false
     }
   ],
   "constraintZones": [],
@@ -45,13 +45,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -15.068488159492173,
+    "rotation": -2.2906100426384466,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Hail Mary Points",
   "previewStartingState": {
-    "rotation": 35.12302220906992,
+    "rotation": 59.3700015151793,
     "velocity": 0
   },
   "useDefaultConstraints": true
