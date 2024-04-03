@@ -24,7 +24,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class SwerveAimAndPivot extends Command {
   private static final int RED_SPEAKER_TAG = 4;
-  private static final int BLUE_SPEAKER_TAG = 8;
+  private static final int BLUE_SPEAKER_TAG = 7;
   private static final double TAG_TO_SPEAKER_Z = 0.5;  //fixme: get real value
 
   public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); // Robot Height
