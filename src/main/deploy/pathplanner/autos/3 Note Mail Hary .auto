@@ -70,6 +70,12 @@
                 "data": {
                   "name": "Pivot to Stage"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
               }
             ]
           }

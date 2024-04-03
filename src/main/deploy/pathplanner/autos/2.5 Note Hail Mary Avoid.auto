@@ -79,6 +79,12 @@
                 }
               },
               {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
@@ -172,6 +178,12 @@
                     }
                   ]
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
               }
             ]
           }
@@ -196,6 +208,12 @@
                 "type": "named",
                 "data": {
                   "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
                 }
               }
             ]
