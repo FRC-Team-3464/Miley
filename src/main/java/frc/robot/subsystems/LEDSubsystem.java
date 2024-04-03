@@ -75,6 +75,15 @@ public class LEDSubsystem extends SubsystemBase {
     ledStrip.setData(ledBuffer);
   }
 
+  public void bluePulseReverse() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {  
+      final var huet = (firstRedV + (i * 180 / (Math.floorDiv(ledBuffer.getLength(), 3)))) % 250;
+      ledBuffer.setHSV(i, 100, 255, huet);
+    }
+    firstRedV = (firstRedV - 10) % 250;
+    ledStrip.setData(ledBuffer);
+  }
+
   public void rainbow() {
     // For every pixel
     for (var i = 0; i < ledBuffer.getLength(); i++) {
