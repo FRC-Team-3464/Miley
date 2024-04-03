@@ -12,7 +12,7 @@
         "y": 2.3984405213466022
       },
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": "Mail Hary 2 to Stage"
     },
     {
       "anchor": {
@@ -32,11 +32,11 @@
     },
     {
       "anchor": {
-        "x": 8.075261376175959,
+        "x": 8.455501946633348,
         "y": 4.07539893464585
       },
       "prevControl": {
-        "x": 7.539024674248874,
+        "x": 7.919265244706263,
         "y": 4.065649176428995
       },
       "nextControl": null,

@@ -12,7 +12,7 @@
         "y": 5.895548241414881
       },
       "isLocked": false,
-      "linkedName": "Right Stage Shoot"
+      "linkedName": "Amp Note to Right Stage End"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Speaker Note"
+      "linkedName": "Right Stage to Speaker Note End"
     }
   ],
   "rotationTargets": [],

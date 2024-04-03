@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.87,
-        "y": 3.9
+        "x": 2.8688904883748028,
+        "y": 3.8999032867424406
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1270769273556405,
-        "y": 3.8099225664208514
+        "x": 3.125967415730443,
+        "y": 3.809825853163292
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Speaker to Stage Note End"
     },
     {
       "anchor": {

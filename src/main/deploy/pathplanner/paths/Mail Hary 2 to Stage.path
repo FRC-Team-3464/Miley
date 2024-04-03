@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.065511617959103,
-        "y": 2.3691912466960323
+        "x": 8.358004364464787,
+        "y": 2.47643858708145
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.618322305528223,
-        "y": 1.3259671174924308
+        "x": 5.9108150520339064,
+        "y": 1.4332144578778485
       },
       "isLocked": false,
-      "linkedName": "Mail Hary 2"
+      "linkedName": "Stage to Mail Hary 2 End"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": "Mail Hary 2 to Stage"
     }
   ],
   "rotationTargets": [],

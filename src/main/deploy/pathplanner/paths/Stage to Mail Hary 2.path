@@ -8,31 +8,31 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.316079800805683,
-        "y": 1.140721711372164
+        "x": 4.2046073640840875,
+        "y": 1.2479690517575805
       },
       "isLocked": false,
-      "linkedName": "Left Stage Shoot"
+      "linkedName": "Mail Hary 1 to Stage End"
     },
     {
       "anchor": {
-        "x": 8.065511617959103,
-        "y": 2.3691912466960323
+        "x": 8.358004364464787,
+        "y": 2.47643858708145
       },
       "prevControl": {
-        "x": 6.564048852563263,
-        "y": 1.6087101057812565
+        "x": 6.983288455888077,
+        "y": 1.5892105893475446
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Mail Hary 2"
+      "linkedName": "Stage to Mail Hary 2 End"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.65,
       "rotationDegrees": 25.0,
-      "rotateFast": false
+      "rotateFast": true
     }
   ],
   "constraintZones": [],

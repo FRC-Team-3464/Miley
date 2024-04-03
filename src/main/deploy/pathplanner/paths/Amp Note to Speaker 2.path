@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.683645082254536,
-        "y": 6.990576641485824
+        "x": 2.855863033663389,
+        "y": 6.958021893251764
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3131542700140044,
-        "y": 6.698083894980142
+        "x": 2.4853722214228573,
+        "y": 6.665529146746081
       },
       "isLocked": false,
-      "linkedName": "Amp Note no rotate"
+      "linkedName": "Speaker to Amp Note End"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Center Speaker"
+      "linkedName": "Amp Note to Speaker 2 End"
     }
   ],
   "rotationTargets": [],

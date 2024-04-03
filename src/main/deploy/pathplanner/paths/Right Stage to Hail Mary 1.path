@@ -12,20 +12,20 @@
         "y": 7.086657592118603
       },
       "isLocked": false,
-      "linkedName": "Right Stage Shoot"
+      "linkedName": "Hail Mary Amp Note to Right Stage End"
     },
     {
       "anchor": {
-        "x": 8.936823343732158,
-        "y": 7.3322348354098414
+        "x": 8.82,
+        "y": 7.44
       },
       "prevControl": {
-        "x": 7.936823343732158,
-        "y": 7.3322348354098414
+        "x": 7.82,
+        "y": 7.44
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Hail Mary 1"
+      "linkedName": "Right Stage to Hail Mary 1 End"
     }
   ],
   "rotationTargets": [

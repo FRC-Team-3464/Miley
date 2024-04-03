@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.644469482671159,
-        "y": 5.659970750140931
+        "x": 8.878352571519958,
+        "y": 5.5430292057165325
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.9870105858056215,
-        "y": 6.3132045506702905
+        "x": 7.220893674654421,
+        "y": 6.196263006245892
       },
       "isLocked": false,
-      "linkedName": "Hail Mary 2"
+      "linkedName": "Right Stage to Hail Mary 2 End"
     },
     {
       "anchor": {
-        "x": 2.4582617826204314,
+        "x": 2.46,
         "y": 6.431784943341967
       },
       "prevControl": {
-        "x": 3.8332832391754494,
+        "x": 3.835021456555018,
         "y": 6.704055969101578
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Right Stage Shoot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [

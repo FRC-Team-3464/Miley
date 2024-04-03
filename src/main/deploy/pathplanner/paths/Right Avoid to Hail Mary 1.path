@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.72394368066646,
+        "x": 0.72,
         "y": 6.67858437854643
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8604402957024457,
+        "x": 0.8564966150359857,
         "y": 8.189796902159125
       },
       "isLocked": false,
@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 8.819881799307758,
+        "x": 8.82,
         "y": 7.437482225391801
       },
       "prevControl": {
-        "x": 5.173472226203576,
+        "x": 5.173590426895814,
         "y": 7.651976906162636
       },
       "nextControl": null,
-      "isLocked": false,
-      "linkedName": null
+      "isLocked": true,
+      "linkedName": "Right Avoid to Hail Mary 1 End"
     }
   ],
   "rotationTargets": [

@@ -12,7 +12,7 @@
         "y": 5.352617261054
       },
       "isLocked": false,
-      "linkedName": "Speaker Note"
+      "linkedName": "Right Stage to Speaker Note End"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Stage Note"
+      "linkedName": "Speaker Note to Stage Note End"
     }
   ],
   "rotationTargets": [],
