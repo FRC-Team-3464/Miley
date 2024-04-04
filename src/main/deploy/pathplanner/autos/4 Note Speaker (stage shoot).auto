@@ -35,15 +35,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "Speaker to Amp Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
                 }
               },
               {

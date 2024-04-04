@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.82,
-        "y": 7.44
+        "x": 8.835742517090736,
+        "y": 7.000326399702681
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.205648827688751,
-        "y": 7.462709130391125
+        "x": 9.221391344779487,
+        "y": 7.023035530093805
       },
       "isLocked": true,
       "linkedName": "Right Stage to Hail Mary 1 End"
