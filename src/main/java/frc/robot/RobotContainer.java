@@ -127,6 +127,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations));
     NamedCommands.registerCommand("Pivot to Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
     NamedCommands.registerCommand("Pivot to Amp-Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
+    NamedCommands.registerCommand("Force Pivot to Ground", new PIDPivotToZero());
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
@@ -135,7 +136,7 @@ public class RobotContainer {
         new WaitCommand(0.05),
         new ReverseIntake()
       ),
-      new RunIntake(1))); 
+      new RunIntake(0.8))); 
     NamedCommands.registerCommand("Shoot PID Speaker", new ShootPID());
     
     // NamedCommands  
@@ -166,7 +167,7 @@ public class RobotContainer {
     // Commands regarding the intake sandwich  and Elevator
     // Constants.OperatorConstants.button1.onTrue(new ShootPID());
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
-    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
+    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4500));
     Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
@@ -174,10 +175,10 @@ public class RobotContainer {
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
-    Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero(0));
+    Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero());
     // Intake Trigger
     // Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
-    Constants.OperatorConstants.button11.whileTrue(new RunIntake(1));
+    Constants.OperatorConstants.button11.whileTrue(new RunIntake(0.9));
 
     // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
     // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));

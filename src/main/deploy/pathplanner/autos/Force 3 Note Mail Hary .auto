@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3473171105845272,
-      "y": 5.554723360164464
+      "x": 0.7531929553170285,
+      "y": 4.3678916811515345
     },
-    "rotation": 0
+    "rotation": -57.771242564901506
   },
   "command": {
     "type": "sequential",
@@ -18,26 +18,107 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Stage"
+                  "name": "Pivot to Subwoofer"
                 }
               },
               {
-                "type": "race",
+                "type": "named",
+                "data": {
+                  "name": "Shoot PID Speaker"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left to Mail Hary 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Force Pivot to Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Mail Hary 1 to Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Shoot Speaker"
-                      }
-                    },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Pivot to Stage"
                       }
                     }
                   ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage to Mail Hary 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Force Pivot to Ground"
                 }
               }
             ]
@@ -50,7 +131,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker To Speaker Note"
+                  "pathName": "Mail Hary 2 to Stage"
                 }
               },
               {
@@ -60,57 +141,19 @@
                 }
               },
               {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Speaker Note to Speaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Subwoofer"
-                }
-              },
-              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "race",
+                      "type": "wait",
                       "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "Reverse Intake"
-                            }
-                          },
-                          {
-                            "type": "wait",
-                            "data": {
-                              "waitTime": 0.1
-                            }
-                          }
-                        ]
+                        "waitTime": 1.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Start Shooter"
+                        "name": "Pivot to Stage"
                       }
                     }
                   ]
@@ -122,7 +165,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Trigger Intake"
+            "name": "Shoot PID Speaker"
           }
         },
         {
@@ -132,7 +175,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker to Amp Note"
+                  "pathName": "Stage to Center Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Force Pivot to Ground"
                 }
               },
               {
@@ -140,82 +189,13 @@
                 "data": {
                   "name": "Intake From Ground"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Stop Shooter"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Amp Note to Right Stage"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Subwoofer"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "race",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "Reverse Intake"
-                            }
-                          },
-                          {
-                            "type": "wait",
-                            "data": {
-                              "waitTime": 0.1
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Start Shooter"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Trigger Intake"
           }
         }
       ]
     }
   },
-  "folder": "small, stupid, weak and dumb Autos",
+  "folder": "Four + Autos",
   "choreoAuto": false
 }

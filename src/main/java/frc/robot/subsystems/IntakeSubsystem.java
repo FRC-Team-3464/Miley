@@ -19,6 +19,7 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final CANSparkMax intakeMotor = new CANSparkMax(12, MotorType.kBrushless);
   private final CANSparkMax miniMotor = new CANSparkMax(15, MotorType.kBrushless);
+  private final CANSparkMax intakeMotorFollower = new CANSparkMax(16, MotorType.kBrushless);
 
   private final DigitalInput intakeButton = new DigitalInput(6);
   private final DigitalInput rightPhotoElectric = new DigitalInput(7);
@@ -33,6 +34,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     intakeMotor.restoreFactoryDefaults();
     intakeMotor.setInverted(true);
+    intakeMotorFollower.restoreFactoryDefaults();
+    intakeMotorFollower.follow(intakeMotor, true);
   }
 
   public static IntakeSubsystem getInstance() {
@@ -80,19 +83,24 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void runIntake(double speed) {
     intakeMotor.setInverted(true);
+    intakeMotorFollower.follow(intakeMotor, true);
+
     intakeMotor.set(speed);
   }
 
   public void stopIntake() {
     intakeMotor.set(0);
+    // intakeMotorFollower.set(0);
     miniMotor.set(0);
   }
 // hello this is also a test yo0iehnlkan
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Note? - 6", intakeButton.get());
+    // SmartDashboard.putBoolean("Note? - 6", intakeButton.get());
     SmartDashboard.putNumber("Intake Current", intakeMotor.getOutputCurrent());
+    SmartDashboard.putNumber("Intake Follower Current", intakeMotorFollower.getOutputCurrent());
+
     
     SmartDashboard.putBoolean("Right Photoelectric - 7", getPhotoElectricRight());
     SmartDashboard.putBoolean("Left Photoelectric - 8", getPhotoElectricLeft());

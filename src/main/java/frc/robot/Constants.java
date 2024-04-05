@@ -137,7 +137,7 @@ public static final class AutoConstants {
   public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 4 * Math.PI;
 
   // public static final double kPXController = 1.5;
-  public static final double kPXController = 3.75;
+  public static final double kPXController = 4;
   public static final double kPYController = 0.9;
   public static final double kPThetaController = 6;
   // public static final double kPThetaController = 3.75 ;
@@ -289,7 +289,7 @@ public static final class OIConstants {
 
 public static final class SandwichConstants {
   // public static final double kIntakeSpeed = 0.5;
-  public static final double kIntakeSpeed = 0.5;
+  public static final double kIntakeSpeed = 0.3;
   
   public static final double kReverseIntakeSpeed = -0.75;
 

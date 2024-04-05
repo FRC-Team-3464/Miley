@@ -68,13 +68,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Stage"
+                  "name": "Intake From Ground"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "Intake From Ground"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Pivot to Stage"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -112,7 +125,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -124,13 +137,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Stage"
+                  "name": "Intake From Ground"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "Intake From Ground"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Pivot to Stage"
+                      }
+                    }
+                  ]
                 }
               }
             ]
