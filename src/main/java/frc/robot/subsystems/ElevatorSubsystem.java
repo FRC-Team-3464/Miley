@@ -88,7 +88,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       }
     }
     else if(speed > 0) {
-      if(leftElevatorMax()) {
+      if(leftElevatorMax() || rightElevatorMax()) {
         System.out.println("L Max Stop");
         leftElevatorMotor.set(0);
       }
@@ -113,7 +113,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       }
     }
     else if(speed > 0) {
-      if(rightElevatorMax()) {
+      if(rightElevatorMax() || leftElevatorMax()) {
         System.out.println("R Max Stop");
         rightElevatorMotor.set(0);
       }

@@ -131,12 +131,7 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
-    NamedCommands.registerCommand("Trigger Intake", new SequentialCommandGroup(
-      new ParallelRaceGroup(
-        new WaitCommand(0.05),
-        new ReverseIntake()
-      ),
-      new RunIntake(0.8))); 
+    NamedCommands.registerCommand("Trigger Intake", new RunIntake(0.8)); 
     NamedCommands.registerCommand("Shoot PID Speaker", new ShootPID());
     
     // NamedCommands  

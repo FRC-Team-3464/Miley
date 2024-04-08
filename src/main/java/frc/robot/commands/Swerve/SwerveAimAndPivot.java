@@ -136,7 +136,7 @@ public class SwerveAimAndPivot extends Command {
         double lookUpVal = getPivoterOutputTable(tagDistance);
         
         // double equationVal = (2.13 + 6.98*Math.log(tagDistance)); logarithmic equation
-        double equationVal = (-6.18 + (9.9*tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
+        double equationVal = (-6.5 + (9.9*tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
 
         System.out.println(equationVal);
 

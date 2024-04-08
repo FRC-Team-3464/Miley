@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.358004364464787,
-        "y": 2.47643858708145
+        "x": 8.56261040157408,
+        "y": 2.596102286221667
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.9108150520339064,
-        "y": 1.4332144578778485
+        "x": 6.1154210891432,
+        "y": 1.5528781570180654
       },
       "isLocked": false,
       "linkedName": "Stage to Mail Hary 2 End"
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.75,
+    "maxVelocity": 4.9,
     "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0

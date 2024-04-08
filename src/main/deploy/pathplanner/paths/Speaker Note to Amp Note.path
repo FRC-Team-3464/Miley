@@ -3,36 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.059660556375746,
-        "y": 3.2954182772973626
+        "x": 2.6,
+        "y": 5.566417514601411
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.2046073640840875,
-        "y": 1.2479690517575805
+        "x": 0.8692651425188886,
+        "y": 5.964018765644369
       },
       "isLocked": false,
-      "linkedName": "Mail Hary 1 to Stage End"
+      "linkedName": "Stage Note AIM to Speaker Note End"
     },
     {
       "anchor": {
-        "x": 8.56261040157408,
-        "y": 2.596102286221667
+        "x": 3.159911049166827,
+        "y": 7.168516673215683
       },
       "prevControl": {
-        "x": 7.18789449299737,
-        "y": 1.7088742884877615
+        "x": 1.4876469638979164,
+        "y": 7.308846526524961
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Stage to Mail Hary 2 End"
+      "linkedName": "Speaker Note to Amp Note End"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": 25.0,
-      "rotateFast": true
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
     }
   ],
   "constraintZones": [],
@@ -44,14 +44,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 24.943905263424544,
+    "velocity": 0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hairy Males",
+  "folder": "Speaker (rotation) points",
   "previewStartingState": {
-    "rotation": -57.38075692880728,
+    "rotation": -0.24140980368989892,
     "velocity": 0
   },
   "useDefaultConstraints": true

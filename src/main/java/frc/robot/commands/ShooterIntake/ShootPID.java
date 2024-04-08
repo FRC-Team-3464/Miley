@@ -19,7 +19,7 @@ public class ShootPID extends SequentialCommandGroup {
       // Spit Note Back
       new ParallelRaceGroup(
         new ReverseIntake(),
-        new WaitCommand(0.075)
+        new WaitCommand(0.03)
 
         // new WaitCommand(0.05)
       ),

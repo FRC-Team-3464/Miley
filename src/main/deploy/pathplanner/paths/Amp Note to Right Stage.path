@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.855863033663389,
-        "y": 6.958021893251764
+        "x": 3.159911049166827,
+        "y": 7.168516673215683
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7323938733388164,
-        "y": 6.873579542883553
+        "x": 3.036441888842255,
+        "y": 7.084074322847472
       },
       "isLocked": false,
-      "linkedName": "Speaker to Amp Note End"
+      "linkedName": "Speaker Note to Amp Note End"
     },
     {
       "anchor": {
@@ -25,21 +25,21 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Amp Note to Right Stage End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.75,
+    "maxVelocity": 4.9,
     "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.143495127063833,
+    "rotation": 16.313852426260503,
     "rotateFast": false
   },
   "reversed": false,

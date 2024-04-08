@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4259262722800992,
-        "y": 4.32889264828411
+        "x": 1.4525645005705963,
+        "y": 4.584108541436456
       },
       "isLocked": false,
       "linkedName": "Amp Note to Spekaer 2 End"
     },
     {
       "anchor": {
-        "x": 2.8688904883748028,
-        "y": 3.8999032867424406
+        "x": 2.8909454969907094,
+        "y": 4.116342363738859
       },
       "prevControl": {
-        "x": 1.4259262722800998,
-        "y": 3.8706540120918724
+        "x": 1.4479812808960064,
+        "y": 4.087093089088291
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.75,
+    "maxVelocity": 4.9,
     "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
