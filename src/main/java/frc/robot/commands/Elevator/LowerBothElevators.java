@@ -7,12 +7,15 @@ package frc.robot.commands.Elevator;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 
 public class LowerBothElevators extends Command {
   /** Creates a new LowerBothElevators. */
   private ElevatorSubsystem elevatorSub;
+  private LEDSubsystem ledSub;
 
   public LowerBothElevators() {
+    ledSub = LEDSubsystem.getInstance();
     elevatorSub = ElevatorSubsystem.getInstance();
     addRequirements(elevatorSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,6 +30,7 @@ public class LowerBothElevators extends Command {
   public void execute() {
     elevatorSub.runLeftElevator(Constants.ElevatorConstants.kElevatorLowerSpeed);
     elevatorSub.runRightElevator(Constants.ElevatorConstants.kElevatorLowerSpeed);
+    ledSub.bluePulseReverse();
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +38,7 @@ public class LowerBothElevators extends Command {
   public void end(boolean interrupted) {
     elevatorSub.runLeftElevator(0);
     elevatorSub.runRightElevator(0);
+    ledSub.setOff();
   }
 
   // Returns true when the command should end.

@@ -12,25 +12,19 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Pivot to Subwoofer"
-          }
-        },
-        {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "Shoot Speaker"
+                  "name": "Shoot PID Speaker"
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 1.5
+                  "name": "Pivot to Subwoofer"
                 }
               }
             ]
@@ -81,22 +75,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Speaker"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 1.5
-                }
-              }
-            ]
+            "name": "Shoot PID Speaker"
           }
         },
         {
@@ -106,7 +87,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker to Amp Note"
+                  "pathName": "Speaker to Amp Note 2"
                 }
               },
               {
@@ -131,7 +112,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Speaker"
+                  "pathName": "Amp Note to Speaker 2"
                 }
               },
               {
@@ -144,22 +125,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Speaker"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 1.5
-                }
-              }
-            ]
+            "name": "Shoot PID Speaker"
           }
         },
         {
@@ -207,27 +175,14 @@
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Speaker"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 1.5
-                }
-              }
-            ]
+            "name": "Shoot PID Speaker"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Four + Autos",
   "choreoAuto": false
 }

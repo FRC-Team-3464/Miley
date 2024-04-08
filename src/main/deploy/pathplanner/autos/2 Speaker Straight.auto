@@ -22,22 +22,9 @@
                 }
               },
               {
-                "type": "race",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Shoot Speaker"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.5
-                      }
-                    }
-                  ]
+                  "name": "Shoot PID Speaker"
                 }
               }
             ]
@@ -83,38 +70,6 @@
                 "data": {
                   "name": "Pivot to Subwoofer"
                 }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "race",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "Reverse Intake"
-                            }
-                          },
-                          {
-                            "type": "wait",
-                            "data": {
-                              "waitTime": 0.1
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Start Shooter"
-                      }
-                    }
-                  ]
-                }
               }
             ]
           }
@@ -122,18 +77,12 @@
         {
           "type": "named",
           "data": {
-            "name": "Trigger Intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop Shooter"
+            "name": "Shoot PID Speaker"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "small, stupid, weak and dumb Autos",
   "choreoAuto": false
 }

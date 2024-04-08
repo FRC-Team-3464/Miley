@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.059660556375746,
+        "y": 3.2954182772973626
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.179583185769698,
+        "y": 2.3984405213466022
+      },
+      "isLocked": false,
+      "linkedName": "Mail Hary 2 to Stage"
+    },
+    {
+      "anchor": {
+        "x": 6.603047885430689,
+        "y": 4.07539893464585
+      },
+      "prevControl": {
+        "x": 4.044147046348448,
+        "y": 4.232869755512448
+      },
+      "nextControl": {
+        "x": 7.236782169526335,
+        "y": 4.0363999017784264
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.455501946633348,
+        "y": 4.07539893464585
+      },
+      "prevControl": {
+        "x": 7.919265244706263,
+        "y": 4.065649176428995
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Center Note"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": 30.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hairy Males",
+  "previewStartingState": {
+    "rotation": -47.045408488887205,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

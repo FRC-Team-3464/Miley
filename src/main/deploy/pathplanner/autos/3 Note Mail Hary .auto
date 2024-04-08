@@ -1,0 +1,201 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7531929553170285,
+      "y": 4.3678916811515345
+    },
+    "rotation": -57.771242564901506
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot PID Speaker"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left to Mail Hary 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Mail Hary 1 to Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Pivot to Stage"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage to Mail Hary 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Mail Hary 2 to Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Pivot to Stage"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage to Center Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Four + Autos",
+  "choreoAuto": false
+}

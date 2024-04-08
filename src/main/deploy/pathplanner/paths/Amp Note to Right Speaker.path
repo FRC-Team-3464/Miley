@@ -3,47 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.23,
-        "y": 7.26
+        "x": 2.8441688792209487,
+        "y": 7.0398809743488435
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3232724858323826,
-        "y": 6.50926861730208
+        "x": 2.3854302554299993,
+        "y": 7.008103984601877
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "AN"
     },
     {
       "anchor": {
-        "x": 1.289429657244114,
-        "y": 5.518363150740554
+        "x": 0.8210801606788397,
+        "y": 6.607197259978566
       },
       "prevControl": {
-        "x": 2.3110824765592555,
-        "y": 6.369230939050549
+        "x": 1.6891141899594906,
+        "y": 6.762471187132764
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Speaker"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 59.75231187168616,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker Points",
+  "folder": "Amp Points",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

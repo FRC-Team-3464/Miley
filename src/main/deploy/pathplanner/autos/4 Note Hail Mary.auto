@@ -1,0 +1,149 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7041386162544403,
+      "y": 6.689056341075646
+    },
+    "rotation": 55.72022534834144
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot PID Speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right to Amp Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Note to Right Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right to Hail Mary 1"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": []
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hail Mary 1 to Right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right to Hail Mary 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hail Mary 2 to Right Stage"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Four + Autos",
+  "choreoAuto": false
+}

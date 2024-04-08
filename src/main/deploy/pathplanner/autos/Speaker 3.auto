@@ -18,7 +18,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Pivot to Stage"
                 }
               },
               {
@@ -163,7 +163,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Speaker"
+                  "pathName": "Amp Note to Right Stage"
                 }
               },
               {
@@ -216,6 +216,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "small, stupid, weak and dumb Autos",
   "choreoAuto": false
 }

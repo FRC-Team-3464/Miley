@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3381784483283943,
-        "y": 5.498863634306841
+        "x": 0.7141939224496041,
+        "y": 4.397140955802102
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8744151502554791,
-        "y": 1.0919729202878856
+        "x": 1.6599204694846463,
+        "y": 4.328892648284108
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Speaker"
     },
     {
       "anchor": {
-        "x": 8.397003397332211,
-        "y": 0.7409816244810651
+        "x": 3.0546636591848677,
+        "y": 4.057871591526659
       },
       "prevControl": {
-        "x": 7.295280718827471,
-        "y": 0.5947352512282246
+        "x": 2.0546636591848677,
+        "y": 4.057871591526659
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Stage Note"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -43,9 +49,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hail Mary Points",
+  "folder": "Speaker (rotation) points",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -59.47029410006589,
     "velocity": 0
   },
   "useDefaultConstraints": true

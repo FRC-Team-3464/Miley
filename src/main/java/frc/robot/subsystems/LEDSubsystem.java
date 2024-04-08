@@ -13,7 +13,9 @@ public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
   private final AddressableLED ledStrip;
   private final AddressableLEDBuffer ledBuffer;
+  private int firstRedV = 1;
   private static LEDSubsystem instance = null;  
+  private int rainbowFirstPixelHue = 1;
   String ledState;
 
   public LEDSubsystem() {
@@ -55,6 +57,49 @@ public class LEDSubsystem extends SubsystemBase {
    ledStrip.setData(ledBuffer); 
   }
 
+  public void redPulse() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {  
+      final var huet = (firstRedV + (i * 180 / ledBuffer.getLength())) % 250;
+      ledBuffer.setHSV(i, 1, 255, huet);
+    }
+    firstRedV = (firstRedV + 5) % 250;
+    ledStrip.setData(ledBuffer);
+  }
+
+  public void bluePulse() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {  
+      final var huet = (firstRedV + (i * 180 / (Math.floorDiv(ledBuffer.getLength(), 3)))) % 250;
+      ledBuffer.setHSV(i, 100, 255, huet);
+    }
+    firstRedV = (firstRedV + 10) % 250;
+    ledStrip.setData(ledBuffer);
+  }
+
+  public void bluePulseReverse() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {  
+      final var huet = (firstRedV + (i * 180 / (Math.floorDiv(ledBuffer.getLength(), 3)))) % 250;
+      ledBuffer.setHSV(i, 100, 255, huet);
+    }
+    firstRedV = (firstRedV - 10) % 250;
+    ledStrip.setData(ledBuffer);
+  }
+
+  public void rainbow() {
+    // For every pixel
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      // Calculate the hue - hue is easier for rainbows because the color
+      // shape is a circle so only one value needs to precess
+      final var hue = (rainbowFirstPixelHue + (i * 180 / ledBuffer.getLength())) % 180;
+      // Set the value
+      ledBuffer.setHSV(i, hue, 255, 128);
+    }
+    // // Increase by to make the rainbow "move"
+    rainbowFirstPixelHue = (rainbowFirstPixelHue + 5) % 180;
+    // // Check bounds
+    // rainbowFirstPixelHue %= 180;
+    ledStrip.setData(ledBuffer);
+  }
+
   public void setWhite() {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
         // Sets the specified LED to the RGB values for red
@@ -62,6 +107,14 @@ public class LEDSubsystem extends SubsystemBase {
      }
       ledState = "white";
      ledStrip.setData(ledBuffer);
+  }
+  
+  public void setRed() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setRGB(i,240,50,50);
+    }
+    ledState = "Red";
+    ledStrip.setData(ledBuffer);
   }
 
     public void setGreen() {
@@ -88,10 +141,18 @@ public class LEDSubsystem extends SubsystemBase {
         // Sets the specified LED to the RGB values for red
         ledBuffer.setRGB(i, 255, 255, 0);
      }
-      ledState = "Orange";
+      ledState = "Yellow";
      ledStrip.setData(ledBuffer);
   }
 
+
+  public void setBlue() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setRGB(i,50,50,240);
+    }
+    ledState = "Blue";
+    ledStrip.setData(ledBuffer);
+  }
 
 
 

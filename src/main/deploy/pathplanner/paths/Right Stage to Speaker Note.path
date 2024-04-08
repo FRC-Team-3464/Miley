@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.4582617826204314,
+        "y": 6.431784943341967
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.029272421078763,
+        "y": 5.895548241414881
+      },
+      "isLocked": false,
+      "linkedName": "Amp Note to Right Stage End"
+    },
+    {
+      "anchor": {
+        "x": 2.7908924226399536,
+        "y": 5.557362183607978
+      },
+      "prevControl": {
+        "x": 1.9329136995566167,
+        "y": 5.401366052138281
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Right Stage to Speaker Note End"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Speaker (rotation) points",
+  "previewStartingState": {
+    "rotation": 34.249033006811985,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

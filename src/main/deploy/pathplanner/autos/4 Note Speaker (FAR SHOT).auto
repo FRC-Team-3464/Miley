@@ -1,0 +1,188 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3473171105845272,
+      "y": 5.554723360164464
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot PID Speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker To Speaker Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker Note to Speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker to Amp Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp Note to Speaker 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Ground"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker to Stage Note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Stage"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage Note AIM"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Four + Autos",
+  "choreoAuto": false
+}

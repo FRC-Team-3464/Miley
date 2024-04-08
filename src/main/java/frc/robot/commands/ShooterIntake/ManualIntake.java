@@ -23,7 +23,8 @@ public class ManualIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.runIntake(0.85);
+    intakeSub.runIntake(1);
+    intakeSub.runExtendedIntake(1);
   }
 
   // Called once the command ends or is interrupted.

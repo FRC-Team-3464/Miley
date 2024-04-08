@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.059660556375746,
+        "y": 3.2954182772973626
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.2046073640840875,
+        "y": 1.2479690517575805
+      },
+      "isLocked": false,
+      "linkedName": "Mail Hary 1 to Stage End"
+    },
+    {
+      "anchor": {
+        "x": 8.56261040157408,
+        "y": 2.596102286221667
+      },
+      "prevControl": {
+        "x": 7.18789449299737,
+        "y": 1.7088742884877615
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Stage to Mail Hary 2 End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.65,
+      "rotationDegrees": 25.0,
+      "rotateFast": true
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 24.943905263424544,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hairy Males",
+  "previewStartingState": {
+    "rotation": -57.38075692880728,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

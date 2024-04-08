@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3473171105845272,
-        "y": 5.554723360164464
+        "x": 1.3576779647621067,
+        "y": 5.557362183607978
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7389214892348797,
-        "y": 5.554723360164464
+        "x": 2.7492823434124594,
+        "y": 5.557362183607978
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center Speaker"
     },
     {
       "anchor": {
@@ -25,15 +25,15 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Speaker to Speaker Note End"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker Points",
+  "folder": "Speaker (no rotation) Points",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

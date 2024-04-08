@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7141939224496041,
+        "y": 4.397140955802102
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6404209530509337,
+        "y": 3.071173838309671
+      },
+      "isLocked": false,
+      "linkedName": "Left Speaker"
+    },
+    {
+      "anchor": {
+        "x": 8.609387019343838,
+        "y": 0.7835083476434771
+      },
+      "prevControl": {
+        "x": 7.419916516887394,
+        "y": 0.6470117326074931
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Left to Mail Hary 1 End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hairy Males",
+  "previewStartingState": {
+    "rotation": -60.25511870305787,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

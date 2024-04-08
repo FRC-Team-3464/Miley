@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.059660556375746,
+        "y": 3.2954182772973626
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.39960252842121,
+        "y": 1.2089700188901578
+      },
+      "isLocked": false,
+      "linkedName": "Left Stage Shoot"
+    },
+    {
+      "anchor": {
+        "x": 8.046012101525392,
+        "y": 0.7604811409147759
+      },
+      "prevControl": {
+        "x": 6.895540631936372,
+        "y": 0.6629835587462148
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Mail Hary 1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.9391909457356319,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hairy Males",
+  "previewStartingState": {
+    "rotation": -38.99099404250541,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.72,
+        "y": 6.67858437854643
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6279768172071953,
+        "y": 8.443179507441636
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.82,
+        "y": 7.1
+      },
+      "prevControl": {
+        "x": 4.060417645906123,
+        "y": 7.379975432593751
+      },
+      "nextControl": null,
+      "isLocked": true,
+      "linkedName": "Right Avoid to Hail Mary 1 End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.05,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -2.5374022258373317,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hail Mary Points",
+  "previewStartingState": {
+    "rotation": 59.3700015151793,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.4582617826204314,
+        "y": 6.431784943341967
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.9143338058755885,
+        "y": 6.712444649960525
+      },
+      "isLocked": false,
+      "linkedName": "Hail Mary 1 to Right Stage End"
+    },
+    {
+      "anchor": {
+        "x": 8.878352571519958,
+        "y": 5.5430292057165325
+      },
+      "prevControl": {
+        "x": 7.230643432871277,
+        "y": 5.991518083691913
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Right Stage to Hail Mary 2 End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": true
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -15.068488159492173,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hail Mary Points",
+  "previewStartingState": {
+    "rotation": 35.12302220906992,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

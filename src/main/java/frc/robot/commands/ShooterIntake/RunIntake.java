@@ -7,17 +7,22 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 
 
 public class RunIntake extends Command {
  
   private Timer runtime;
   private IntakeSubsystem intakeSub;
+  private LEDSubsystem ledSub;
+  private double speedo;
 
-  public RunIntake() {
+  public RunIntake(double speed) {
     intakeSub = IntakeSubsystem.getInstance();
+    ledSub = LEDSubsystem.getInstance();
     runtime = new Timer();
     addRequirements(intakeSub);
+    speedo = speed;
   }
 
   @Override
@@ -27,18 +32,21 @@ public class RunIntake extends Command {
 
   @Override
   public void execute() {
-    intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
+    intakeSub.runIntake(speedo);
+    ledSub.rainbow();
   }
 
   @Override
   public void end(boolean interrupted) {
     intakeSub.stopIntake();
     runtime.stop();
+    ledSub.setOff();
   }
 
   @Override
   public boolean isFinished() {
     // Stop after 3 seconds
-    return runtime.get() > 1.5;
+    // return runtime.get() > 1.5;
+    return runtime.get() > 0.75;
   }
 }

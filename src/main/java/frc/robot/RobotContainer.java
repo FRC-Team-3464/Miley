@@ -5,37 +5,40 @@
 package frc.robot;
 
 import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
+// import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.PivoterConstants;
-import frc.robot.Constants.TragConstants;
-import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
-import frc.robot.autos.BlueAlliance.Blue1Speaker;
-import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
-import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
-import frc.robot.autos.BlueAlliance.Blue2Speaker;
-import frc.robot.autos.BlueAlliance.Blue2StraightSpeaker;
-import frc.robot.autos.RedAlliance.Red1AmpAuto;
-import frc.robot.autos.RedAlliance.Red1Speaker;
-import frc.robot.autos.RedAlliance.Red2AmpAuto;
-import frc.robot.autos.RedAlliance.Red3AmpHailMary;
-import frc.robot.autos.RedAlliance.Red2Speaker;
-import frc.robot.autos.RedAlliance.Red2StraightSpeaker;
+// import frc.robot.Constants.PivoterConstants;
+// import frc.robot.Constants.SandwichConstants;
+// import frc.robot.Constants.TragConstants;
+// import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
+// import frc.robot.autos.BlueAlliance.Blue1Speaker;
+// import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
+// import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
+// import frc.robot.autos.BlueAlliance.Blue2Speaker;
+// import frc.robot.autos.BlueAlliance.Blue2StraightSpeaker;
+// import frc.robot.autos.RedAlliance.Red1AmpAuto;
+// import frc.robot.autos.RedAlliance.Red1Speaker;
+// import frc.robot.autos.RedAlliance.Red2AmpAuto;
+// import frc.robot.autos.RedAlliance.Red3AmpHailMary;
+// import frc.robot.autos.RedAlliance.Red2Speaker;
+// import frc.robot.autos.RedAlliance.Red2StraightSpeaker;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ManualIntake;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
+import frc.robot.commands.ShooterIntake.ShootPID;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
-// import frc.robot.commands.ShooterIntake.ShootSpeaker;
-// import frc.robot.commands.ShooterIntake.ShootManual;
-import frc.robot.commands.SwerveJoystickCMD;
+import frc.robot.commands.Swerve.SwerveAimAndPivot;
+import frc.robot.commands.Swerve.SwerveAimSpeaker;
+import frc.robot.commands.Swerve.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.ManualPivotUp;
 // import frc.robot.commands.Pivoter.ManualPivotDown;
 // import frc.robot.commands.Pivoter.ManualPivotUp;
 import frc.robot.commands.Pivoter.PIDManual;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
+import frc.robot.commands.Pivoter.PIDPivotToZero;
 import frc.robot.commands.Elevator.LowerBothElevators;
 import frc.robot.commands.Elevator.LowerLeftElevator;
 import frc.robot.commands.Elevator.LowerRightElevator;
@@ -43,6 +46,8 @@ import frc.robot.commands.Elevator.RaiseBothElevators;
 import frc.robot.commands.Elevator.RaiseLeftElevator;
 import frc.robot.commands.Elevator.RaiseRightElevator;
 import frc.robot.commands.Leds.LedFlash;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
 // import frc.robot.subsystems.IntakeSubsystem;
 // import frc.robot.subsystems.LEDSubsystem;
@@ -56,6 +61,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+
+import org.photonvision.PhotonCamera;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -73,6 +80,8 @@ public class RobotContainer {
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivotSub = PivoterSubsystem.getInstance();
+  private final IntakeSubsystem intakeSub = IntakeSubsystem.getInstance();
+  private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   // private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
 
@@ -84,8 +93,8 @@ public class RobotContainer {
                 () -> -xbox.getRawAxis(OIConstants.kDriverYAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverXAxis),
                 () -> xbox.getRawAxis(OIConstants.kDriverRotAxis),
-                // () -> true/*
-                () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx));
+                () -> true);
+                // () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx));
 
   public RobotContainer() {
 
@@ -116,10 +125,19 @@ public class RobotContainer {
     NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations));
     NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
     NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations));
+    NamedCommands.registerCommand("Pivot to Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
+    NamedCommands.registerCommand("Pivot to Amp-Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
+    NamedCommands.registerCommand("Force Pivot to Ground", new PIDPivotToZero());
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
-    NamedCommands.registerCommand("Trigger Intake", new RunIntake());
+    NamedCommands.registerCommand("Trigger Intake", new RunIntake(0.8)); 
+    NamedCommands.registerCommand("Shoot PID Speaker", new ShootPID());
+    
+    // NamedCommands  
+      // NamedCommands.registerCommand("Trigger Intake", new RunIntake(SandwichConstants.kIntakeSpeed)));   
+    
+
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
@@ -136,20 +154,29 @@ public class RobotContainer {
   private void configureBindings() {
     // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
-    // Constants.OperatorConstants.buttonY.onTrue(new InstantCommand(() -> ledSub.setPurple()));
+    // Constants.OperatorConstants.buttonY.whileTrue(new SwerveAimSpeaker());
+    Constants.OperatorConstants.buttonRB.whileTrue(new SwerveAimAndPivot());
     // Indicate that we want to boost
-    Constants.OperatorConstants.buttonY.onTrue(new LedFlash());
+    // Constants.OperatorConstants.button1.onTrue(new LedFlash());
 
     // Commands regarding the intake sandwich  and Elevator
-    // Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4000));
+    // Constants.OperatorConstants.button1.onTrue(new ShootPID());
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
-    Constants.OperatorConstants.button1.whileTrue(new ShootManual());
+    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4500));
+    Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
+    // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
     Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
-    Constants.OperatorConstants.button12.whileTrue(new ManualIntake());
+    Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero());
+    // Intake Trigger
+    // Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
+    Constants.OperatorConstants.button11.whileTrue(new RunIntake(0.9));
+
+    // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
+    // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
@@ -157,7 +184,6 @@ public class RobotContainer {
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
     Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
     // Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
-    Constants.OperatorConstants.button11.onTrue(new InstantCommand(() -> pivotSub.resetEncoder(0)));
     Constants.OperatorConstants.pancakeUp.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); 
     Constants.OperatorConstants.pancakeDown.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5)));
     // Constants.OperatorConstants.pancakeUp.whileTrue(new ManualPivotUp());

@@ -31,25 +31,6 @@
           }
         },
         {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Amp"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.6
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
@@ -88,13 +69,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp Note to Amp"
+                  "pathName": "Amp Note to Right Stage"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Amp"
+                  "name": "Pivot to Stage"
                 }
               }
             ]
@@ -107,27 +88,21 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Shoot Amp"
+                  "name": "Shoot PID Speaker"
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.6
+                  "waitTime": 0.0
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Pivot to Ground"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "small, stupid, weak and dumb Autos",
   "choreoAuto": false
 }

@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.8210801606788397,
+        "y": 6.607197259978566
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.5461177361101157,
+        "y": 6.841080348827365
+      },
+      "isLocked": false,
+      "linkedName": "Right Speaker"
+    },
+    {
+      "anchor": {
+        "x": 2.8441688792209487,
+        "y": 7.0398809743488435
+      },
+      "prevControl": {
+        "x": 1.8441688792209487,
+        "y": 7.0398809743488435
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Right to Amp Note End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -9.926245506651735,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Amp Points",
+  "previewStartingState": {
+    "rotation": 59.30027744918557,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -116,22 +116,32 @@ public final class Constants {
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
     // public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.25;
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.069;
+    // public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.069;
+        public static final double kTeleDriveMaxSpeedMetersPerSecond = 4.85;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
             kPhysicalMaxAngularSpeedRadiansPerSecond / 2.75;
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3.75;
+    //    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4;
+
+    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3.5;
 }
 
 public static final class AutoConstants {
   public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 2;
+  // public static final double kMaxAngularSpeedRadiansPerSecond = //
+  //         DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 3;
   public static final double kMaxAngularSpeedRadiansPerSecond = //
-          DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 3;
+          DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 2;
+  
   public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-  public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 3;
-  public static final double kPXController = 1.5;
+  // public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 3;
+  public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 4 * Math.PI;
+
+  // public static final double kPXController = 1.5;
+  public static final double kPXController = 4;
   public static final double kPYController = 0.9;
-  public static final double kPThetaController = 3.75 ;
+  public static final double kPThetaController = 6;
+  // public static final double kPThetaController = 3.75 ;
 
   public static PIDController xController = new PIDController(kPXController, 0, 0);
   public static PIDController yController = new PIDController(kPYController, 0, 0);
@@ -249,7 +259,10 @@ public static final class PivoterConstants{
   
   public static final double kAmpPivoterRotations = 29.7;
 
-  public static final double kStagePivoterRotations = 8.5;
+  public static final double kStagePivoterRotations = 8;
+  // public static final double kStagePivoterRotations = 8.35;
+  public static final double kAmpStagePivoterRotations = 8.75;
+    // public static final double kAmpStagePivoterRotations = 9;
 
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
 
@@ -276,11 +289,15 @@ public static final class OIConstants {
 }
 
 public static final class SandwichConstants {
-  public static final double kIntakeSpeed = 0.5;
+  // public static final double kIntakeSpeed = 0.5;
+  public static final double kIntakeSpeed = 0.3;
+  
   public static final double kReverseIntakeSpeed = -0.75;
 
   public static final double kReverseShootSpeed = -0.75;
-  public static final double kAmpShootSpeed = 0.5;
+  // public static final double kAmpShootSpeed = 0.5;
+  public static final double kAmpShootSpeed = 0.75;
+
   public static final double kSpeakerShootSpeed = 0.8;
 
   public static final double kShootVelocityTarget = 5000;
@@ -311,6 +328,8 @@ public static final class SandwichConstants {
     
     public static final JoystickButton buttonX = new JoystickButton(xbox, 3);
     public static final JoystickButton buttonY = new JoystickButton(xbox, 4);
+    public static final JoystickButton buttonRB = new JoystickButton(xbox, 6);
+    
  
     //hello this is a test yahoooohoiuawhoi
   }

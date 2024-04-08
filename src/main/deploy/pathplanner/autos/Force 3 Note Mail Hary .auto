@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3473171105845272,
-      "y": 5.554723360164464
+      "x": 0.7531929553170285,
+      "y": 4.3678916811515345
     },
-    "rotation": 0
+    "rotation": -57.771242564901506
   },
   "command": {
     "type": "sequential",
@@ -18,22 +18,16 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Start Shooter"
+                  "name": "Pivot to Subwoofer"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Shoot PID Speaker"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Trigger Intake"
           }
         },
         {
@@ -43,7 +37,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker To Speaker Note"
+                  "pathName": "Left to Mail Hary 1"
                 }
               },
               {
@@ -55,41 +49,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Ground"
+                  "name": "Force Pivot to Ground"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Speaker Note to Speaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Subwoofer"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Start Shooter"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Trigger Intake"
           }
         },
         {
@@ -99,7 +62,51 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker to Amp Note"
+                  "pathName": "Mail Hary 1 to Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Pivot to Stage"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage to Mail Hary 2"
                 }
               },
               {
@@ -111,35 +118,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Ground"
+                  "name": "Force Pivot to Ground"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Amp Note to Speaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Subwoofer"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Trigger Intake"
           }
         },
         {
@@ -147,40 +129,34 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "Mail Hary 2 to Stage"
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "Intake From Ground"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "Pivot to Ground"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Speaker to Stage Note"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Stage Note to Speaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Subwoofer"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Pivot to Stage"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -189,12 +165,37 @@
         {
           "type": "named",
           "data": {
-            "name": "Trigger Intake"
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Stage to Center Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Force Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Four + Autos",
   "choreoAuto": false
 }

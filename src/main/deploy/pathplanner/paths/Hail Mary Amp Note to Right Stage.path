@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.8441688792209487,
+        "y": 7.0398809743488435
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.9937521138662877,
+        "y": 7.0398809743488435
+      },
+      "isLocked": false,
+      "linkedName": "Right to Amp Note End"
+    },
+    {
+      "anchor": {
+        "x": 2.4582617826204314,
+        "y": 6.431784943341967
+      },
+      "prevControl": {
+        "x": 2.708836006018055,
+        "y": 6.559458887150359
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Hail Mary Amp Note to Right Stage End"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 15.52411099675427,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hail Mary Points",
+  "previewStartingState": {
+    "rotation": 42.45519562018685,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

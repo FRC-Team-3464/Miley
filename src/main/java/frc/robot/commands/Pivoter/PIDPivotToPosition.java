@@ -4,8 +4,10 @@
 
 package frc.robot.commands.Pivoter;
 
+import edu.wpi.first.hal.simulation.ConstBufferCallback;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Constants.PivoterConstants;
 import frc.robot.subsystems.PivoterSubsystem;
 
@@ -13,7 +15,8 @@ public class PIDPivotToPosition extends Command {
   private final PivoterSubsystem pivoterSub;
   private final double targetPosition;
   // Amount error that we can tolerate. 
-  private final double PIVOTER_ANGLE_TOLERANCE = 0.75; // About 3 degrees
+  // private final double PIVOTER_ANGLE_TOLERANCE = 0.75; // About 3 degrees
+  private final double PIVOTER_ANGLE_TOLERANCE = 0.5; // About 3 degrees
   double pivoterPositionError;
 
   public PIDPivotToPosition(double target) {
@@ -25,7 +28,9 @@ public class PIDPivotToPosition extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

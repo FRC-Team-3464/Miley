@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.8210801606788397,
+        "y": 6.607197259978566
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.11972951674619,
+        "y": 6.265233518076243
+      },
+      "isLocked": false,
+      "linkedName": "Right Speaker"
+    },
+    {
+      "anchor": {
+        "x": 8.644469482671159,
+        "y": 5.659970750140931
+      },
+      "prevControl": {
+        "x": 7.347751639829298,
+        "y": 6.069460595248888
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Hail Mary 2"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": -30.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -22.0362269401454,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Hail Mary Points",
+  "previewStartingState": {
+    "rotation": 58.68467764152373,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
