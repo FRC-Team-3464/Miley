@@ -14,7 +14,6 @@ import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.commands.ShooterIntake.AutoShootPID;
-import frc.robot.commands.ShooterIntake.ShootPIDEnd;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 import frc.robot.commands.Swerve.SwerveAimAndPivot;
 import frc.robot.commands.Swerve.SwerveAimNote;
@@ -27,9 +26,6 @@ import frc.robot.commands.Elevator.LowerBothElevators;
 import frc.robot.commands.Elevator.LowerLeftElevator;
 import frc.robot.commands.Elevator.LowerRightElevator;
 import frc.robot.commands.Elevator.RaiseBothElevators;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
-import frc.robot.subsystems.PivoterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 
@@ -43,7 +39,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -53,9 +48,6 @@ public class RobotContainer {
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
-  private final PivoterSubsystem pivotSub = PivoterSubsystem.getInstance();
-  private final IntakeSubsystem intakeSub = IntakeSubsystem.getInstance();
-  private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   // private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
   private final InstantCommand resetGyro = new InstantCommand(swerveSubsystem::zeroHeading, swerveSubsystem);
 
