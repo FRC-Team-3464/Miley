@@ -147,9 +147,9 @@ public static final class AutoConstants {
   public static PIDController yController = new PIDController(kPYController, 0, 0);
 
   public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
-          new TrapezoidProfile.Constraints(
-                  kMaxAngularSpeedRadiansPerSecond,
-                  kMaxAngularAccelerationRadiansPerSecondSquared);
+    new TrapezoidProfile.Constraints(
+      kMaxAngularSpeedRadiansPerSecond,
+      kMaxAngularAccelerationRadiansPerSecondSquared);
 
     // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
   public static ProfiledPIDController thetaController = new ProfiledPIDController(
@@ -257,7 +257,9 @@ public static final class PivoterConstants{
   public static final double kSubwofferPivoterRotations = 2; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
   // public static final double kAmpPivoterRotations = 28.5;
   
-  public static final double kAmpPivoterRotations = 29.7;
+  // public static final double kAmpPivoterRotations = 29.7;
+  public static final double kAmpPivoterRotations = 25;
+
 
   public static final double kStagePivoterRotations = 8;
   // public static final double kStagePivoterRotations = 8.35;
