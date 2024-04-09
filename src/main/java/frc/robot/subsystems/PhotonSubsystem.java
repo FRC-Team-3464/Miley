@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class PhotonSubsystem extends SubsystemBase { 
   private static PhotonSubsystem instance = null;  
   private final PhotonCamera aprilCamera;
+  private final PhotonCamera noteCamera;
 
   public PhotonSubsystem() {
     aprilCamera = new PhotonCamera("Speaker_Camera");
+    noteCamera = new PhotonCamera("Note_Camera");
   }
 
 
@@ -24,8 +26,12 @@ public class PhotonSubsystem extends SubsystemBase {
     return instance;
   }
 
-  public PhotonCamera getAprilCamera(){
+  public PhotonCamera getAprilCamera() {
     return aprilCamera;
+  }
+
+  public PhotonCamera getNoteCamera() {
+    return noteCamera;
   }
 
   @Override
