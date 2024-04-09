@@ -87,7 +87,6 @@ public class SwerveAimAndPivot extends Command {
   @Override
   public void initialize() {
     // Start counting seconds of aim-time
-    camToTarget = null;
     targetHeading = new Rotation2d(0);
     targetPivoterRotations = -6; // Value to which the pivoter will not rotate down to. 
     aimTimer.reset();
