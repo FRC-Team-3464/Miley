@@ -15,14 +15,17 @@ public class ShootPIDEnd extends Command {
   private double currentRPM;
   private final Timer overrideTimer;
 
+  /*
+   * Trigger Command that fires when we see a massive drop in shooter RPM,
+   * Meaning that there is a note going through the shooter
+   */
+
   public ShootPIDEnd() {
     shootSub = ShooterSubsystem.getInstance();
     addRequirements(shootSub);
     overrideTimer = new Timer();
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     ogTarget = shootSub.getShooterVelocity();
@@ -30,21 +33,21 @@ public class ShootPIDEnd extends Command {
     overrideTimer.start();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     currentRPM = shootSub.getShooterVelocity();
+    // We may need to update ogTarget to be currentRPM. 
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    overrideTimer.stop();
     shootSub.runShooterPID(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // Override Timer also fires so the robot can move on in auto even if it doesn't have a note. 
     return ((currentRPM <= ogTarget - 200) || overrideTimer.hasElapsed(1.5));
   }
 }
