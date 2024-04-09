@@ -17,6 +17,7 @@ import frc.robot.commands.ShooterIntake.ShootPID;
 import frc.robot.commands.ShooterIntake.ShootPIDEnd;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 import frc.robot.commands.Swerve.SwerveAimAndPivot;
+import frc.robot.commands.Swerve.SwerveAimNote;
 import frc.robot.commands.Swerve.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.PIDManual;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
@@ -107,6 +108,7 @@ public class RobotContainer {
     // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     // Constants.OperatorConstants.buttonY.whileTrue(new SwerveAimSpeaker());
+    Constants.OperatorConstants.buttonLB.whileTrue(new SwerveAimNote());
     Constants.OperatorConstants.buttonRB.whileTrue(new SwerveAimAndPivot());
     // Indicate that we want to boost
     // Constants.OperatorConstants.button1.onTrue(new LedFlash());
