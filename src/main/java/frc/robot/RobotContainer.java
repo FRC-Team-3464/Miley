@@ -115,7 +115,6 @@ public class RobotContainer {
     // Constants.OperatorConstants.button1.onTrue(new ShootPID());
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
-
     Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
     Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
     Constants.OperatorConstants.button2.whileTrue(new PivotAmpAndShoot());
@@ -126,7 +125,6 @@ public class RobotContainer {
     Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero());
 
     // Intake Trigger
-    // Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
     Constants.OperatorConstants.button11.whileTrue(new RunIntake(SandwichConstants.kTriggerIntakeSpeed));
 
     // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
@@ -137,16 +135,13 @@ public class RobotContainer {
     Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations)); // Subwoofer Angle
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
     Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
-    // Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
     Constants.OperatorConstants.pancakeUp.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); 
     Constants.OperatorConstants.pancakeDown.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5)));
-    // Constants.OperatorConstants.pancakeUp.whileTrue(new ManualPivotUp());
-    // Constants.OperatorConstants.button12.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // Manual Up
-
+   
     // Commands for elevator hahahah lmao
     // Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
-    Constants.OperatorConstants.pancakeRight.whileTrue(new LowerLeftElevator());
     // Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
+    Constants.OperatorConstants.pancakeRight.whileTrue(new LowerLeftElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator()); 
   }
  
