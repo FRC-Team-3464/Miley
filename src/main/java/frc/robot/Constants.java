@@ -255,7 +255,8 @@ public static final class TragConstants {
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
   public static final double kSubwofferPivoterRotations = 2; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
-  
+  public static final double kPivoterTolerance = 0.5; // Amount error that we can tolerate ~ About 3 degrees
+
   public static final double kPreAmpPivoterRotations = 25;
   public static final double kPostAmpPivoterRotations = 29.7;
   public static final double kStagePivoterRotations = 8;

@@ -12,9 +12,7 @@ import frc.robot.subsystems.PivoterSubsystem;
 public class PIDPivotToPosition extends Command {
   private final PivoterSubsystem pivoterSub;
   private final double targetPosition;
-  // Amount error that we can tolerate. 
-  // private final double PIVOTER_ANGLE_TOLERANCE = 0.75; // About 3 degrees
-  private final double PIVOTER_ANGLE_TOLERANCE = 0.5; // About 3 degrees
+
   double pivoterPositionError;
 
   public PIDPivotToPosition(double target) {
@@ -56,6 +54,6 @@ public class PIDPivotToPosition extends Command {
       return true;
     }
     // End the command if we are within our PIVOTER_ANGLE_TOLERANCE
-    return (pivoterPositionError < PIVOTER_ANGLE_TOLERANCE);
+    return (pivoterPositionError < PivoterConstants.kPivoterTolerance);
   }
 }
