@@ -47,7 +47,7 @@ public class ShootAmp extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSub.stopIntake();
+    intakeSub.stopIntakes();
     shootSub.stopShooter();
     shootSub.stopRumble();
     ledSub.setOff();

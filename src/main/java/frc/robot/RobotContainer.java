@@ -150,6 +150,7 @@ public class RobotContainer {
     // Config our theta controller to calculate error in a circle.
     AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
+    // Get the auto selected from pathplanner
     return autoChooser.getSelected();
   }
 }

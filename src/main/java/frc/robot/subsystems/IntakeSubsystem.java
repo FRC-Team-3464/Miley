@@ -88,7 +88,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
-  public void stopIntake() {
+  public void stopIntakes() {
     intakeMotor.set(0);
     // intakeMotorFollower.set(0);
     miniMotor.set(0);
