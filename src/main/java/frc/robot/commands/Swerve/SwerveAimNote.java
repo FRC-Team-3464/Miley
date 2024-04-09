@@ -23,9 +23,6 @@ public class SwerveAimNote extends Command {
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
 
   private static Rotation2d targetHeading;
-
-  private double distance;
-
   private final Timer aimTimer = new Timer();
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
     AutoConstants.kPThetaController,
@@ -95,7 +92,8 @@ public class SwerveAimNote extends Command {
           rotationSpeed = 0;
         }
 
-        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(0, 0, rotationSpeed, swerveSub.getRotation2d()));
+        var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 28)) * 0.5;
+        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(driveSpeed, 0, rotationSpeed, swerveSub.getRotation2d()));
       }
       else {  // if we have no target + previous target
         System.out.println("NOPE!! NAH!!!! THERE'S NOTHING!!! EAOIGCFIEJFOIJNOIJ dang it");
