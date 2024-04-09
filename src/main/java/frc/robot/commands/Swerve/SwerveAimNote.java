@@ -62,8 +62,7 @@ public class SwerveAimNote extends Command {
       var bestTarget = result.getBestTarget();
       var targetRotation = bestTarget.getYaw();
 
-
-      // Get oru robot's current swerve heading. 
+      // Get our robot's current swerve heading. 
       var driveHeading = swerveSub.getRotation2d();
 
       if (targetRotation != 0) {
@@ -118,7 +117,6 @@ public class SwerveAimNote extends Command {
     // If we have a target + controller is at target
     if (noteCamera.getLatestResult().hasTargets()) {
       if (rotationController.atGoal()) { 
-  
           System.out.println("WOOHOO CONGRATULATIONS THIS ACTUALLY WORKED WTF?!?");
           return true;
       }
