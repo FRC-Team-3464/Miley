@@ -48,8 +48,6 @@ public class SwerveAimNote extends Command {
     targetHeading = new Rotation2d(0);
     rotationController.reset(swerveSub.getRotation2d().getRadians());
 
-    distance = 0;
-
     // Probably will not here...
     aimTimer.reset();
     aimTimer.start();
@@ -64,7 +62,6 @@ public class SwerveAimNote extends Command {
       var bestTarget = result.getBestTarget();
       var targetRotation = bestTarget.getYaw();
 
-      distance = bestTarget.getBestCameraToTarget().getX();
 
       // Get oru robot's current swerve heading. 
       var driveHeading = swerveSub.getRotation2d();
