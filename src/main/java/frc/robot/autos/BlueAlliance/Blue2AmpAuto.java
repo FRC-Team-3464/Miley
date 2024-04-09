@@ -93,7 +93,7 @@ public class Blue2AmpAuto extends SequentialCommandGroup {
       // Go to AMP while pivoting to AMP Pos.
       new ParallelCommandGroup(
         blueOrginToAmp, 
-        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
+        new PIDPivotToPosition(Constants.PivoterConstants.kPostAmpPivoterRotations)
       ),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
@@ -125,7 +125,7 @@ public class Blue2AmpAuto extends SequentialCommandGroup {
       new InstantCommand(() -> swerveSubsystem.resetOdometry(AmpTrajectories.tragBlueAmpNoteToAmp.getInitialPose())),
       blueAmpNToAmp, 
       new InstantCommand(() -> swerveSubsystem.stopModules()),
-      new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations),
+      new PIDPivotToPosition(Constants.PivoterConstants.kPostAmpPivoterRotations),
       new WaitCommand(0.25),
       
       // Shoot in AMP for 1.5 Seconds 

@@ -93,7 +93,7 @@ public class Blue1AmpAuto extends SequentialCommandGroup {
       // Go to AMP while pivoting to AMP Pos.
       new ParallelCommandGroup(
         blueOrginToAmp, 
-        new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)
+        new PIDPivotToPosition(Constants.PivoterConstants.kPostAmpPivoterRotations)
       ),
       new InstantCommand(() -> swerveSubsystem.stopModules()),
       new WaitCommand(0.25),
