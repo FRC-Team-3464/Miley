@@ -13,7 +13,7 @@ import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
-import frc.robot.commands.ShooterIntake.ShootPID;
+import frc.robot.commands.ShooterIntake.AutoShootPID;
 import frc.robot.commands.ShooterIntake.ShootPIDEnd;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 import frc.robot.commands.Swerve.SwerveAimAndPivot;
@@ -76,7 +76,7 @@ public class RobotContainer {
     /* --------------------- PATHPLANNER Named Commands: Commands We'll Use During Auto--------------------- */ 
     NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations));
     NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
-    NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(PivoterConstants.kAmpPivoterRotations));
+    NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(PivoterConstants.kPostAmpPivoterRotations));
     NamedCommands.registerCommand("Pivot to Stage", new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations));
     NamedCommands.registerCommand("Pivot to Amp-Stage", new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations));
     NamedCommands.registerCommand("Force Pivot to Ground", new PIDPivotToZero());
@@ -85,13 +85,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
     NamedCommands.registerCommand("Trigger Intake", new RunIntake(SandwichConstants.kTriggerIntakeSpeed)); 
 
-    NamedCommands.registerCommand("Shoot PID Speaker", new SequentialCommandGroup(
-      new ShootPID(), 
-      new ParallelRaceGroup(
-        new ShootPIDEnd(), // Wait till we see that the note is out of the shooter 
-        new RunIntake(SandwichConstants.kTriggerIntakeSpeed)))); // Fixme: Need to include time cancellation: end command after 1.5 seconds if no note out. 
-    
-        
+    NamedCommands.registerCommand("Shoot PID Speaker", new AutoShootPID());
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
     NamedCommands.registerCommand("Stop Shooter", new ShooterVelocityPID(0));
