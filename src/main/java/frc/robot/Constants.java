@@ -328,8 +328,12 @@ public static final class SandwichConstants {
     public static final POVButton pancakeRight = new POVButton(auxStick, 90);
     public static final POVButton pancakeLeft = new POVButton(auxStick, 270);
     
+    
+    public static final JoystickButton buttonA = new JoystickButton(xbox, 1);
+    public static final JoystickButton buttonB = new JoystickButton(xbox, 2);
     public static final JoystickButton buttonX = new JoystickButton(xbox, 3);
     public static final JoystickButton buttonY = new JoystickButton(xbox, 4);
+    public static final JoystickButton buttonLB = new JoystickButton(xbox, 5);
     public static final JoystickButton buttonRB = new JoystickButton(xbox, 6);
     
  
