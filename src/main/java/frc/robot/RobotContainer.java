@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.PivoterConstants;
 import frc.robot.Constants.SandwichConstants;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
@@ -72,11 +73,11 @@ public class RobotContainer {
     CommandScheduler.getInstance().setDefaultCommand(swerveSubsystem, swerveCMD);
 
     /* --------------------- PATHPLANNER Named Commands: Commands We'll Use During Auto--------------------- */ 
-    NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations));
+    NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations));
     NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
-    NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations));
-    NamedCommands.registerCommand("Pivot to Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
-    NamedCommands.registerCommand("Pivot to Amp-Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
+    NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(PivoterConstants.kAmpPivoterRotations));
+    NamedCommands.registerCommand("Pivot to Stage", new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations));
+    NamedCommands.registerCommand("Pivot to Amp-Stage", new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations));
     NamedCommands.registerCommand("Force Pivot to Ground", new PIDPivotToZero());
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
