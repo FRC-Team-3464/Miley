@@ -81,13 +81,13 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
-    NamedCommands.registerCommand("Trigger Intake", new RunIntake(0.8)); 
+    NamedCommands.registerCommand("Trigger Intake", new RunIntake(SandwichConstants.kTriggerIntakeSpeed)); 
 
     NamedCommands.registerCommand("Shoot PID Speaker", new SequentialCommandGroup(
       new ShootPID(), 
       new ParallelRaceGroup(
         new ShootPIDEnd(), // Wait till we see that the note is out of the shooter 
-        new RunIntake(1)))); // Fixme: Need to include time cancellation: end command after 1.5 seconds if no note out. 
+        new RunIntake(SandwichConstants.kTriggerIntakeSpeed)))); // Fixme: Need to include time cancellation: end command after 1.5 seconds if no note out. 
     
         
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
@@ -126,7 +126,7 @@ public class RobotContainer {
 
     // Intake Trigger
     // Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
-    Constants.OperatorConstants.button11.whileTrue(new RunIntake(0.9));
+    Constants.OperatorConstants.button11.whileTrue(new RunIntake(SandwichConstants.kTriggerIntakeSpeed));
 
     // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
     // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
