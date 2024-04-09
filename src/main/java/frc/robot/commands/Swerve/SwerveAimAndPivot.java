@@ -20,12 +20,11 @@ import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.PhotonSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 
 public class SwerveAimAndPivot extends Command {
   private static final int RED_SPEAKER_TAG = 4;
   private static final int BLUE_SPEAKER_TAG = 7;
-  private static final double TAG_TO_SPEAKER_Z = 0.5;  //fixme: get real value
+  // private static final double TAG_TO_SPEAKER_Z = 0.5;  //fixme: get real value
 
   public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); // Robot Height
   public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); //fixme: get real value
@@ -36,7 +35,6 @@ public class SwerveAimAndPivot extends Command {
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
   private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
-  private final ShooterSubsystem shootSub = ShooterSubsystem.getInstance();
 
   // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
@@ -83,7 +81,6 @@ public class SwerveAimAndPivot extends Command {
 
     // Get the apriltag position. 
     photonCamera = photonSub.getAprilCamera();
-
     tab.addString("CameraToTarget", this::getFomattedTransform3d).withPosition(0, 5).withSize(2, 2);
   }
 
@@ -135,27 +132,27 @@ public class SwerveAimAndPivot extends Command {
 
         double lookUpVal = getPivoterOutputTable(tagDistance);
         
-        // double equationVal = (2.13 + 6.98*Math.log(tagDistance)); logarithmic equation
+        // USE AN EQUATION TO GET VALUES
         double equationVal = (-6.5 + (9.9*tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
-
         System.out.println(equationVal);
 
         SmartDashboard.putNumber("Equation Pivoter Value", equationVal);
         
-        if((lookUpVal != -6) && (lookUpVal > PivoterConstants.kSubwofferPivoterRotations) && (lookUpVal < PivoterConstants.kMaxPivoterRotations) ){
-          targetPivoterRotations = lookUpVal;
+        // Check if we're within bounds
+        if((equationVal > PivoterConstants.kSubwofferPivoterRotations) && (equationVal < PivoterConstants.kMaxPivoterRotations) ){
+          targetPivoterRotations = equationVal;
           System.out.print("Running at: ");
           System.out.println(targetPivoterRotations);
 
           // pivoterSub.PIDPivot(targetPivoterRotations);
           pivoterSub.PIDPivot(equationVal);
-          // shootSub.runShooterPID(4000);
+
         }else{
           System.out.print("NO WORK");
           System.out.println(targetPivoterRotations);
           
         }    
-        pivoterSub.PIDPivot(equationVal);
+        // pivoterSub.PIDPivot(equationVal); // Fixme: Why do we call it twice?
 
         SmartDashboard.putNumber("Tag Pitch", targetOpt.get().getPitch());    
         SmartDashboard.putNumber("Apriltag Distance", tagDistance);    
@@ -182,83 +179,6 @@ public class SwerveAimAndPivot extends Command {
       }
     }
   }
-
-  /*
-   * 
-   * Pivot To Speaker and Rotate To Speaker Helper Functions
-   * 
-   */
-
-  private double getPivoterOutputTable(double distance){
-    // 1. go through each value in distance table. 
-    // 2. Find the two indexes whose distances are inbetween the two. 
-    // 3. Interpolate between the two to find the resulting distance. 
-    for(int i = 0; i < pivoterLookUpTable.length - 1; i++){
-      if((pivoterLookUpTable[i][0] < distance) && (distance < pivoterLookUpTable[i + 1][0])){
-        System.out.print("[LOWER] AND [TOP]: ");
-        System.out.print(pivoterLookUpTable[i][0]);
-        System.out.print(" | ");
-        System.out.print(pivoterLookUpTable[i + 1][0]);
-        System.out.print(" | RESULT:");
- 
-        // Get our pivoter values
-        double lowerDistanceVal = pivoterLookUpTable[i][0];
-        double lowerPivoterVal = pivoterLookUpTable[i][1];
-        
-        double higherDistanceVal = pivoterLookUpTable[i + 1][0];
-        double higherPivoterVal = pivoterLookUpTable[i + 1][1];
-
-        double slope = (higherPivoterVal - lowerPivoterVal) / (higherDistanceVal - lowerDistanceVal);
-        double targetPivotVal = lowerPivoterVal + (distance - lowerDistanceVal) * (slope);
-       
-        System.out.print(targetPivotVal);
-        System.out.println();
-
-        SmartDashboard.putNumber("Lower PivoterVal", lowerPivoterVal);  
-          
-        SmartDashboard.putNumber("Slope", slope);    
-        SmartDashboard.putNumber("Lower Distance", lowerDistanceVal); 
-        SmartDashboard.putNumber("Higher Distance", higherDistanceVal); 
-          
-        SmartDashboard.putNumber("Target", targetPivotVal);   
-
-
-        return targetPivotVal;
-      }
-    }
-    
-    System.out.println(" | NO TARGET FOUND");
-    return -6; // This is a value that doesn't cause any rotation. 
-  }
-
-
-  private void pivotToSpeaker(){
-    var pivotDegrees = getPivotDegreesToSpeaker();
-    var pivotRotations = pivoterSub.convertDegreesToMotorRotations(pivotDegrees);
-
-    if (pivotRotations < PivoterConstants.kMaxPivoterRotations && pivotRotations > 0) {
-      // print()
-      photonCamera.setLED(VisionLEDMode.kBlink);
-    } else {
-      photonCamera.setLED(VisionLEDMode.kOff);
-    }
-    // SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
-  }
-
-  // Set our controller's target to the targets radians, and have it turn 
-  private void rotateToSpeaker(Rotation2d target, Rotation2d drivetrainHeading ) {
-    rotationController.setGoal(target.getRadians());
-    var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
-    if (rotationController.atGoal()) {
-      rotationSpeed = 0;
-    }
-
-    // Rotate using relative speeds. 
-    swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
-    SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
-    SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());  
-
-  }    
 
   @Override
   public void end(boolean interrupted) {
@@ -304,21 +224,23 @@ public class SwerveAimAndPivot extends Command {
 
 
 
-  // private void pivotToSpeaker(){
-  //   var pivotDegrees = getPivotDegreesToSpeaker();
-  //   var pivotRotations = pivoterSub.degreesToMotorRotations(pivotDegrees);
+  /*----- Pivot To Speaker and Rotate To Speaker Helper Functions ------- */
 
-  //   SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
-  //   SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
-  // }
 
-  //   if (pivotRotations > PivoterConstants.kMaxPivoterRotations || pivotRotations < 0) {
-  //     photonCamera.setLED(VisionLEDMode.kBlink);
-  //   } else {
-  //     pivoterSub.PIDPivot(pivotRotations);
-  //     photonCamera.setLED(VisionLEDMode.kOff);
-  //   }
-  // }
+  // Set our controller's target to the targets radians, and have it turn 
+  private void rotateToSpeaker(Rotation2d target, Rotation2d drivetrainHeading ) {
+    rotationController.setGoal(target.getRadians());
+    var rotationSpeed = rotationController.calculate(drivetrainHeading.getRadians());
+    if (rotationController.atGoal()) {
+      rotationSpeed = 0;
+    }
+
+    // Rotate using relative speeds. 
+    swerveSubsystem.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, drivetrainHeading));
+    SmartDashboard.putNumber("Target Rotations", targetHeading.getRadians());
+    SmartDashboard.putNumber("Current Swerve Rotations", drivetrainHeading.getRadians());  
+  }    
+
 
   // Return the degree the camera makes with the apriltag - how much we're off from being dead center to the apriltag. 
   private double getRotationDegreesToSpeaker() {
@@ -328,11 +250,36 @@ public class SwerveAimAndPivot extends Command {
       * (180 / Math.PI);
   }
 
-  private double getPivotDegreesToSpeaker() {
-    return Math.atan2(
-      camToTarget.getZ() + CAMERA_TO_ROBOT_Z + TAG_TO_SPEAKER_Z,
-      Math.sqrt(Math.pow(camToTarget.getX() + CAMERA_TO_ROBOT_X, 2) + Math.pow(camToTarget.getY() + CAMERA_TO_ROBOT_Y, 2)))
-      * 180 / Math.PI;
+    private double getPivoterOutputTable(double distance){
+    /* 1. go through each value in distance table. 
+     * 2. Find the two indexes whose distances are inbetween the two. 
+     * 3. Interpolate between the two to find the resulting distance.
+    */
+    for(int i = 0; i < pivoterLookUpTable.length - 1; i++){
+      if((pivoterLookUpTable[i][0] < distance) && (distance < pivoterLookUpTable[i + 1][0])){
+ 
+        // Get our pivoter values
+        double lowerDistanceVal = pivoterLookUpTable[i][0];
+        double lowerPivoterVal = pivoterLookUpTable[i][1];
+        
+        double higherDistanceVal = pivoterLookUpTable[i + 1][0];
+        double higherPivoterVal = pivoterLookUpTable[i + 1][1];
+
+        double slope = (higherPivoterVal - lowerPivoterVal) / (higherDistanceVal - lowerDistanceVal);
+        double targetPivotVal = lowerPivoterVal + (distance - lowerDistanceVal) * (slope);
+       
+        SmartDashboard.putNumber("Lower PivoterVal", lowerPivoterVal);  
+        SmartDashboard.putNumber("Slope", slope);    
+        SmartDashboard.putNumber("Lower Distance", lowerDistanceVal); 
+        SmartDashboard.putNumber("Higher Distance", higherDistanceVal); 
+        SmartDashboard.putNumber("Target", targetPivotVal);   
+
+        return targetPivotVal;
+      }
+    }
+    
+    System.out.println(" | NO TARGET FOUND");
+    return -6; // This is a value that doesn't cause any rotation. 
   }
 
   private String getFomattedTransform3d() {
@@ -342,5 +289,25 @@ public class SwerveAimAndPivot extends Command {
         transform3d.getY(),
         transform3d.getZ());
   }
+
+  // private double getPivotDegreesToSpeaker() {
+  //   return Math.atan2(
+  //     camToTarget.getZ() + CAMERA_TO_ROBOT_Z + TAG_TO_SPEAKER_Z,
+  //     Math.sqrt(Math.pow(camToTarget.getX() + CAMERA_TO_ROBOT_X, 2) + Math.pow(camToTarget.getY() + CAMERA_TO_ROBOT_Y, 2)))
+  //     * 180 / Math.PI;
+  // }
+
+  // private void pivotToSpeaker(){
+  //   var pivotDegrees = getPivotDegreesToSpeaker();
+  //   var pivotRotations = pivoterSub.convertDegreesToMotorRotations(pivotDegrees);
+
+  //   if (pivotRotations < PivoterConstants.kMaxPivoterRotations && pivotRotations > 0) {
+  //     // print()
+  //     photonCamera.setLED(VisionLEDMode.kBlink);
+  //   } else {
+  //     photonCamera.setLED(VisionLEDMode.kOff);
+  //   }
+  //   // SmartDashboard.putNumber("Speaker Rotations", Units.degreesToRadians(rotationDegrees));
+  // }
 
 }
