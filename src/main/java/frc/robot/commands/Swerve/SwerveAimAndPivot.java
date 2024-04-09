@@ -26,17 +26,17 @@ public class SwerveAimAndPivot extends Command {
   private static final int BLUE_SPEAKER_TAG = 7;
   // private static final double TAG_TO_SPEAKER_Z = 0.5;  //fixme: get real value
 
+  private final PhotonCamera photonCamera;
   public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); // Robot Height
-  public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); //fixme: get real value
+  public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); // Distance from cross hair center to apriltag center (left-right)
   public static double CAMERA_TO_ROBOT_Z = Units.inchesToMeters(14.5); //Robot distance from center
 
-  private final PhotonCamera photonCamera;
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private final PivoterSubsystem pivoterSub = PivoterSubsystem.getInstance();
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
   private final LEDSubsystem ledSub = LEDSubsystem.getInstance();
 
-  // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
+  // Profiled PID Controller = PID Controller with constraints on max speed + acceleration. 
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
     AutoConstants.kPThetaController,
     0,
@@ -44,7 +44,7 @@ public class SwerveAimAndPivot extends Command {
     AutoConstants.kThetaControllerConstraints);
 
   private Transform3d camToTarget;
-  ShuffleboardTab tab = Shuffleboard.getTab("Vision");
+  ShuffleboardTab visionTab = Shuffleboard.getTab("Vision");
 
   // Timer that tracks our aiming time. 
   private static final double AIM_TIME = 5;
@@ -52,10 +52,10 @@ public class SwerveAimAndPivot extends Command {
     
   // Our rotation target
   public static Rotation2d targetHeading;
-  public static final double ROTATION_DEGREES_TOLERANCE = 1;
-  public static final double PIVOT_DEGREES_TOLERANCE = 1;
+  public static final double ROTATION_DEGREES_TOLERANCE = 3;
+  public static final double PIVOT_DEGREES_TOLERANCE = 1; // Fixme: constify
 
-  // PIVOT Calculations:
+  // PIVOT Calculations: (UNUSED)
   // Lookup table for doubles
   double[][] pivoterLookUpTable = {
     {1, 2}, // Fixme: update values. 
@@ -67,21 +67,21 @@ public class SwerveAimAndPivot extends Command {
     {2.5, 8.36}
   };
 
-  // Track our pivoter target 
+  // Track our pivoter target (UNUSED)
   double targetPivoterRotations;
 
   public SwerveAimAndPivot() {
-    // this.success = success;
-    rotationController.setTolerance(Units.degreesToRadians(3));
+    rotationController.setTolerance(Units.degreesToRadians(ROTATION_DEGREES_TOLERANCE));
     rotationController.enableContinuousInput(-Math.PI, Math.PI);
+
+    // Get the apriltag position. 
+    photonCamera = photonSub.getAprilCamera();
+    visionTab.addString("CameraToTarget", this::getFomattedTransform3d).withPosition(0, 5).withSize(2, 2);
 
     addRequirements(swerveSubsystem);
     addRequirements(photonSub);
     addRequirements(pivoterSub);
 
-    // Get the apriltag position. 
-    photonCamera = photonSub.getAprilCamera();
-    tab.addString("CameraToTarget", this::getFomattedTransform3d).withPosition(0, 5).withSize(2, 2);
   }
 
   @Override
