@@ -255,19 +255,12 @@ public static final class TragConstants {
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
   public static final double kSubwofferPivoterRotations = 2; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
-  // public static final double kAmpPivoterRotations = 28.5;
   
-  // public static final double kAmpPivoterRotations = 29.7;
   public static final double kPreAmpPivoterRotations = 25;
   public static final double kPostAmpPivoterRotations = 29.7;
   public static final double kStagePivoterRotations = 8;
-  // public static final double kStagePivoterRotations = 8.35;
   public static final double kAmpStagePivoterRotations = 8.75;
-    // public static final double kAmpStagePivoterRotations = 9;
-
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
-
-
 
   // Our gear ratio is as follows: (1/64) * (16/26)
   public static final double kPivoterGearRatio = 0.00961538462;
