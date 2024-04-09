@@ -142,9 +142,9 @@ public class SwerveAimAndPivot extends Command {
         // Check if we're within bounds
         if((equationVal > PivoterConstants.kSubwofferPivoterRotations) && (equationVal < PivoterConstants.kMaxPivoterRotations) ){
           targetPivoterRotations = equationVal;
+
           System.out.print("Running at: ");
           System.out.println(equationVal);
-
           // pivoterSub.PIDPivot(targetPivoterRotations);
           // pivoterSub.PIDPivot(equationVal);
 
@@ -154,7 +154,6 @@ public class SwerveAimAndPivot extends Command {
           
         }    
         // pivoterSub.PIDPivot(equationVal); // Fixme: Why do we call it twice?
-
         SmartDashboard.putNumber("Tag Pitch", targetOpt.get().getPitch());    
         SmartDashboard.putNumber("Apriltag Distance", tagDistance);    
         // SmartDashboard.putNumber("LookUpVal", lookUpVal);   
