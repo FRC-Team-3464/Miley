@@ -24,10 +24,10 @@ public class ShootPID extends SequentialCommandGroup {
         // new WaitCommand(0.05)
       ),
 
-      new ShooterVelocityPID(4500),
-      new ParallelRaceGroup(
-        new RunIntake(1),
-        new WaitCommand(0.5)),
-      new ShooterVelocityPID(0));
+      new ShooterVelocityPID(4500));
+      // new ParallelRaceGroup(
+      //   new RunIntake(1),
+      //   new WaitCommand(0.5)),
+      // new ShooterVelocityPID(0));
   }
 }
