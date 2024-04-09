@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.SandwichConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 
@@ -64,8 +65,8 @@ public class IntakeFromGround extends Command {
       // intakeSub.runIntake(-0.1);
     }
     else{
-      intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
-      intakeSub.runExtendedIntake(0.85);
+      intakeSub.runIntake(SandwichConstants.kIntakeSpeed);
+      intakeSub.runExtendedIntake(SandwichConstants.kExtendedIntakeSpeed);
     }
   }
   
@@ -80,7 +81,7 @@ public class IntakeFromGround extends Command {
       ledSub.setOff();
     }
     intakeSub.runServo(0.5);
-    intakeSub.stopIntake();
+    intakeSub.stopIntakes();
 
 
   }
