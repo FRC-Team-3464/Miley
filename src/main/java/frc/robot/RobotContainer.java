@@ -5,52 +5,28 @@
 package frc.robot;
 
 import frc.robot.Constants.AutoConstants;
-// import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-// import frc.robot.Constants.PivoterConstants;
-// import frc.robot.Constants.SandwichConstants;
-// import frc.robot.Constants.TragConstants;
-// import frc.robot.autos.BlueAlliance.Blue1AmpAuto;
-// import frc.robot.autos.BlueAlliance.Blue1Speaker;
-// import frc.robot.autos.BlueAlliance.Blue2AmpAuto;
-// import frc.robot.autos.BlueAlliance.Blue3AmpHailMary;
-// import frc.robot.autos.BlueAlliance.Blue2Speaker;
-// import frc.robot.autos.BlueAlliance.Blue2StraightSpeaker;
-// import frc.robot.autos.RedAlliance.Red1AmpAuto;
-// import frc.robot.autos.RedAlliance.Red1Speaker;
-// import frc.robot.autos.RedAlliance.Red2AmpAuto;
-// import frc.robot.autos.RedAlliance.Red3AmpHailMary;
-// import frc.robot.autos.RedAlliance.Red2Speaker;
-// import frc.robot.autos.RedAlliance.Red2StraightSpeaker;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
-import frc.robot.commands.ShooterIntake.ManualIntake;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
 import frc.robot.commands.ShooterIntake.ShootPID;
+import frc.robot.commands.ShooterIntake.ShootPIDEnd;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 import frc.robot.commands.Swerve.SwerveAimAndPivot;
-import frc.robot.commands.Swerve.SwerveAimSpeaker;
 import frc.robot.commands.Swerve.SwerveJoystickCMD;
-import frc.robot.commands.Pivoter.ManualPivotUp;
-// import frc.robot.commands.Pivoter.ManualPivotDown;
-// import frc.robot.commands.Pivoter.ManualPivotUp;
 import frc.robot.commands.Pivoter.PIDManual;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
 import frc.robot.commands.Pivoter.PIDPivotToZero;
+import frc.robot.commands.Pivoter.PivotAmpAndShoot;
 import frc.robot.commands.Elevator.LowerBothElevators;
 import frc.robot.commands.Elevator.LowerLeftElevator;
 import frc.robot.commands.Elevator.LowerRightElevator;
 import frc.robot.commands.Elevator.RaiseBothElevators;
-import frc.robot.commands.Elevator.RaiseLeftElevator;
-import frc.robot.commands.Elevator.RaiseRightElevator;
-import frc.robot.commands.Leds.LedFlash;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.PivoterSubsystem;
-// import frc.robot.subsystems.IntakeSubsystem;
-// import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 
@@ -60,21 +36,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-// import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-
-import org.photonvision.PhotonCamera;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 
 public class RobotContainer {
-  private final SendableChooser<String> commandChooser = new SendableChooser<>();
   public SequentialCommandGroup selectedAuto;
   private final XboxController xbox = Constants.OperatorConstants.xbox;
 
@@ -97,31 +68,9 @@ public class RobotContainer {
                 // () -> !xbox.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx));
 
   public RobotContainer() {
-
-    // // where we set the options that user has to choose for autos 
-    // // Red Autos
-    // commandChooser.addOption("Red 1 Amp ", "R1A");
-    // commandChooser.addOption("Red 2 Amp ", "R2A");
-    // // commandChooser.addOption("Red 3 Amp Hail Mary", "R3AHM");
-    // commandChooser.addOption("Red 1 Speaker ", "R1S");
-    // commandChooser.setDefaultOption("Red 2 Speaker", "R2S");
-    // commandChooser.setDefaultOption("Red 2 Straight Speaker", "R2SS");
-    // commandChooser.addOption("Red Center Hail Mary", "RCHM");    
-    // // Blue Autos
-    // commandChooser.addOption("Blue 1 Amp", "B1A");
-    // commandChooser.addOption("Blue 2 Amp", "B2A");
-    // // commandChooser.addOption("Blue 3 Amp Hail Mary", "B3AHM");
-    // commandChooser.addOption("Blue 1 Speaker ", "B1S");
-    // commandChooser.addOption("Blue 2 Speaker", "B2S");
-    // commandChooser.setDefaultOption("Blue 2 Straight Speaker", "B2SS");
-    // commandChooser.addOption("Blue Center Hail Mary", "BCHM");    
-    
-    // SmartDashboard.putData("Auto", commandChooser);
-
-    // // Have our default swerve command to be the one that allows us to drive it. 
     CommandScheduler.getInstance().setDefaultCommand(swerveSubsystem, swerveCMD);
 
-    /* --------------------- PATHPLANNER --------------------- */ 
+    /* --------------------- PATHPLANNER Named Commands: Commands We'll Use During Auto--------------------- */ 
     NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations));
     NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
     NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations));
@@ -132,14 +81,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
     NamedCommands.registerCommand("Trigger Intake", new RunIntake(0.8)); 
-    NamedCommands.registerCommand("Shoot PID Speaker", new ShootPID());
-    
-    // NamedCommands  
-      // NamedCommands.registerCommand("Trigger Intake", new RunIntake(SandwichConstants.kIntakeSpeed)));   
-    
 
-    NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
+    NamedCommands.registerCommand("Shoot PID Speaker", new SequentialCommandGroup(
+      new ShootPID(), 
+      new ParallelRaceGroup(
+        new ShootPIDEnd(), // Wait till we see that the note is out of the shooter 
+        new RunIntake(1)))); // Fixme: Need to include time cancellation: end command after 1.5 seconds if no note out. 
     
+        
+    NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
     NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
     NamedCommands.registerCommand("Stop Shooter", new ShooterVelocityPID(0));
 
@@ -162,15 +112,17 @@ public class RobotContainer {
     // Commands regarding the intake sandwich  and Elevator
     // Constants.OperatorConstants.button1.onTrue(new ShootPID());
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
+    // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
+
     Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4500));
     Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
-    // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
-    Constants.OperatorConstants.button2.whileTrue(new ShootAmp());
+    Constants.OperatorConstants.button2.whileTrue(new PivotAmpAndShoot());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());
     Constants.OperatorConstants.button5.whileTrue(new RaiseBothElevators());
     Constants.OperatorConstants.button6.whileTrue(new ReverseIntake());   
     Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero());
+
     // Intake Trigger
     // Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
     Constants.OperatorConstants.button11.whileTrue(new RunIntake(0.9));
@@ -193,13 +145,7 @@ public class RobotContainer {
     // Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
     Constants.OperatorConstants.pancakeRight.whileTrue(new LowerLeftElevator());
     // Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
-    Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator());
-
-    // Test positions
-    // NON-PID
-    // Constants.OperatorConstants.button7.onTrue(new PivotToPosition(0));
-    // Constants.OperatorConstants.button8.onTrue(new PivotToPosition(20));
-    // Constants.OperatorConstants.button9.onTrue(new PivotToPosition(100)); 
+    Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator()); 
   }
  
 
@@ -207,114 +153,6 @@ public class RobotContainer {
     // Config our theta controller to calculate error in a circle.
     AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
-    // SwerveControllerCommand originToFarCenterNote = new SwerveControllerCommand(
-    //   TragConstants.tragOriginToFarCenterNote, 
-    //   swerveSubsystem::getPose,
-    //   DriveConstants.kDriveKinematics,
-    //   AutoConstants.xController,
-    //   AutoConstants.yController, 
-    //   AutoConstants.thetaController, 
-    //   swerveSubsystem::setModuleStates,
-    //   swerveSubsystem);
-
-    // SwerveControllerCommand blueOriginToFarCenterNote = new SwerveControllerCommand(
-    //   TragConstants.tragBlueOriginToFarCenterNote, 
-    //   swerveSubsystem::getPose,
-    //   DriveConstants.kDriveKinematics,
-    //   AutoConstants.xController,
-    //   AutoConstants.yController, 
-    //   AutoConstants.thetaController, 
-    //   swerveSubsystem::setModuleStates,
-    //   swerveSubsystem);
-
-    // // Chooser selection 
-    // if (commandChooser.getSelected() == "R1A"){
-    //   selectedAuto = new Red1AmpAuto();
-      
-    // }else if (commandChooser.getSelected() == "R2A"){
-    //   selectedAuto = new Red2AmpAuto();
-
-    // }else if (commandChooser.getSelected() == "R3AHM"){
-    //   /* NOT USED FOR HARTFORD */
-    //   // HAIL MARY
-    //   selectedAuto = new Red3AmpHailMary();
-      
-    // }else if(commandChooser.getSelected() == "R1S"){
-    //   selectedAuto = new Red1Speaker();
-
-    // }else if(commandChooser.getSelected() == "R2S"){
-    //   selectedAuto = new Red2Speaker();
-
-    // }else if(commandChooser.getSelected() == "R2SS"){
-    //   selectedAuto = new Red2StraightSpeaker();
-
-    // }else if (commandChooser.getSelected() == "B1A"){
-    //   selectedAuto = new Blue1AmpAuto();
-      
-    // }else if(commandChooser.getSelected() == "B2A"){
-    //   selectedAuto = new Blue2AmpAuto();
-
-    // }else if (commandChooser.getSelected() == "B3AHM"){
-    //   /* NOT USED FOR HARTFORD */
-    //   selectedAuto = new Blue3AmpHailMary();       
-
-    // }else if(commandChooser.getSelected() == "B1S"){
-    //   selectedAuto = new Blue1Speaker();
-
-    // }else if(commandChooser.getSelected() == "B2S"){
-    //   selectedAuto = new Blue2Speaker();
-    
-    // }else if(commandChooser.getSelected() == "B2SS"){
-    //   selectedAuto = new Blue2StraightSpeaker();
-    
-    // }else if(commandChooser.getSelected() == "RCHM"){
-    //   selectedAuto = new SequentialCommandGroup(
-    //     // Shoot first into speaker
-    //     new InstantCommand(() -> swerveSubsystem.stopModules()),
-    //     new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
-    //     new ParallelRaceGroup(
-    //       new ShootManual(),
-    //       new WaitCommand(2)        
-    //     ),
-    //     // Go to subwoffer pos;
-    //     new PIDPivotToPosition(0),
-    //     new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragOriginToFarCenterNote.getInitialPose())),
-    //         // IF we reach a note and intake it - great. No need for fussy dual parallel commands
-    //     new ParallelRaceGroup(
-    //       new IntakeFromGround(),
-    //       originToFarCenterNote
-    //     ),
-
-    //     new InstantCommand(() -> swerveSubsystem.stopModules())
-    //     );
-
-    // } else if(commandChooser.getSelected() == "BCHM"){
-    //     selectedAuto = new SequentialCommandGroup(
-    //       // Shoot first into speaker
-    //       new InstantCommand(() -> swerveSubsystem.stopModules()),
-    //       new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations),
-    //       new ParallelRaceGroup(
-    //        new ShootManual(),
-    //        new WaitCommand(2)        
-    //       ),
-    //       // Go to subwoffer pos;
-    //       new PIDPivotToPosition(0),
-    //       new InstantCommand(() -> swerveSubsystem.resetOdometry(TragConstants.tragBlueOriginToFarCenterNote.getInitialPose())),
-          
-    //       new ParallelRaceGroup(
-    //         new IntakeFromGround(),
-    //         blueOriginToFarCenterNote
-
-    //       ),
-    //       new InstantCommand(() -> swerveSubsystem.stopModules())
-    //       );
-
-    // } else{
-    //   selectedAuto = null;
-    // }
-
-    // // Return our selected auto to be run. 
-    // return selectedAuto;
     return autoChooser.getSelected();
   }
 }
