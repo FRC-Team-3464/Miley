@@ -25,7 +25,7 @@ public class SwerveAimNote extends Command {
   private static Rotation2d targetHeading;
   private final Timer aimTimer = new Timer();
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
-    AutoConstants.kPThetaController,
+    AutoConstants.kPThetaController/2,
     0,
     0,
     AutoConstants.kThetaControllerConstraints);
@@ -60,7 +60,7 @@ public class SwerveAimNote extends Command {
     var result = noteCamera.getLatestResult();
     if (result.hasTargets()) { // See if there are any targets within. 
       var bestTarget = result.getBestTarget();
-      var targetRotation = bestTarget.getYaw();
+      var targetRotation = Units.degreesToRadians(bestTarget.getYaw());
 
       // Get our robot's current swerve heading. 
       var driveHeading = swerveSub.getRotation2d();
@@ -75,7 +75,7 @@ public class SwerveAimNote extends Command {
         }
         var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 28)) * 0.5;
         
-        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(driveSpeed, 0, rotationSpeed, driveHeading));
+        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(0, 0, rotationSpeed, driveHeading));
       }
     }
     else { // If we don't have a camera target 
@@ -89,7 +89,7 @@ public class SwerveAimNote extends Command {
         }
 
         var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 28)) * 0.5;
-        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(driveSpeed, 0, rotationSpeed, swerveSub.getRotation2d()));
+        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(0, 0, rotationSpeed, swerveSub.getRotation2d()));
       }
       else {  // if we have no target + previous target
         System.out.println("NOPE!! NAH!!!! THERE'S NOTHING!!! EAOIGCFIEJFOIJNOIJ dang it");

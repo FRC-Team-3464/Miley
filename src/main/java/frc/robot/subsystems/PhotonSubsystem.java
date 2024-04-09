@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import org.photonvision.PhotonCamera;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PhotonSubsystem extends SubsystemBase { 
@@ -14,8 +15,8 @@ public class PhotonSubsystem extends SubsystemBase {
   private final PhotonCamera noteCamera;
 
   public PhotonSubsystem() {
-    aprilCamera = new PhotonCamera("Speaker_Camera");
-    noteCamera = new PhotonCamera("Note_Camera");
+    aprilCamera = new PhotonCamera("AprilTagCamera");
+    noteCamera = new PhotonCamera("NoteCamera");
   }
 
 
@@ -37,5 +38,6 @@ public class PhotonSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("PhotonHasTarget", aprilCamera.getLatestResult().hasTargets()); 
   }
 }

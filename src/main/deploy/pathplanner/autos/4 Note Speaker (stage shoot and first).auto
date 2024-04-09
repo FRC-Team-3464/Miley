@@ -201,22 +201,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Force Pivot to Ground"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Right Stage to Speaker Note"
-                }
-              }
-            ]
+            "name": "Force Pivot to Ground"
           }
         }
       ]

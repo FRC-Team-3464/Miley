@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.PivoterConstants;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -54,6 +55,8 @@ public class SwerveAimAndPivot extends Command {
   public static Rotation2d targetHeading;
   public static final double ROTATION_DEGREES_TOLERANCE = 3;
   public static final double PIVOT_DEGREES_TOLERANCE = 1; // Fixme: constify
+
+  public static final double pivoterOffset = 11.25;
 
   // PIVOT Calculations: (UNUSED)
   // Lookup table for doubles
@@ -99,13 +102,17 @@ public class SwerveAimAndPivot extends Command {
   @Override
   public void execute() {
     var photonRes = photonCamera.getLatestResult();
+    SmartDashboard.putBoolean("PhotonHasTarget", photonRes.hasTargets()); 
+
+
     if (photonRes.hasTargets()) {
       // Find the tag straight below speaker
       var targetOpt = photonRes.getTargets().stream()
           .filter(t -> t.getFiducialId() == RED_SPEAKER_TAG || t.getFiducialId() == BLUE_SPEAKER_TAG)
           .filter(t -> t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
           .findFirst();
-      
+    
+
       if (targetOpt.isPresent()) {
         photonCamera.setLED(VisionLEDMode.kBlink);
         var target = targetOpt.get();
@@ -135,6 +142,8 @@ public class SwerveAimAndPivot extends Command {
         
         // USE AN EQUATION TO GET VALUES
         double equationVal = (-6.5 + (9.9 * tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
+
+        double benEquationVal = ((Constants.PivoterConstants.kPivoterGearRatio * 36) * (157 - pivoterOffset - (Math.atan(65 / (Units.metersToInches(tagDistance)))) + Math.acos((19 * Math.cos(50)) / Math.sqrt((Math.pow(Units.metersToInches(tagDistance), 2) + Math.pow(65, 2))))));
         System.out.println(equationVal);
 
         SmartDashboard.putNumber("Equation Pivoter Value", equationVal);
