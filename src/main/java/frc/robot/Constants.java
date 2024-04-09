@@ -301,8 +301,7 @@ public static final class SandwichConstants {
   public static final double kAmpShootSpeed = 0.75;
 
   public static final double kSpeakerShootSpeed = 0.8;
-
-  public static final double kShootVelocityTarget = 5000;
+  public static final double kShootVelocityTarget = 4500;
 }
 
   public static class OperatorConstants {
