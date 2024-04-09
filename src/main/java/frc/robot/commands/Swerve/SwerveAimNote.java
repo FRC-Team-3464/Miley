@@ -80,7 +80,7 @@ public class SwerveAimNote extends Command {
         if (rotationController.atGoal()) {
           rotationSpeed = 0;
         }
-        var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 32)) * 0.5;
+        var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 28)) * 0.5;
         
         swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(driveSpeed, 0, rotationSpeed, driveHeading));
       }
