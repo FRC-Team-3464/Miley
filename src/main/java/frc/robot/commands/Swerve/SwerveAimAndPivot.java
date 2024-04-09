@@ -146,8 +146,8 @@ public class SwerveAimAndPivot extends Command {
           System.out.print("Running at: ");
           System.out.println(equationVal);
           // pivoterSub.PIDPivot(targetPivoterRotations);
-          // pivoterSub.PIDPivot(equationVal);
-
+          pivoterSub.PIDPivot(equationVal);
+          
         }else{
           System.out.print("NO WORK");
           System.out.println(targetPivoterRotations);
