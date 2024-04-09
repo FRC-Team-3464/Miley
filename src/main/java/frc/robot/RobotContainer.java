@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.PivoterConstants;
+import frc.robot.Constants.SandwichConstants;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
@@ -71,26 +73,26 @@ public class RobotContainer {
     CommandScheduler.getInstance().setDefaultCommand(swerveSubsystem, swerveCMD);
 
     /* --------------------- PATHPLANNER Named Commands: Commands We'll Use During Auto--------------------- */ 
-    NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations));
+    NamedCommands.registerCommand("Pivot to Subwoofer", new PIDPivotToPosition(PivoterConstants.kSubwofferPivoterRotations));
     NamedCommands.registerCommand("Pivot to Ground", new PIDPivotToPosition(0));
-    NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations));
-    NamedCommands.registerCommand("Pivot to Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
-    NamedCommands.registerCommand("Pivot to Amp-Stage", new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations));
+    NamedCommands.registerCommand("Pivot to Amp", new PIDPivotToPosition(PivoterConstants.kAmpPivoterRotations));
+    NamedCommands.registerCommand("Pivot to Stage", new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations));
+    NamedCommands.registerCommand("Pivot to Amp-Stage", new PIDPivotToPosition(PivoterConstants.kStagePivoterRotations));
     NamedCommands.registerCommand("Force Pivot to Ground", new PIDPivotToZero());
     
     NamedCommands.registerCommand("Shoot Speaker", new ShootManual());
     NamedCommands.registerCommand("Shoot Amp", new ShootAmp());
-    NamedCommands.registerCommand("Trigger Intake", new RunIntake(0.8)); 
+    NamedCommands.registerCommand("Trigger Intake", new RunIntake(SandwichConstants.kTriggerIntakeSpeed)); 
 
     NamedCommands.registerCommand("Shoot PID Speaker", new SequentialCommandGroup(
       new ShootPID(), 
       new ParallelRaceGroup(
         new ShootPIDEnd(), // Wait till we see that the note is out of the shooter 
-        new RunIntake(1)))); // Fixme: Need to include time cancellation: end command after 1.5 seconds if no note out. 
+        new RunIntake(SandwichConstants.kTriggerIntakeSpeed)))); // Fixme: Need to include time cancellation: end command after 1.5 seconds if no note out. 
     
         
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
-    NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
+    NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
     NamedCommands.registerCommand("Stop Shooter", new ShooterVelocityPID(0));
 
     NamedCommands.registerCommand("Intake From Ground", new IntakeFromGround());
@@ -113,8 +115,7 @@ public class RobotContainer {
     // Constants.OperatorConstants.button1.onTrue(new ShootPID());
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
-
-    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4500));
+    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
     Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
     Constants.OperatorConstants.button2.whileTrue(new PivotAmpAndShoot());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
@@ -124,8 +125,7 @@ public class RobotContainer {
     Constants.OperatorConstants.button12.onTrue(new PIDPivotToZero());
 
     // Intake Trigger
-    // Constants.OperatorConstants.button11.onTrue(new RunIntake(0.85));
-    Constants.OperatorConstants.button11.whileTrue(new RunIntake(0.9));
+    Constants.OperatorConstants.button11.whileTrue(new RunIntake(SandwichConstants.kTriggerIntakeSpeed));
 
     // Constants.OperatorConstants.button3.onTrue(new InstantCommand(() -> intakeSub.runServo(0.5)));
     // Constants.OperatorConstants.button5.onTrue(new InstantCommand(() -> intakeSub.runServo(0)));
@@ -135,16 +135,13 @@ public class RobotContainer {
     Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations)); // Subwoofer Angle
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpPivoterRotations)); // Amp Angle
     Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
-    // Constants.OperatorConstants.button11.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5))); // Manual Down
     Constants.OperatorConstants.pancakeUp.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); 
     Constants.OperatorConstants.pancakeDown.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5)));
-    // Constants.OperatorConstants.pancakeUp.whileTrue(new ManualPivotUp());
-    // Constants.OperatorConstants.button12.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); // Manual Up
-
+   
     // Commands for elevator hahahah lmao
     // Constants.OperatorConstants.pancakeUp.whileTrue(new RaiseLeftElevator());
-    Constants.OperatorConstants.pancakeRight.whileTrue(new LowerLeftElevator());
     // Constants.OperatorConstants.pancakeRight.whileTrue(new RaiseRightElevator());
+    Constants.OperatorConstants.pancakeRight.whileTrue(new LowerLeftElevator());
     Constants.OperatorConstants.pancakeLeft.whileTrue(new LowerRightElevator()); 
   }
  
@@ -153,6 +150,7 @@ public class RobotContainer {
     // Config our theta controller to calculate error in a circle.
     AutoConstants.thetaController.enableContinuousInput(-Math.PI, Math.PI);  
 
+    // Get the auto selected from pathplanner
     return autoChooser.getSelected();
   }
 }

@@ -38,7 +38,7 @@ public class RunIntake extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    intakeSub.stopIntake();
+    intakeSub.stopIntakes();
     runtime.stop();
     ledSub.setOff();
   }

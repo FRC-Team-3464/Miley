@@ -7,6 +7,7 @@ package frc.robot.commands.ShooterIntake;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.SandwichConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -21,10 +22,10 @@ public class ShootPID extends SequentialCommandGroup {
         new ReverseIntake(),
         new WaitCommand(0.03)
 
-        // new WaitCommand(0.05)
       ),
 
-      new ShooterVelocityPID(4500));
+      // Run the shooter to desired RPM
+      new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
       // new ParallelRaceGroup(
       //   new RunIntake(1),
       //   new WaitCommand(0.5)),
