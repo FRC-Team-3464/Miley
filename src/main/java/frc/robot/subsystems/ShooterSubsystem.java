@@ -101,6 +101,10 @@ public class ShooterSubsystem extends SubsystemBase {
     return shooterEncoder.getPosition();
   }
 
+  public double getShooterVelocity() {
+    return shooterEncoder.getVelocity();
+  }
+
   public void resetShooter() {
     shooterEncoder.setPosition(0);
   }
