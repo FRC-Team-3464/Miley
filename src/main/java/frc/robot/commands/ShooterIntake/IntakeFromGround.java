@@ -42,27 +42,13 @@ public class IntakeFromGround extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if(!intakeSub.getIntakeButton()) {
-    //   buttonTime.start();
-    //   // change LED light color
-    //   ledSub.setGreen();
-    //   intakeSub.rumbleDude();
-    //   note = true;
-    // }
     if(intakeSub.getPhotoElectricRight() || intakeSub.getPhotoElectricLeft()){
       startTime.start();
       ledSub.setGreen();
-      note = true;
-    }
-
-    if(note){
-      // intakeSub.runIntake(0.1);
       intakeSub.rumbleDude();
       intakeSub.runExtendedIntake(0);
-      intakeSub.runIntake(-0.05);
-      // intakeSub.runIntake(-0.05);
-
-      // intakeSub.runIntake(-0.1);
+      intakeSub.runIntake(-0.05); // Backspit by 5% speed for 0.5 seconds. 
+      note = true;
     }
     else{
       intakeSub.runIntake(SandwichConstants.kIntakeSpeed);
@@ -77,9 +63,11 @@ public class IntakeFromGround extends Command {
     startTime.reset();
     // ledSub.setGreen();
     intakeSub.stopRumble();
+
     if(note == false) {
       ledSub.setOff();
     }
+
     intakeSub.runServo(0.5);
     intakeSub.stopIntakes();
 
