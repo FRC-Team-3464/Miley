@@ -69,8 +69,6 @@ public class IntakeFromGround extends Command {
 
     intakeSub.runServo(0.5);
     intakeSub.stopIntakes();
-
-
   }
 
   // Returns true when the command should end.

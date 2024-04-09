@@ -143,10 +143,10 @@ public class SwerveAimAndPivot extends Command {
         if((equationVal > PivoterConstants.kSubwofferPivoterRotations) && (equationVal < PivoterConstants.kMaxPivoterRotations) ){
           targetPivoterRotations = equationVal;
           System.out.print("Running at: ");
-          System.out.println(targetPivoterRotations);
+          System.out.println(equationVal);
 
           // pivoterSub.PIDPivot(targetPivoterRotations);
-          pivoterSub.PIDPivot(equationVal);
+          // pivoterSub.PIDPivot(equationVal);
 
         }else{
           System.out.print("NO WORK");
