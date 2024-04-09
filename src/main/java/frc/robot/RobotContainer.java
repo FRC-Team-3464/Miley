@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.SandwichConstants;
 import frc.robot.commands.ShooterIntake.IntakeFromGround;
 import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
@@ -90,7 +91,7 @@ public class RobotContainer {
     
         
     NamedCommands.registerCommand("Reverse Intake", new ReverseIntake());
-    NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(4000));
+    NamedCommands.registerCommand("Start Shooter", new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
     NamedCommands.registerCommand("Stop Shooter", new ShooterVelocityPID(0));
 
     NamedCommands.registerCommand("Intake From Ground", new IntakeFromGround());
@@ -114,7 +115,7 @@ public class RobotContainer {
     // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
 
-    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(4500));
+    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
     Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
     Constants.OperatorConstants.button2.whileTrue(new PivotAmpAndShoot());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
