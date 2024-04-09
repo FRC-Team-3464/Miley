@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.PhotonSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -22,6 +23,8 @@ public class SwerveAimNote extends Command {
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
 
   private static Rotation2d targetHeading;
+
+  private double distance;
 
   private final Timer aimTimer = new Timer();
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
@@ -48,6 +51,8 @@ public class SwerveAimNote extends Command {
     targetHeading = new Rotation2d(0);
     rotationController.reset(swerveSub.getRotation2d().getRadians());
 
+    distance = 0;
+
     // Probably will not here...
     aimTimer.reset();
     aimTimer.start();
@@ -62,6 +67,8 @@ public class SwerveAimNote extends Command {
       var bestTarget = result.getBestTarget();
       var targetRotation = bestTarget.getYaw();
 
+      distance = bestTarget.getBestCameraToTarget().getX();
+
       // Get oru robot's current swerve heading. 
       var driveHeading = swerveSub.getRotation2d();
 
@@ -73,7 +80,9 @@ public class SwerveAimNote extends Command {
         if (rotationController.atGoal()) {
           rotationSpeed = 0;
         }
-        swerveSub.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, driveHeading));
+        var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 32)) * 0.5;
+        
+        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(driveSpeed, 0, rotationSpeed, driveHeading));
       }
     }
     else { // If we don't have a camera target 
@@ -86,7 +95,7 @@ public class SwerveAimNote extends Command {
           rotationSpeed = 0;
         }
 
-        swerveSub.driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, rotationSpeed, swerveSub.getRotation2d()));
+        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(0, 0, rotationSpeed, swerveSub.getRotation2d()));
       }
       else {  // if we have no target + previous target
         System.out.println("NOPE!! NAH!!!! THERE'S NOTHING!!! EAOIGCFIEJFOIJNOIJ dang it");

@@ -81,17 +81,19 @@ public class SwerveAimAndPivot extends Command {
     addRequirements(swerveSubsystem);
     addRequirements(photonSub);
     addRequirements(pivoterSub);
-
   }
 
   @Override
   public void initialize() {
-    // Start counting seconds of aim-time
     targetHeading = new Rotation2d(0);
     targetPivoterRotations = -6; // Value to which the pivoter will not rotate down to. 
+   
+    // Give our current swerve rotation. 
+    rotationController.reset(swerveSubsystem.getRotation2d().getRadians());
+
+    // Initialize our timer to start counting time aiming. 
     aimTimer.reset();
     aimTimer.start();
-    rotationController.reset(swerveSubsystem.getRotation2d().getRadians());
   }
 
   @Override
@@ -110,7 +112,7 @@ public class SwerveAimAndPivot extends Command {
         camToTarget = target.getBestCameraToTarget();
         ledSub.setBlue();
     
-        // ROTATION COMMAND
+        // ----- ROTATION COMMAND ----- //
         // Calculate how far off we are rotation-wise from facing the apriltag's center. 
         var rotationDegrees = getRotationDegreesToSpeaker();
         if (rotationDegrees != 0.0) {
@@ -129,10 +131,10 @@ public class SwerveAimAndPivot extends Command {
           Math.PI / 6, 
           Units.degreesToRadians(targetOpt.get().getPitch()));
 
-        double lookUpVal = getPivoterOutputTable(tagDistance);
+        // double lookUpVal = getPivoterOutputTable(tagDistance);
         
         // USE AN EQUATION TO GET VALUES
-        double equationVal = (-6.5 + (9.9*tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
+        double equationVal = (-6.5 + (9.9 * tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
         System.out.println(equationVal);
 
         SmartDashboard.putNumber("Equation Pivoter Value", equationVal);
@@ -155,7 +157,7 @@ public class SwerveAimAndPivot extends Command {
 
         SmartDashboard.putNumber("Tag Pitch", targetOpt.get().getPitch());    
         SmartDashboard.putNumber("Apriltag Distance", tagDistance);    
-        SmartDashboard.putNumber("LookUpVal", lookUpVal);   
+        // SmartDashboard.putNumber("LookUpVal", lookUpVal);   
         SmartDashboard.putNumber("Target Pivot Rotations", targetPivoterRotations);   
       }
 
@@ -249,37 +251,6 @@ public class SwerveAimAndPivot extends Command {
       * (180 / Math.PI);
   }
 
-    private double getPivoterOutputTable(double distance){
-    /* 1. go through each value in distance table. 
-     * 2. Find the two indexes whose distances are inbetween the two. 
-     * 3. Interpolate between the two to find the resulting distance.
-    */
-    for(int i = 0; i < pivoterLookUpTable.length - 1; i++){
-      if((pivoterLookUpTable[i][0] < distance) && (distance < pivoterLookUpTable[i + 1][0])){
- 
-        // Get our pivoter values
-        double lowerDistanceVal = pivoterLookUpTable[i][0];
-        double lowerPivoterVal = pivoterLookUpTable[i][1];
-        
-        double higherDistanceVal = pivoterLookUpTable[i + 1][0];
-        double higherPivoterVal = pivoterLookUpTable[i + 1][1];
-
-        double slope = (higherPivoterVal - lowerPivoterVal) / (higherDistanceVal - lowerDistanceVal);
-        double targetPivotVal = lowerPivoterVal + (distance - lowerDistanceVal) * (slope);
-       
-        SmartDashboard.putNumber("Lower PivoterVal", lowerPivoterVal);  
-        SmartDashboard.putNumber("Slope", slope);    
-        SmartDashboard.putNumber("Lower Distance", lowerDistanceVal); 
-        SmartDashboard.putNumber("Higher Distance", higherDistanceVal); 
-        SmartDashboard.putNumber("Target", targetPivotVal);   
-
-        return targetPivotVal;
-      }
-    }
-    
-    System.out.println(" | NO TARGET FOUND");
-    return -6; // This is a value that doesn't cause any rotation. 
-  }
 
   private String getFomattedTransform3d() {
     var transform3d = camToTarget;
@@ -288,6 +259,40 @@ public class SwerveAimAndPivot extends Command {
         transform3d.getY(),
         transform3d.getZ());
   }
+
+
+  //  private double getPivoterOutputTable(double distance){
+  //   /* 1. go through each value in distance table. 
+  //    * 2. Find the two indexes whose distances are inbetween the two. 
+  //    * 3. Interpolate between the two to find the resulting distance.
+  //   */
+  //   for(int i = 0; i < pivoterLookUpTable.length - 1; i++){
+  //     if((pivoterLookUpTable[i][0] < distance) && (distance < pivoterLookUpTable[i + 1][0])){
+ 
+  //       // Get our pivoter values
+  //       double lowerDistanceVal = pivoterLookUpTable[i][0];
+  //       double lowerPivoterVal = pivoterLookUpTable[i][1];
+        
+  //       double higherDistanceVal = pivoterLookUpTable[i + 1][0];
+  //       double higherPivoterVal = pivoterLookUpTable[i + 1][1];
+
+  //       double slope = (higherPivoterVal - lowerPivoterVal) / (higherDistanceVal - lowerDistanceVal);
+  //       double targetPivotVal = lowerPivoterVal + (distance - lowerDistanceVal) * (slope);
+       
+  //       SmartDashboard.putNumber("Lower PivoterVal", lowerPivoterVal);  
+  //       SmartDashboard.putNumber("Slope", slope);    
+  //       SmartDashboard.putNumber("Lower Distance", lowerDistanceVal); 
+  //       SmartDashboard.putNumber("Higher Distance", higherDistanceVal); 
+  //       SmartDashboard.putNumber("Target", targetPivotVal);   
+
+  //       return targetPivotVal;
+  //     }
+  //   }
+    
+  //   System.out.println(" | NO TARGET FOUND");
+  //   return -6; // This is a value that doesn't cause any rotation. 
+  // }
+
 
   // private double getPivotDegreesToSpeaker() {
   //   return Math.atan2(
