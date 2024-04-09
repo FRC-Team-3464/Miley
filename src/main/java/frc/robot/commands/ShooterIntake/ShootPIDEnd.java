@@ -13,11 +13,12 @@ public class ShootPIDEnd extends Command {
   private ShooterSubsystem shootSub;
   private double ogTarget;
   private double currentRPM;
-  private final Timer overrideTimer = new Timer();
+  private final Timer overrideTimer;
 
   public ShootPIDEnd() {
     shootSub = ShooterSubsystem.getInstance();
     addRequirements(shootSub);
+    overrideTimer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,6 +26,8 @@ public class ShootPIDEnd extends Command {
   @Override
   public void initialize() {
     ogTarget = shootSub.getShooterVelocity();
+    overrideTimer.reset();
+    overrideTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +45,6 @@ public class ShootPIDEnd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (currentRPM <= ogTarget - 200);
+    return ((currentRPM <= ogTarget - 200) || overrideTimer.hasElapsed(1.5));
   }
 }
