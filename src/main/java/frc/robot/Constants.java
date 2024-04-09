@@ -258,9 +258,8 @@ public static final class PivoterConstants{
   // public static final double kAmpPivoterRotations = 28.5;
   
   // public static final double kAmpPivoterRotations = 29.7;
-  public static final double kAmpPivoterRotations = 25;
-
-
+  public static final double kPreAmpPivoterRotations = 25;
+  public static final double kPostAmpPivoterRotations = 29.7;
   public static final double kStagePivoterRotations = 8;
   // public static final double kStagePivoterRotations = 8.35;
   public static final double kAmpStagePivoterRotations = 8.75;
