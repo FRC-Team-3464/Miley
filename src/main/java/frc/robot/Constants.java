@@ -287,7 +287,7 @@ public static final class SandwichConstants {
   public static final double kIntakeSpeed = 0.3;
   public static final double kReverseIntakeSpeed = -0.75;
   public static final double kReverseShootSpeed = -0.75;
-  public static final double kTriggerIntakeSpeed = 1; // Speed the intake runs at when shooting. 
+  public static final double kTriggerIntakeSpeed = 0.8; // Speed the intake runs at when shooting. 
 
   // Extended Intake
   public static final double kExtendedIntakeSpeed = 0.85;

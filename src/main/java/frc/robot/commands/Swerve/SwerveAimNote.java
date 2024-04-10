@@ -11,6 +11,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
+// import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+// import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
@@ -25,17 +28,19 @@ public class SwerveAimNote extends Command {
   private static Rotation2d targetHeading;
   private final Timer aimTimer = new Timer();
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
-    AutoConstants.kPThetaController/2,
+    AutoConstants.kPThetaController/1.5,
     0,
     0,
     AutoConstants.kThetaControllerConstraints);
+
+  // ShuffleboardTab visionTab = Shuffleboard.getTab("Vision");  
 
   public SwerveAimNote() {
     // Get the note camera from the photonsub. 
     noteCamera = photonSub.getNoteCamera();
 
     // Set our tolarence to be the equivolent of +-3 degrees
-    rotationController.setTolerance(Units.degreesToRadians(3));
+    rotationController.setTolerance(Units.degreesToRadians(0.5));
     rotationController.enableContinuousInput(-Math.PI, Math.PI);
 
     addRequirements(photonSub);
@@ -46,7 +51,9 @@ public class SwerveAimNote extends Command {
   public void initialize() {
     // Set our target to 0
     targetHeading = new Rotation2d(0);
+    // rotationController.reset(swerveSub.getRotation2d().getRadians());
     rotationController.reset(swerveSub.getRotation2d().getRadians());
+
 
     // Probably will not here...
     aimTimer.reset();
@@ -64,18 +71,30 @@ public class SwerveAimNote extends Command {
 
       // Get our robot's current swerve heading. 
       var driveHeading = swerveSub.getRotation2d();
+      targetHeading = driveHeading.plus(Rotation2d.fromRadians(targetRotation));
 
       if (targetRotation != 0) {
         // Set our target to be rotation needed to turn to note 
-        targetHeading = Rotation2d.fromDegrees(targetRotation);
-        rotationController.setGoal(Units.degreesToRadians(targetRotation));
+        // targetHeading = Rotation2d.fromDegrees(targetRotation);
+        // System.out.print("TARGET ROT: ");
+        // System.out.print(targetRotation);
+        // System.out.println();
+        SmartDashboard.putNumber("Drive Heading", swerveSub.getRotation2d().getDegrees());
+        SmartDashboard.putNumber("Target Rotation", Rotation2d.fromRadians(targetRotation).getDegrees());
+        SmartDashboard.putNumber("NOTE AIM: Target Heading", targetHeading.getDegrees());
+        
+
+        // rotationController.setGoal(Units.degreesToRadians(targetRotation));
+        rotationController.setGoal(targetHeading.getRadians());
         var rotationSpeed = rotationController.calculate(driveHeading.getRadians());
         if (rotationController.atGoal()) {
           rotationSpeed = 0;
         }
-        var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 28)) * 0.5;
-        
-        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(0, 0, rotationSpeed, driveHeading));
+
+        var driveSpeed = Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(driveHeading.getDegrees() - targetHeading.getDegrees()) / 28)) * 0.5;
+        SmartDashboard.putNumber("NOTE AIM: Driver Speed", driveSpeed);
+
+        swerveSub.driveRobotRelative(new ChassisSpeeds(driveSpeed, 0, rotationSpeed));
       }
     }
     else { // If we don't have a camera target 
@@ -88,8 +107,9 @@ public class SwerveAimNote extends Command {
           rotationSpeed = 0;
         }
 
-        var driveSpeed = -Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(targetHeading.getDegrees()) / 28)) * 0.5;
-        swerveSub.driveRobotRelative(ChassisSpeeds.fromRobotRelativeSpeeds(0, 0, rotationSpeed, swerveSub.getRotation2d()));
+        var driveHeading = swerveSub.getRotation2d();
+        var driveSpeed = Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(driveHeading.getDegrees() - targetHeading.getDegrees()) / 28)) * 0.5;
+        swerveSub.driveRobotRelative(new ChassisSpeeds(driveSpeed, 0, rotationSpeed));
       }
       else {  // if we have no target + previous target
         System.out.println("NOPE!! NAH!!!! THERE'S NOTHING!!! EAOIGCFIEJFOIJNOIJ dang it");
@@ -115,12 +135,13 @@ public class SwerveAimNote extends Command {
     }
 
     // If we have a target + controller is at target
-    if (noteCamera.getLatestResult().hasTargets()) {
-      if (rotationController.atGoal()) { 
-          System.out.println("WOOHOO CONGRATULATIONS THIS ACTUALLY WORKED WTF?!?");
-          return true;
-      }
-    }
+    // if (noteCamera.getLatestResult().hasTargets()) {
+    //   if (rotationController.atGoal()) { 
+    //       System.out.println("WOOHOO CONGRATULATIONS THIS ACTUALLY WORKED WTF?!?");
+    //       return true;
+    //   }
+    // }
     return false;
   }
+
 }
