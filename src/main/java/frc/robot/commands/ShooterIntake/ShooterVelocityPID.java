@@ -2,6 +2,7 @@ package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -24,6 +25,9 @@ public class ShooterVelocityPID extends Command {
     if(setPoint == 0) {
       ledSub.setOff();
     }
+    if(setPoint == 5000) {
+      Constants.SandwichConstants.noteMessage = "Charging up! brrrRrrRrrRrRrRRRRRRR!!!";
+    }
   }
 
   @Override
@@ -39,10 +43,12 @@ public class ShooterVelocityPID extends Command {
     SmartDashboard.putNumber("Shoot Setpoint", setPoint);
     SmartDashboard.putNumber("Shoot Velocity", shootSub.getVelocity());
     SmartDashboard.putNumber("Shoot Error", error);
+    System.out.println("NOT DONE");
   }
 
   @Override
   public void end(boolean interrupted) {
+    System.out.println("DONE");
     ledSub.rainbow();
   }
 

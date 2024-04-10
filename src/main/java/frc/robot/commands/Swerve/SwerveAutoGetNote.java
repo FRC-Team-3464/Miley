@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 // import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 // import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -17,25 +18,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.SandwichConstants;
 import frc.robot.subsystems.PhotonSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
-public class SwerveAimNote extends Command {
+public class SwerveAutoGetNote extends Command {
   private final PhotonCamera noteCamera;
   private final SwerveSubsystem swerveSub = SwerveSubsystem.getInstance();
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
 
   private static Rotation2d targetHeading;
   private final Timer aimTimer = new Timer();
+
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
-    AutoConstants.kPThetaController/1.5,
+    AutoConstants.kPThetaController / 2,
     0,
     0,
     AutoConstants.kThetaControllerConstraints);
 
   // ShuffleboardTab visionTab = Shuffleboard.getTab("Vision");  
 
-  public SwerveAimNote() {
+  public SwerveAutoGetNote() {
     // Get the note camera from the photonsub. 
     noteCamera = photonSub.getNoteCamera();
 
@@ -91,7 +94,7 @@ public class SwerveAimNote extends Command {
           rotationSpeed = 0;
         }
 
-        var driveSpeed = Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(driveHeading.getDegrees() - targetHeading.getDegrees()) / 28)) * 0.5;
+        var driveSpeed = Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(driveHeading.getDegrees() - targetHeading.getDegrees()) / 28)) * 0.7;
         SmartDashboard.putNumber("NOTE AIM: Driver Speed", driveSpeed);
 
         swerveSub.driveRobotRelative(new ChassisSpeeds(driveSpeed, 0, rotationSpeed));
@@ -108,11 +111,11 @@ public class SwerveAimNote extends Command {
         }
 
         var driveHeading = swerveSub.getRotation2d();
-        var driveSpeed = Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(driveHeading.getDegrees() - targetHeading.getDegrees()) / 28)) * 0.5;
+        var driveSpeed = Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond * (1 - (Math.abs(driveHeading.getDegrees() - targetHeading.getDegrees()) / 28)) * 0.75;
         swerveSub.driveRobotRelative(new ChassisSpeeds(driveSpeed, 0, rotationSpeed));
       }
       else {  // if we have no target + previous target
-        System.out.println("NOPE!! NAH!!!! THERE'S NOTHING!!! EAOIGCFIEJFOIJNOIJ dang it");
+        Constants.SandwichConstants.noteMessage = "NOPE!! NAH!!!! THERE'S NOTHING!!! EAOIGCFIEJFOIJNOIJ dang it";
         swerveSub.stopModules();
       }
     }
@@ -130,7 +133,12 @@ public class SwerveAimNote extends Command {
   public boolean isFinished() {
     // If the turn timer has elapsed - meaning that we've spent too long aiming. 
     if (aimTimer.hasElapsed(5)) {
-      System.out.println("NO TARGET FOUND LMAO UR AN IDIOT ARGH!!!");
+      Constants.SandwichConstants.noteMessage = "NO TARGET FOUND LMAO UR AN IDIOT ARGH!!!";
+      return true;
+    }
+
+    else if(SandwichConstants.hasNote) {
+      Constants.SandwichConstants.noteMessage = "CONGRATULATIONS YOU HAVE A NOTE!!!!!! AYYYYYYYYY! WOOHOO!!!";
       return true;
     }
 

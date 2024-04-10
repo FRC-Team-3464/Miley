@@ -4,7 +4,9 @@
 
 package frc.robot.commands.Pivoter;
 
+import edu.wpi.first.hal.simulation.ConstBufferCallback;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.PivoterSubsystem;
 
 public class PIDPivotToZero extends Command {
@@ -21,7 +23,9 @@ public class PIDPivotToZero extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Constants.SandwichConstants.noteMessage = "ahhhhh!";
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -33,6 +37,7 @@ public class PIDPivotToZero extends Command {
   @Override
   public void end(boolean interrupted) {
     pivoterSub.PIDPivot(0);
+    Constants.SandwichConstants.noteMessage = "oof";
   }
 
   // Returns true when the command should end.

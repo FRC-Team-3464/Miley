@@ -8,6 +8,7 @@ package frc.robot.commands.ShooterIntake;
 import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Constants.SandwichConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -36,6 +37,7 @@ public class IntakeFromGround extends Command {
     note = false;
     ledSub.setOrange();
     intakeSub.runServo(0);
+    Constants.SandwichConstants.noteMessage = "Eating! nom nom nom";
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -58,6 +60,7 @@ public class IntakeFromGround extends Command {
     // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Constants.SandwichConstants.noteMessage = "Note aquired! Time to upchuck!";
     startTime.stop();
     startTime.reset();
     // ledSub.setGreen();
@@ -70,6 +73,7 @@ public class IntakeFromGround extends Command {
     intakeSub.runServo(0.5);
     intakeSub.stopIntakes();
   }
+
 
   // Returns true when the command should end.
   @Override

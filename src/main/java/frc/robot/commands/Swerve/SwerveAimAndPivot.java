@@ -46,6 +46,7 @@ public class SwerveAimAndPivot extends Command {
 
   private Transform3d camToTarget;
   ShuffleboardTab visionTab = Shuffleboard.getTab("Vision");
+  
 
   // Timer that tracks our aiming time. 
   private static final double AIM_TIME = 5;
@@ -56,7 +57,8 @@ public class SwerveAimAndPivot extends Command {
   public static final double ROTATION_DEGREES_TOLERANCE = 3;
   public static final double PIVOT_DEGREES_TOLERANCE = 1; // Fixme: constify
 
-  public static final double pivoterOffset = 11.25;
+  public static final double pivoterOffset = 12.5;
+  public static final double targetHeight = 70;
 
   // PIVOT Calculations: (UNUSED)
   // Lookup table for doubles
@@ -142,22 +144,28 @@ public class SwerveAimAndPivot extends Command {
         // USE AN EQUATION TO GET VALUES
         double equationVal = (-6.5 + (9.9 * tagDistance) + (-1.63 * Math.pow(tagDistance, 2)));
 
-        double benEquationVal = ((Constants.PivoterConstants.kPivoterGearRatio * 36) * (157 - pivoterOffset - (Units.radiansToDegrees(Math.atan(65 / (Units.metersToInches(tagDistance))))) + Units.radiansToDegrees(Math.acos((19 * Math.cos(50)))) / Math.sqrt((Math.pow(Units.metersToInches(tagDistance), 2) + Math.pow(65, 2)))));
+        double benEquationVal = (Constants.PivoterConstants.kPivoterGearRatio * 36) * (157 - pivoterOffset - (Units.radiansToDegrees(Math.atan(targetHeight / (Units.metersToInches(tagDistance)))) + Units.radiansToDegrees(Math.acos((19 * Math.cos(Units.degreesToRadians(50))) / Math.sqrt((Math.pow(Units.metersToInches(tagDistance), 2)) + Math.pow(targetHeight, 2))))));
         // Ben spent weeks of his life on this. Please work pivoter gods. 
         //Constants.PivoterConstants.kPivoterGearRatio * 36
         System.out.println(equationVal);
 
         SmartDashboard.putNumber("Ben Equation Pivoter Value", benEquationVal);
         SmartDashboard.putNumber("Equation Pivoter Value", equationVal);
+
+        if(tagDistance > 2.5) {
+          targetPivoterRotations = benEquationVal;
+        }
+        else {
+          targetPivoterRotations = equationVal;
+        }
         
         // Check if we're within bounds
-        if((equationVal > PivoterConstants.kSubwofferPivoterRotations) && (equationVal < PivoterConstants.kMaxPivoterRotations) ){
-          targetPivoterRotations = equationVal;
+        if((targetPivoterRotations > PivoterConstants.kSubwofferPivoterRotations) && (targetPivoterRotations < PivoterConstants.kMaxPivoterRotations) ){
 
           System.out.print("Running at: ");
-          System.out.println(equationVal);
+          System.out.println(targetPivoterRotations);
           // pivoterSub.PIDPivot(targetPivoterRotations);
-          pivoterSub.PIDPivot(equationVal);
+          pivoterSub.PIDPivot(targetPivoterRotations);
           
         }else{
           System.out.print("NO WORK");

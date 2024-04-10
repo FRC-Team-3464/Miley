@@ -13,10 +13,11 @@ import frc.robot.commands.ShooterIntake.ReverseIntake;
 import frc.robot.commands.ShooterIntake.RunIntake;
 import frc.robot.commands.ShooterIntake.ShootAmp;
 import frc.robot.commands.ShooterIntake.ShootManual;
+// import frc.robot.commands.ShooterIntake.ShootPIDEnd;
 import frc.robot.commands.ShooterIntake.AutoShootPID;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
 import frc.robot.commands.Swerve.SwerveAimAndPivot;
-import frc.robot.commands.Swerve.SwerveAimNote;
+import frc.robot.commands.Swerve.SwerveAutoGetNote;
 import frc.robot.commands.Swerve.SwerveJoystickCMD;
 import frc.robot.commands.Pivoter.PIDManual;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
@@ -35,6 +36,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -94,17 +96,18 @@ public class RobotContainer {
     // Driver commands for resetting the heading or position
     Constants.OperatorConstants.buttonX.onTrue(resetGyro);
     // Constants.OperatorConstants.buttonY.whileTrue(new SwerveAimSpeaker());
-    Constants.OperatorConstants.buttonLB.whileTrue(new SwerveAimNote());
+    Constants.OperatorConstants.buttonLB.whileTrue(new SwerveAutoGetNote());
     Constants.OperatorConstants.buttonRB.whileTrue(new SwerveAimAndPivot());
     // Indicate that we want to boost
     // Constants.OperatorConstants.button1.onTrue(new LedFlash());
 
     // Commands regarding the intake sandwich  and Elevator
     // Constants.OperatorConstants.button1.onTrue(new ShootPID());
-    // Constants.OperatorConstants.button1.onTrue(new ShootSpeaker());
+    // Constants.OperatorConstants.button1.onTrue(new AutoShootPID());
     // Constants.OperatorConstants.button1.whileTrue(new ShootManual());
-    Constants.OperatorConstants.button1.onTrue(new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
+    Constants.OperatorConstants.button1.whileTrue(new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
     Constants.OperatorConstants.button1.onFalse(new ShooterVelocityPID(0));
+    // Constants.OperatorConstants.button1.onTrue(new SequentialCommandGroup(new ShooterVelocityPID(4500), new ParallelRaceGroup(new ShootPIDEnd(), new RunIntake(Constants.SandwichConstants.kTriggerIntakeSpeed))));
     Constants.OperatorConstants.button2.whileTrue(new PivotAmpAndShoot());
     Constants.OperatorConstants.button3.whileTrue(new LowerBothElevators());
     Constants.OperatorConstants.button4.whileTrue(new IntakeFromGround());

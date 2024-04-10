@@ -34,10 +34,18 @@ public class PivotAmpAndShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(pivoterSub.getPivoterRawRotation() > 20) {
     pivoterSub.PIDPivot(PivoterConstants.kPostAmpPivoterRotations);
     if (Math.abs(PivoterConstants.kPostAmpPivoterRotations - pivoterSub.getPivoterRawRotation()) <= 0.5) {
       intakeSub.runIntake(Constants.SandwichConstants.kAmpShootSpeed);
       shootSub.runShooter(Constants.SandwichConstants.kAmpShootSpeed);
+      Constants.SandwichConstants.noteMessage = "ssssspit. patooie";
+    }
+    }
+    else {
+      intakeSub.runIntake(Constants.SandwichConstants.kAmpShootSpeed);
+      shootSub.runShooter(Constants.SandwichConstants.kAmpShootSpeed);
+      Constants.SandwichConstants.noteMessage = "chomp~";
     }
   }
 

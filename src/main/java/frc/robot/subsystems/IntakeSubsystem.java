@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.SandwichConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -97,6 +98,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (getPhotoElectricLeft() || getPhotoElectricRight()){
+      SandwichConstants.hasNote = true;
+    }else{
+      SandwichConstants.hasNote = false;
+    }
+
     // SmartDashboard.putBoolean("Note? - 6", intakeButton.get());
     SmartDashboard.putNumber("Intake Current", intakeMotor.getOutputCurrent());
     SmartDashboard.putNumber("Intake Follower Current", intakeMotorFollower.getOutputCurrent());

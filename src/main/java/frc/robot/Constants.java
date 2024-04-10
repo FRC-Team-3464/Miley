@@ -117,7 +117,9 @@ public final class Constants {
 
     // public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.25;
     // public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.069;
-        public static final double kTeleDriveMaxSpeedMetersPerSecond = 4.85;
+        // public static final double kTeleDriveMaxSpeedMetersPerSecond = 4.85;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = 5;
+    
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
             kPhysicalMaxAngularSpeedRadiansPerSecond / 2.75;
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3.75;
@@ -284,7 +286,13 @@ public static final class OIConstants {
 }
 
 public static final class SandwichConstants {
-  public static final double kIntakeSpeed = 0.3;
+  // Set a global variable
+  public static boolean hasNote = false;
+
+  public static String noteMessage = "We're starting up yay";
+  public static String octopusLyric = "I'd like to be...";
+
+  public static final double kIntakeSpeed = 0.35;
   public static final double kReverseIntakeSpeed = -0.75;
   public static final double kReverseShootSpeed = -0.75;
   public static final double kTriggerIntakeSpeed = 0.8; // Speed the intake runs at when shooting. 
@@ -295,7 +303,7 @@ public static final class SandwichConstants {
   // public static final double kAmpShootSpeed = 0.5;
   public static final double kAmpShootSpeed = 0.75;
   public static final double kSpeakerShootSpeed = 0.8;
-  public static final double kShootVelocityTarget = 5000;
+  public static final double kShootVelocityTarget = 4500;
 }
 
   public static class OperatorConstants {

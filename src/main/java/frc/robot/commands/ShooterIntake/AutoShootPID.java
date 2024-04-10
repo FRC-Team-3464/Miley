@@ -6,7 +6,8 @@ package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+// import edu.wpi.first.wpilibj2.command.WaitCommand;
+// import frc.robot.Constants;
 import frc.robot.Constants.SandwichConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,17 +18,9 @@ import frc.robot.Constants.SandwichConstants;
 public class AutoShootPID extends SequentialCommandGroup {
   public AutoShootPID() {
     addCommands(
-      // Spit Note Back
+      new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget), 
       new ParallelRaceGroup(
-        new ReverseIntake(),
-        new WaitCommand(0.03)
-
-      ),
-
-      // Run the shooter to desired RPM
-      new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget));
-      new ParallelRaceGroup(
-        new RunIntake(SandwichConstants.kTriggerIntakeSpeed),
-        new ShootPIDEnd());// Wait till we see that the note is out of the shooter
+        new ShootPIDEnd(), 
+        new RunIntake(SandwichConstants.kTriggerIntakeSpeed)));
   }
 }
