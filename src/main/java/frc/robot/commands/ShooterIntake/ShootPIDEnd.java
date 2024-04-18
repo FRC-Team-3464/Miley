@@ -50,6 +50,6 @@ public class ShootPIDEnd extends Command {
   @Override
   public boolean isFinished() {
     // Override Timer also fires so the robot can move on in auto even if it doesn't have a note. 
-    return ((currentRPM <= ogTarget - 500) || overrideTimer.hasElapsed(1.5));
+    return ((currentRPM <= ogTarget - 200) || overrideTimer.hasElapsed(1.5));
   }
 }

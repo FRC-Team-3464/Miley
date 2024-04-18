@@ -25,15 +25,18 @@ public class ShooterVelocityPID extends Command {
     if(setPoint == 0) {
       ledSub.setOff();
     }
-    if(setPoint == 5000) {
+    if(setPoint == Constants.SandwichConstants.kShootVelocityTarget) {
       Constants.SandwichConstants.noteMessage = "Charging up! brrrRrrRrrRrRrRRRRRRR!!!";
     }
   }
 
   @Override
   public void execute() {
+    if(Constants.PivoterConstants.kPivoterTarget == Constants.PivoterConstants.kAmpStagePivoterRotations && setPoint == Constants.SandwichConstants.kShootVelocityTarget) {
+      setPoint = 2000;
+    }
     shootSub.runShooterPID(setPoint);
-    if(error > 300) {
+    if(error > 500) {
     ledSub.redPulse();
     }
     else {
@@ -43,12 +46,10 @@ public class ShooterVelocityPID extends Command {
     SmartDashboard.putNumber("Shoot Setpoint", setPoint);
     SmartDashboard.putNumber("Shoot Velocity", shootSub.getVelocity());
     SmartDashboard.putNumber("Shoot Error", error);
-    System.out.println("NOT DONE");
   }
 
   @Override
   public void end(boolean interrupted) {
-    System.out.println("DONE");
     ledSub.rainbow();
   }
 
@@ -56,7 +57,7 @@ public class ShooterVelocityPID extends Command {
   public boolean isFinished() {
     // End command once we're within tolerance. 
     // return (error < 300);    
-    return (error < 500);
+    return (error < 300);
 
   }
 }

@@ -13,6 +13,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.PivoterConstants;
 
 public class PivoterSubsystem extends SubsystemBase {
@@ -24,8 +25,8 @@ public class PivoterSubsystem extends SubsystemBase {
   // private final CANSparkMax rightPivoter = new CANSparkMax(13, MotorType.kBrushless);
 
 
-  private final DigitalInput leftLimit = new DigitalInput(5);
-  private final DigitalInput rightLimit = new DigitalInput(4);
+  private final DigitalInput leftLimit = new DigitalInput(5); // Min value
+  private final DigitalInput rightLimit = new DigitalInput(4); // Max value
 
   private final RelativeEncoder leftEncoder = leftPivoter.getEncoder();
   private final RelativeEncoder rightEncoder = rightPivoter.getEncoder();
@@ -176,6 +177,7 @@ public class PivoterSubsystem extends SubsystemBase {
     if ((rotations >= PivoterConstants.kMaxPivoterRotations) || rotations < -5){
       System.out.println("ABORT");
     }else{
+      Constants.PivoterConstants.kPivoterTarget = rotations;
       m_pidController.setReference(
         rotations,
         CANSparkMax.ControlType.kSmartMotion,
@@ -183,6 +185,7 @@ public class PivoterSubsystem extends SubsystemBase {
         getArbFF()
       );  
     }
+    SmartDashboard.putNumber("Target Rotation Pivot", rotations);
   }
 
   // "Extra" voltage needed 
