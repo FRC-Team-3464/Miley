@@ -122,8 +122,8 @@ public final class Constants {
     
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
             kPhysicalMaxAngularSpeedRadiansPerSecond / 2.75;
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3.75;
-    //    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4;
+    // public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3.75;
+    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4;
 
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3.5;
 }
@@ -262,6 +262,8 @@ public static final class PivoterConstants{
   public static final double kPreAmpPivoterRotations = 25;
   public static final double kPostAmpPivoterRotations = 29.7;
   public static final double kStagePivoterRotations = 8;
+
+  // Point between Stage and Amp: our shuttle position from behind the zone. 
   public static final double kAmpStagePivoterRotations = 8.75;
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
 
