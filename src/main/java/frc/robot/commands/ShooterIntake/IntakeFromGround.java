@@ -50,6 +50,7 @@ public class IntakeFromGround extends Command {
       intakeSub.runExtendedIntake(0);
       intakeSub.runIntake(-0.05); // Backspit by 5% speed for 0.5 seconds. 
       note = true;
+      Constants.SandwichConstants.noteMessage = "Note aquired! Time to upchuck!";
     }
     else{
       intakeSub.runIntake(SandwichConstants.kIntakeSpeed);
@@ -60,7 +61,6 @@ public class IntakeFromGround extends Command {
     // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Constants.SandwichConstants.noteMessage = "Note aquired! Time to upchuck!";
     startTime.stop();
     startTime.reset();
     // ledSub.setGreen();
@@ -68,6 +68,7 @@ public class IntakeFromGround extends Command {
 
     if(note == false) {
       ledSub.setOff();
+      Constants.SandwichConstants.noteMessage = "Womp womp. Try again. I'm still hungry :(";
     }
 
     intakeSub.runServo(0.5);
