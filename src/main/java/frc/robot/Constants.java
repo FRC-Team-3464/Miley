@@ -267,6 +267,8 @@ public static final class PivoterConstants{
 
   // Our gear ratio is as follows: (1/64) * (16/26)
   public static final double kPivoterGearRatio = 0.00961538462;
+
+  public static double kPivoterTarget = 0;
 }
 
 public static final class ElevatorConstants {
