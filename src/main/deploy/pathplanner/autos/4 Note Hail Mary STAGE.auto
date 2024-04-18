@@ -56,21 +56,28 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Hail Mary Amp Note to Right Stage"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Pivot to Stage"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot PID Speaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Hail Mary Amp Note to Right Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Stage"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot PID Speaker"
+                }
+              }
+            ]
           }
         },
         {
@@ -111,16 +118,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake From Ground"
+                  "name": "Pivot to Stage"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Pivot to Stage"
           }
         },
         {

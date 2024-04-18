@@ -20,12 +20,12 @@
         "y": 6.431784943341967
       },
       "prevControl": {
-        "x": 2.692255979824978,
-        "y": 6.587781074811664
+        "x": 2.691235865035028,
+        "y": 6.587100998285031
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp Note to Right Stage End"
     }
   ],
   "rotationTargets": [],
