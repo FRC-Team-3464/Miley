@@ -177,7 +177,9 @@ public class PivoterSubsystem extends SubsystemBase {
     if ((rotations >= PivoterConstants.kMaxPivoterRotations) || rotations < -5){
       System.out.println("ABORT");
     }else{
+      // Set our global target variable to be whatever we targeted it to be. 
       Constants.PivoterConstants.kPivoterTarget = rotations;
+      
       m_pidController.setReference(
         rotations,
         CANSparkMax.ControlType.kSmartMotion,
@@ -219,6 +221,9 @@ public class PivoterSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Left Pivotor Current", leftPivoter.getOutputCurrent());
     SmartDashboard.putNumber("Right Pivotor Current", rightPivoter.getOutputCurrent());
+
+    // Read our global variable
+    SmartDashboard.putNumber("GLOBAL: Pivoter Target", PivoterConstants.kPivoterTarget);
 
   }
 }
