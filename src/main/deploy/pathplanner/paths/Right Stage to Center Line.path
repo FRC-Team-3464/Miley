@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7141939224496041,
-        "y": 4.397140955802102
+        "x": 2.4582617826204314,
+        "y": 6.431784943341967
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6404209530509337,
-        "y": 3.071173838309671
+        "x": 3.4582617826204314,
+        "y": 6.431784943341967
       },
       "isLocked": false,
-      "linkedName": "Left Speaker"
+      "linkedName": "Amp Note to Right Stage End"
     },
     {
       "anchor": {
-        "x": 8.3053390038404,
-        "y": 0.7718141932010376
+        "x": 8.58599871045896,
+        "y": 7.495952997604001
       },
       "prevControl": {
-        "x": 7.1158685013839555,
-        "y": 0.6353175781650536
+        "x": 7.585998710458959,
+        "y": 7.495952997604001
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left to Mail Hary 1 End"
+      "linkedName": "Right Stage to Center Line End"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -49,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hairy Males",
+  "folder": "Speaker (rotation) points",
   "previewStartingState": {
-    "rotation": -60.25511870305787,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.SandwichConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 
@@ -36,36 +37,24 @@ public class IntakeFromGround extends Command {
     note = false;
     ledSub.setOrange();
     intakeSub.runServo(0);
+    Constants.SandwichConstants.noteMessage = "Eating! nom nom nom";
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if(!intakeSub.getIntakeButton()) {
-    //   buttonTime.start();
-    //   // change LED light color
-    //   ledSub.setGreen();
-    //   intakeSub.rumbleDude();
-    //   note = true;
-    // }
-    if(intakeSub.getPhotoElectricRight() || intakeSub.getPhotoElectricLeft()){
+    if(Constants.SandwichConstants.hasNote){
       startTime.start();
       ledSub.setGreen();
-      note = true;
-    }
-
-    if(note){
-      // intakeSub.runIntake(0.1);
       intakeSub.rumbleDude();
       intakeSub.runExtendedIntake(0);
-      intakeSub.runIntake(-0.05);
-      // intakeSub.runIntake(-0.05);
-
-      // intakeSub.runIntake(-0.1);
+      intakeSub.runIntake(-0.05); // Backspit by 5% speed for 0.5 seconds. 
+      note = true;
+      Constants.SandwichConstants.noteMessage = "Note aquired! Time to upchuck!";
     }
     else{
-      intakeSub.runIntake(Constants.SandwichConstants.kIntakeSpeed);
-      intakeSub.runExtendedIntake(0.85);
+      intakeSub.runIntake(SandwichConstants.kIntakeSpeed);
+      intakeSub.runExtendedIntake(SandwichConstants.kExtendedIntakeSpeed);
     }
   }
   
@@ -76,14 +65,16 @@ public class IntakeFromGround extends Command {
     startTime.reset();
     // ledSub.setGreen();
     intakeSub.stopRumble();
+
     if(note == false) {
       ledSub.setOff();
+      Constants.SandwichConstants.noteMessage = "Womp womp. Try again. I'm still hungry :(";
     }
+
     intakeSub.runServo(0.5);
-    intakeSub.stopIntake();
-
-
+    intakeSub.stopIntakes();
   }
+
 
   // Returns true when the command should end.
   @Override

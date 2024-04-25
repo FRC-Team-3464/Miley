@@ -34,11 +34,12 @@ public class RunIntake extends Command {
   public void execute() {
     intakeSub.runIntake(speedo);
     ledSub.rainbow();
+    Constants.SandwichConstants.noteMessage = "POW!!!!";
   }
 
   @Override
   public void end(boolean interrupted) {
-    intakeSub.stopIntake();
+    intakeSub.stopIntakes();
     runtime.stop();
     ledSub.setOff();
   }

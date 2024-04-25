@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.609387019343838,
-        "y": 0.7835083476434771
+        "x": 8.25856238607064,
+        "y": 0.7601200387585969
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.2346711107671275,
-        "y": 0.549514150438932
+        "x": 6.883846477493929,
+        "y": 0.5261258415540518
       },
       "isLocked": false,
-      "linkedName": "Left to Mail Hary 1 End"
+      "linkedName": null
     },
     {
       "anchor": {

@@ -47,7 +47,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Pivot to Ground"
+                        "name": "Force Pivot to Ground"
                       }
                     },
                     {
@@ -129,7 +129,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Pivot to Ground"
+                        "name": "Force Pivot to Ground"
                       }
                     },
                     {
@@ -207,7 +207,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Ground"
+                  "name": "Force Pivot to Ground"
                 }
               },
               {

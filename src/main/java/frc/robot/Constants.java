@@ -117,11 +117,13 @@ public final class Constants {
 
     // public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.25;
     // public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 1.069;
-        public static final double kTeleDriveMaxSpeedMetersPerSecond = 4.85;
+        // public static final double kTeleDriveMaxSpeedMetersPerSecond = 4.85;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = 5;
+    
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
             kPhysicalMaxAngularSpeedRadiansPerSecond / 2.75;
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3.75;
-    //    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4;
+    // public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3.75;
+    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4;
 
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3.5;
 }
@@ -147,9 +149,9 @@ public static final class AutoConstants {
   public static PIDController yController = new PIDController(kPYController, 0, 0);
 
   public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
-          new TrapezoidProfile.Constraints(
-                  kMaxAngularSpeedRadiansPerSecond,
-                  kMaxAngularAccelerationRadiansPerSecondSquared);
+    new TrapezoidProfile.Constraints(
+      kMaxAngularSpeedRadiansPerSecond,
+      kMaxAngularAccelerationRadiansPerSecondSquared);
 
     // Profiled PID Controller = PID Controller with constraints on max speed / acceleration. 
   public static ProfiledPIDController thetaController = new ProfiledPIDController(
@@ -255,21 +257,25 @@ public static final class TragConstants {
 public static final class PivoterConstants{
   public static final double kMaxPivoterDegrees = 100;
   public static final double kSubwofferPivoterRotations = 2; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
-  // public static final double kAmpPivoterRotations = 28.5;
-  
-  public static final double kAmpPivoterRotations = 29.7;
+  public static final double kPivoterTolerance = 0.5; // Amount error that we can tolerate ~ About 3 degrees
 
+  public static final double kPreAmpPivoterRotations = 25;
+  public static final double kPostAmpPivoterRotations = 29.7;
   public static final double kStagePivoterRotations = 8;
-  // public static final double kStagePivoterRotations = 8.35;
+
+  // Point between Stage and Amp: our shuttle position from behind the zone. 
   public static final double kAmpStagePivoterRotations = 8.75;
-    // public static final double kAmpStagePivoterRotations = 9;
-
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
-
-
 
   // Our gear ratio is as follows: (1/64) * (16/26)
   public static final double kPivoterGearRatio = 0.00961538462;
+
+  public static double kPivoterTarget = 0;
+
+  public static final double PivoterDownOne = 25;
+  public static final double PivoterDownTwo = 17;
+  public static final double PivoterDownThree = 10;
+
 }
 
 public static final class ElevatorConstants {
@@ -289,18 +295,24 @@ public static final class OIConstants {
 }
 
 public static final class SandwichConstants {
-  // public static final double kIntakeSpeed = 0.5;
-  public static final double kIntakeSpeed = 0.3;
-  
-  public static final double kReverseIntakeSpeed = -0.75;
+  // Set a global variable
+  public static boolean hasNote = false;
 
+  public static String noteMessage = "We're starting up yay";
+  public static String octopusLyric = "I'd like to be...";
+
+  public static final double kIntakeSpeed = 0.35;
+  public static final double kReverseIntakeSpeed = -0.75;
   public static final double kReverseShootSpeed = -0.75;
+  public static final double kTriggerIntakeSpeed = 0.8; // Speed the intake runs at when shooting. 
+
+  // Extended Intake
+  public static final double kExtendedIntakeSpeed = 0.85;
+
   // public static final double kAmpShootSpeed = 0.5;
   public static final double kAmpShootSpeed = 0.75;
-
   public static final double kSpeakerShootSpeed = 0.8;
-
-  public static final double kShootVelocityTarget = 5000;
+  public static final double kShootVelocityTarget = 4500;
 }
 
   public static class OperatorConstants {
@@ -326,8 +338,12 @@ public static final class SandwichConstants {
     public static final POVButton pancakeRight = new POVButton(auxStick, 90);
     public static final POVButton pancakeLeft = new POVButton(auxStick, 270);
     
+    
+    public static final JoystickButton buttonA = new JoystickButton(xbox, 1);
+    public static final JoystickButton buttonB = new JoystickButton(xbox, 2);
     public static final JoystickButton buttonX = new JoystickButton(xbox, 3);
     public static final JoystickButton buttonY = new JoystickButton(xbox, 4);
+    public static final JoystickButton buttonLB = new JoystickButton(xbox, 5);
     public static final JoystickButton buttonRB = new JoystickButton(xbox, 6);
     
  

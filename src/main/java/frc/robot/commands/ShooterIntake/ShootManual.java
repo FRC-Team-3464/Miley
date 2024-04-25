@@ -56,7 +56,7 @@ public class ShootManual extends Command {
     shootTimer.stop();
     shootTimer.reset();
 
-    intakeSub.stopIntake();
+    intakeSub.stopIntakes();
     shootSub.stopShooter();
     shootSub.stopRumble();
   }

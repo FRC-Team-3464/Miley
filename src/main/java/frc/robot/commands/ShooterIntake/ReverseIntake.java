@@ -23,7 +23,9 @@ public class ReverseIntake extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Constants.SandwichConstants.noteMessage = "ick";
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -36,7 +38,7 @@ public class ReverseIntake extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSub.stopIntake();
+    intakeSub.stopIntakes();
     shooterSub.stopShooter();
   }
 

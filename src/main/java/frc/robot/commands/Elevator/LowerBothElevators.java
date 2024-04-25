@@ -23,7 +23,9 @@ public class LowerBothElevators extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Constants.SandwichConstants.noteMessage = "arghhhhhhhh";
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -39,6 +41,7 @@ public class LowerBothElevators extends Command {
     elevatorSub.runLeftElevator(0);
     elevatorSub.runRightElevator(0);
     ledSub.setOff();
+    Constants.SandwichConstants.noteMessage = "Success!!! We're up!! I'm on top!!";
   }
 
   // Returns true when the command should end.

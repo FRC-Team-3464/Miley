@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3473171105845272,
-      "y": 5.554723360164464
+      "x": 0.7531929553170285,
+      "y": 4.3678916811515345
     },
-    "rotation": 0
+    "rotation": -57.771242564901506
   },
   "command": {
     "type": "sequential",
@@ -31,19 +31,13 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker To Speaker Note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
+                  "pathName": "Left to Mail Hary 1 Auto Note"
                 }
               },
               {
@@ -60,18 +54,30 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Speaker Note to Speaker"
+                  "name": "Auto Get Note"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Subwoofer"
+                  "name": "Intake From Ground"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Mail Hary 1 to Stage"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim"
           }
         },
         {
@@ -79,16 +85,10 @@
           "data": {
             "name": "Shoot PID Speaker"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Pivot to Ground"
-          }
         }
       ]
     }
   },
-  "folder": "small, stupid, weak and dumb Autos",
+  "folder": "Four + Autos",
   "choreoAuto": false
 }

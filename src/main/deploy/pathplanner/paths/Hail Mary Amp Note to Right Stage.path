@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8441688792209487,
-        "y": 7.0398809743488435
+        "x": 2.9961928869726684,
+        "y": 6.969716047694203
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9937521138662877,
-        "y": 7.0398809743488435
+        "x": 3.1457761216180073,
+        "y": 6.969716047694203
       },
       "isLocked": false,
       "linkedName": "Right to Amp Note End"
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 15.52411099675427,
+    "rotation": 11.309932474020213,
     "rotateFast": false
   },
   "reversed": false,

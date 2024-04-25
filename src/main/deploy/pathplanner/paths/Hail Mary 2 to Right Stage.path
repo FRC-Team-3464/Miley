@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.878352571519958,
-        "y": 5.5430292057165325
+        "x": 8.679551945998478,
+        "y": 5.192204572443334
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.220893674654421,
-        "y": 6.196263006245892
+        "x": 7.381500802887644,
+        "y": 6.4902557155541665
       },
       "isLocked": false,
       "linkedName": "Right Stage to Hail Mary 2 End"
@@ -45,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.324531261890751,
+    "rotation": 24.764475438608883,
     "rotateFast": false
   },
   "reversed": false,

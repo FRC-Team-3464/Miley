@@ -23,7 +23,9 @@ public class RaiseBothElevators extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Constants.SandwichConstants.noteMessage = "Pull up time! Raising arms!";
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -38,6 +40,7 @@ public class RaiseBothElevators extends Command {
   public void end(boolean interrupted) {
     elevatorSub.runRightElevator(0);
     elevatorSub.runLeftElevator(0);
+    Constants.SandwichConstants.noteMessage = "Ready to pull!!";
   }
 
   // Returns true when the command should end.

@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -18,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+  private Timer octopusTimer;
+
   private RobotContainer m_robotContainer;
 
   /**
@@ -28,8 +32,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    CameraServer.startAutomaticCapture(0);
+    // CameraServer.startAutomaticCapture(0);
     m_robotContainer = new RobotContainer();
+    SmartDashboard.putString("Messages lol", Constants.SandwichConstants.noteMessage);
   }
 
   /**
@@ -58,17 +63,49 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    Constants.SandwichConstants.noteMessage = "Let's go!!!!!";
+    octopusTimer = new Timer();
+    octopusTimer.reset();
+    octopusTimer.start();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    SmartDashboard.putString("Messages lol", Constants.SandwichConstants.noteMessage);
+    SmartDashboard.putString("Octopus Garden ᕕ(⌐■_■)ᕗ ♪♬", Constants.SandwichConstants.octopusLyric);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    if(octopusTimer.get() > 1.5 && octopusTimer.get() < 3) {
+      Constants.SandwichConstants.octopusLyric = "under the sea...";
+    }
+    if(octopusTimer.get() > 3 && octopusTimer.get() < 4.5) {
+      Constants.SandwichConstants.octopusLyric = "In an octopus's garden...";
+    }
+    if(octopusTimer.get() > 4.5 && octopusTimer.get() < 6) {
+      Constants.SandwichConstants.octopusLyric = "in the shade. doo doo doo";
+    }
+    if(octopusTimer.get() > 6 && octopusTimer.get() < 7.5) {
+      Constants.SandwichConstants.octopusLyric = "He'd let us in,";
+    }
+    if(octopusTimer.get() > 7.5 && octopusTimer.get() < 9) {
+      Constants.SandwichConstants.octopusLyric = "knows where we've been";
+    }
+    if(octopusTimer.get() > 9 && octopusTimer.get() < 10.5) {
+      Constants.SandwichConstants.octopusLyric = "in an octopus's garden";
+    }
+    if(octopusTimer.get() > 10.5 && octopusTimer.get() < 13) {
+      Constants.SandwichConstants.octopusLyric = "in the shade";
+    }
+    if(octopusTimer.get() > 13 && octopusTimer.get() < 15) {
+      Constants.SandwichConstants.octopusLyric = "Please auto work!";
+    }
+    SmartDashboard.putString("Octopus Garden", Constants.SandwichConstants.octopusLyric);
+  }
 
   @Override
   public void teleopInit() {
@@ -83,7 +120,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putString("Messages lol", Constants.SandwichConstants.noteMessage);
+  }
 
   @Override
   public void testInit() {

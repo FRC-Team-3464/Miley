@@ -9,8 +9,6 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,14 +23,13 @@ public class SwerveAutoDistance extends Command {
   /** Creates a new SwerveAutoDistance. */
   private static final int RED_SPEAKER_TAG = 4;
   private static final int BLUE_SPEAKER_TAG = 8;
-  private static final double TAG_TO_SPEAKER_Z = 0.5;  //fixme: get real value
-  public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); //fixme: get real value
-  public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); //fixme: get real value
-  public static double CAMERA_TO_ROBOT_Z = Units.inchesToMeters(14.5); //fixme: get real value
+  // private static final double TAG_TO_SPEAKER_Z = 0.5; 
+  public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); 
+  public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); 
+  public static double CAMERA_TO_ROBOT_Z = Units.inchesToMeters(14.5); 
 
-  public static double TARGET_DISTANCE = 20; // Fixme: get real value
-  public static double pivoterTargetRotation = 10; // Fixme: get real value
-  
+  public static double TARGET_DISTANCE = 20; 
+  public static double pivoterTargetRotation = 10;
 
   private static final double POSITION_TOLERANCE = 0.1;
   private static final double AIM_TIME = 5;

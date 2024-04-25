@@ -6,28 +6,21 @@ package frc.robot.commands.ShooterIntake;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+// import edu.wpi.first.wpilibj2.command.WaitCommand;
+// import frc.robot.Constants;
+import frc.robot.Constants.SandwichConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
 // PID Command to shoot note. 
-public class ShootPID extends SequentialCommandGroup {
-  public ShootPID() {
+public class AutoShootPID extends SequentialCommandGroup {
+  public AutoShootPID() {
     addCommands(
-      // Spit Note Back
+      new ShooterVelocityPID(SandwichConstants.kShootVelocityTarget), 
       new ParallelRaceGroup(
-        new ReverseIntake(),
-        new WaitCommand(0.03)
-
-        // new WaitCommand(0.05)
-      ),
-
-      new ShooterVelocityPID(4500),
-      new ParallelRaceGroup(
-        new RunIntake(1),
-        new WaitCommand(0.5)),
-      new ShooterVelocityPID(0));
+        new ShootPIDEnd(), 
+        new RunIntake(SandwichConstants.kTriggerIntakeSpeed)));
   }
 }
