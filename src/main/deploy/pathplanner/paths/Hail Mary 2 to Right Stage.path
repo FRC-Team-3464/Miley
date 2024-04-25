@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.02209304913294,
-        "y": 5.845438372972693
+        "x": 7.381500802887644,
+        "y": 6.4902557155541665
       },
       "isLocked": false,
       "linkedName": "Right Stage to Hail Mary 2 End"
@@ -45,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.324531261890751,
+    "rotation": 24.764475438608883,
     "rotateFast": false
   },
   "reversed": false,

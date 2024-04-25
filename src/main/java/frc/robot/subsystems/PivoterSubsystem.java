@@ -108,6 +108,16 @@ public class PivoterSubsystem extends SubsystemBase {
     }
   }
 
+  public void setPIDF(double kFF) {
+    // break if out of bounds
+    if(kFF > 0.0005 || kFF < 0) {
+      return;
+    }
+    else {
+      m_pidController.setFF(kFF, SMART_MOTION_SLOT);
+    }
+  }
+
   public void stopMotor() {
     leftPivoter.stopMotor();
   }
@@ -201,6 +211,7 @@ public class PivoterSubsystem extends SubsystemBase {
 
     if(getLowerSwitchToggled()){
       resetEncoder(0);
+      m_pidController.setFF(0.0004);
     }else if(getHigherSwitchToggled()){
       resetEncoder(PivoterConstants.kMaxPivoterRotations);
 
@@ -224,6 +235,7 @@ public class PivoterSubsystem extends SubsystemBase {
 
     // Read our global variable
     SmartDashboard.putNumber("GLOBAL: Pivoter Target", PivoterConstants.kPivoterTarget);
+    SmartDashboard.putNumber("Pivoter kFF", m_pidController.getFF());
 
   }
 }

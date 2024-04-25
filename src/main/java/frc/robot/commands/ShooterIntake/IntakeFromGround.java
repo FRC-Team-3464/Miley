@@ -43,7 +43,7 @@ public class IntakeFromGround extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(intakeSub.getPhotoElectricRight() || intakeSub.getPhotoElectricLeft()){
+    if(Constants.SandwichConstants.hasNote){
       startTime.start();
       ledSub.setGreen();
       intakeSub.rumbleDude();

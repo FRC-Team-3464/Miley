@@ -23,6 +23,7 @@ import frc.robot.commands.Pivoter.PIDManual;
 import frc.robot.commands.Pivoter.PIDPivotToPosition;
 import frc.robot.commands.Pivoter.PIDPivotToZero;
 import frc.robot.commands.Pivoter.PivotAmpAndShoot;
+import frc.robot.commands.Pivoter.PivoterSequentialDown;
 import frc.robot.commands.Elevator.LowerBothElevators;
 import frc.robot.commands.Elevator.LowerLeftElevator;
 import frc.robot.commands.Elevator.LowerRightElevator;
@@ -35,6 +36,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 
@@ -86,6 +88,9 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Intake From Ground", new IntakeFromGround());
 
+    NamedCommands.registerCommand("Auto Get Note", new SwerveAutoGetNote());
+    NamedCommands.registerCommand("Auto Aim", new SwerveAimAndPivot());
+
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
@@ -123,9 +128,11 @@ public class RobotContainer {
 
     // Commands for the pivoter ARGH!! (╯°□°)╯︵ ┻━┻
     Constants.OperatorConstants.button7.onTrue(new PIDPivotToPosition(0));
+    // Constants.OperatorConstants.button7.onTrue(new ConditionalCommand(new PivoterSequentialDown(), new PIDPivotToPosition(0), () -> PivoterConstants.kPivoterTarget >= 20));
+
     Constants.OperatorConstants.button8.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kSubwofferPivoterRotations)); // Subwoofer Angle
     Constants.OperatorConstants.button9.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kPreAmpPivoterRotations)); // Amp Angle
-    Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kStagePivoterRotations)); // Stage Shot
+    Constants.OperatorConstants.button10.onTrue(new PIDPivotToPosition(Constants.PivoterConstants.kAmpStagePivoterRotations)); // Stage Shot
     Constants.OperatorConstants.pancakeUp.onTrue(new PIDManual(true).andThen(new WaitCommand(0.5))); 
     Constants.OperatorConstants.pancakeDown.onTrue(new PIDManual(false).andThen(new WaitCommand(0.5)));
    

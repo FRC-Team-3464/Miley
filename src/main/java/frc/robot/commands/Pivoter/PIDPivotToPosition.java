@@ -12,6 +12,7 @@ import frc.robot.subsystems.PivoterSubsystem;
 public class PIDPivotToPosition extends Command {
   private final PivoterSubsystem pivoterSub;
   private final double targetPosition;
+  private double ogTarget;
 
   double pivoterPositionError;
 
@@ -25,7 +26,14 @@ public class PIDPivotToPosition extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    ogTarget = PivoterConstants.kPivoterTarget;
+    // if you're higher than where you want to be, slow down haha
+    if(targetPosition - ogTarget <= 0) {
+      pivoterSub.setPIDF(0.0002);
+    }
+    else {
+      pivoterSub.setPIDF(0.0004);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

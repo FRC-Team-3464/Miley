@@ -271,6 +271,11 @@ public static final class PivoterConstants{
   public static final double kPivoterGearRatio = 0.00961538462;
 
   public static double kPivoterTarget = 0;
+
+  public static final double PivoterDownOne = 25;
+  public static final double PivoterDownTwo = 17;
+  public static final double PivoterDownThree = 10;
+
 }
 
 public static final class ElevatorConstants {

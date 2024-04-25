@@ -36,7 +36,7 @@ public class ShooterVelocityPID extends Command {
        && (setPoint == Constants.SandwichConstants.kShootVelocityTarget)) {
       // If our target pivoter rotation is the same for shuttling,
       // set the shoot velocity to one that doesn't eject the note outside the stadium
-      setPoint = 2000; // Fixme (?): Adjust setpoint
+      setPoint = 1500; // Fixme (?): Adjust setpoint
     }
     shootSub.runShooterPID(setPoint);
 
