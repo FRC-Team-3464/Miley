@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Swerve;
 
+import java.util.Random;
+
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 
@@ -21,14 +23,18 @@ import frc.robot.subsystems.SwerveSubsystem;
 
 public class AutoPositionToby extends Command {
   /** Creates a new AutoPositionToby. */
-  public static final int tobyTag = 17;
+  public Random rand;
+  public int randomIndex;
+  public final int[] availables = {5, 13, 12, 11, 10, 1};
+  public static int tobyTag;
   private Transform3d camToTarget;
+  public static double range;
   public static Rotation2d targetHeading;
   public static double CAMERA_TO_ROBOT_X = Units.inchesToMeters(9); // Robot Height
   public static double CAMERA_TO_ROBOT_Y = Units.inchesToMeters(2); // Distance from cross hair center to apriltag center (left-right)
   public static double CAMERA_TO_ROBOT_Z = Units.inchesToMeters(14.5); //Robot distance from center
   public static double TobyHeight = Units.inchesToMeters(50);
-  public static double targetDistance = 20; //CHANGE THIS
+  public static double targetDistance = 2; //CHANGE THIS
 
 
   public static ProfiledPIDController rotationController = new ProfiledPIDController(
@@ -49,9 +55,10 @@ public class AutoPositionToby extends Command {
   private final PhotonSubsystem photonSub = PhotonSubsystem.getInstance();
 
   
-  public AutoPositionToby() {
+  public AutoPositionToby(int intTag) {
     rotationController.setTolerance(Units.degreesToRadians(3));
     rotationController.enableContinuousInput(-Math.PI, Math.PI);
+    tobyTag = intTag;
     photonCamera = photonSub.getAprilCamera();
     addRequirements(swerveSub);
     addRequirements(photonSub);
@@ -62,7 +69,10 @@ public class AutoPositionToby extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    targetHeading = new Rotation2d(0);
+    // targetHeading = new Rotation2d(0);
+    // rand = new Random();
+    // randomIndex = rand.nextInt(6);
+    // tobyTag = availables[randomIndex];
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -81,14 +91,14 @@ public class AutoPositionToby extends Command {
         camToTarget = target.getBestCameraToTarget();
         var rotationDegrees = getRotationDegreesToSpeaker();
 
-        double range = PhotonUtils.calculateDistanceToTargetMeters(
+        range = PhotonUtils.calculateDistanceToTargetMeters(
           CAMERA_TO_ROBOT_X, 
           Units.inchesToMeters(TobyHeight), 
           Math.PI/6, 
           targetOpt.get().getPitch());
         
         distanceController.setSetpoint(targetDistance);
-        double forwardSpeed = distanceController.calculate(range);
+        double forwardSpeed = -distanceController.calculate(range);
 
         if (rotationDegrees != 0) {
           var drivetrainHeading = swerveSub.getRotation2d();
@@ -119,12 +129,14 @@ public class AutoPositionToby extends Command {
   public boolean isFinished() {
     if (camToTarget != null) {
       var rotationDegrees = getRotationDegreesToSpeaker();
+
       Rotation2d verifyTargetHeading = swerveSub.getRotation2d().minus(Rotation2d.fromDegrees(rotationDegrees));
 
       if (verifyTargetHeading != null) {
         var isRotationOnTarget = Math.abs(targetHeading.getDegrees() - swerveSub.getRotation2d().getDegrees()) < 3;
 
-        return isRotationOnTarget;
+        // return (isRotationOnTarget && Math.abs(range - targetDistance) < 0.2);
+          return (Math.abs(range - targetDistance) < 0.2);
       }
     }
     return false;
