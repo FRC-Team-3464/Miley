@@ -16,6 +16,7 @@ import frc.robot.commands.ShooterIntake.ShootManual;
 // import frc.robot.commands.ShooterIntake.ShootPIDEnd;
 import frc.robot.commands.ShooterIntake.AutoShootPID;
 import frc.robot.commands.ShooterIntake.ShooterVelocityPID;
+import frc.robot.commands.Swerve.AutoPositionToby;
 import frc.robot.commands.Swerve.SwerveAimAndPivot;
 import frc.robot.commands.Swerve.SwerveAutoGetNote;
 import frc.robot.commands.Swerve.SwerveJoystickCMD;
@@ -103,6 +104,7 @@ public class RobotContainer {
     // Constants.OperatorConstants.buttonY.whileTrue(new SwerveAimSpeaker());
     Constants.OperatorConstants.buttonLB.whileTrue(new SwerveAutoGetNote());
     Constants.OperatorConstants.buttonRB.whileTrue(new SwerveAimAndPivot());
+    Constants.OperatorConstants.buttonA.whileTrue(new AutoPositionToby(2));
     // Indicate that we want to boost
     // Constants.OperatorConstants.button1.onTrue(new LedFlash());
 
