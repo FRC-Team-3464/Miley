@@ -2,109 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3576779647621067,
-      "y": 5.557362183607978
+      "x": 1.25,
+      "y": 4.09
     },
-    "rotation": 0
+    "rotation": -45.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot PID Speaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Subwoofer"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Speaker to Amp Note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Stage"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Amp Note to Right Stage"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot PID Speaker"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Right Stage to Speaker Note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake From Ground"
-                }
-              }
-            ]
-          }
-        },
         {
           "type": "parallel",
           "data": {
@@ -125,22 +31,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Stage"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot PID Speaker"
-                }
-              }
-            ]
+            "name": "Force Pivot to Ground"
           }
         },
         {
@@ -150,19 +43,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Speaker Note to Stage Note"
+                  "pathName": "Stage Pos. to Stage Note"
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake From Ground"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Pivot to Ground"
                 }
               }
             ]
@@ -175,19 +62,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Stage Note AIM"
+                  "pathName": "Stage Note to Speaker"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Pivot to Stage"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot PID Speaker"
+                  "name": "Pivot to Subwoofer"
                 }
               }
             ]
@@ -196,7 +77,107 @@
         {
           "type": "named",
           "data": {
-            "name": "Pivot to Ground"
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker To Speaker Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Force Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker Note to Speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Speaker to Amp Note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Force Pivot to Ground"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake From Ground"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp Note to Speaker 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Pivot to Subwoofer"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot PID Speaker"
           }
         }
       ]

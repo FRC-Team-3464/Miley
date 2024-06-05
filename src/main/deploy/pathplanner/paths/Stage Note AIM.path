@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8909454969907094,
-        "y": 4.116342363738859
+        "x": 3.0078870414151084,
+        "y": 3.8941534293325004
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1480224243463497,
-        "y": 4.02626493015971
+        "x": 3.264963968770749,
+        "y": 3.804075995753352
       },
       "isLocked": false,
-      "linkedName": "Speaker to Stage Note End"
+      "linkedName": "Speaker Note to Stage Note End"
     },
     {
       "anchor": {
-        "x": 2.32,
-        "y": 4.432084533684738
+        "x": 2.3179319293111518,
+        "y": 4.420390379242297
       },
       "prevControl": {
-        "x": 2.3179282065452504,
-        "y": 4.41522384069454
+        "x": 2.3158601358564024,
+        "y": 4.403529686252099
       },
       "nextControl": null,
       "isLocked": false,

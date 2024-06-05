@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.8210801606788397,
-        "y": 6.607197259978566
+        "x": 8.669996627404183,
+        "y": 0.7897304155653457
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.82108016067884,
-        "y": 6.607197259978566
+        "x": 6.681045951165537,
+        "y": 0.779980657348488
       },
       "isLocked": false,
-      "linkedName": "Right Speaker"
+      "linkedName": "Mail Hary V2 Stage to Far Note End"
     },
     {
       "anchor": {
-        "x": 8.819881799307758,
-        "y": 7.226987445427883
+        "x": 1.9231639413397603,
+        "y": 3.8511544956581605
       },
       "prevControl": {
-        "x": 7.819881799307758,
-        "y": 7.226987445427883
+        "x": 3.385627673868176,
+        "y": 3.168671420478233
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Hail Mary 1"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -49,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Hail Mary Points",
+  "folder": "Hairy Males",
   "previewStartingState": {
-    "rotation": 61.189206257026925,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

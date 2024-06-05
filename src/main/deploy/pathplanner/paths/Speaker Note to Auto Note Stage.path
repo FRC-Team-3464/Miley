@@ -11,42 +11,26 @@
         "x": 2.320003722765901,
         "y": 4.437251072232495
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "Stage Note AIM End"
     },
     {
       "anchor": {
-        "x": 3.1,
-        "y": 5.57
+        "x": 1.7916949794013546,
+        "y": 4.560720232551577
       },
       "prevControl": {
-        "x": 1.1002239947864696,
-        "y": 5.649991040208545
-      },
-      "nextControl": {
-        "x": 3.3923538610609985,
-        "y": 5.55830584555756
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.6,
-        "y": 5.566417514601411
-      },
-      "prevControl": {
-        "x": 3.535532355395195,
-        "y": 5.5430292057165325
+        "x": 1.1251281761822782,
+        "y": 5.250675344655533
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Stage Note AIM to Speaker Note End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.15,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -61,13 +45,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -23.35556485928607,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Speaker (rotation) points",
   "previewStartingState": {
-    "rotation": -17.528233169754344,
+    "rotation": -1.3019526725788366,
     "velocity": 0
   },
   "useDefaultConstraints": true

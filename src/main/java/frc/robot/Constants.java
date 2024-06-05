@@ -129,7 +129,7 @@ public final class Constants {
 }
 
 public static final class AutoConstants {
-  public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 2;
+  public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
   // public static final double kMaxAngularSpeedRadiansPerSecond = //
   //         DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 3;
   public static final double kMaxAngularSpeedRadiansPerSecond = //
@@ -140,7 +140,7 @@ public static final class AutoConstants {
   public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 4 * Math.PI;
 
   // public static final double kPXController = 1.5;
-  public static final double kPXController = 4;
+  public static final double kPXController = 2;
   public static final double kPYController = 0.9;
   public static final double kPThetaController = 6;
   // public static final double kPThetaController = 3.75 ;
@@ -264,7 +264,8 @@ public static final class PivoterConstants{
   public static final double kStagePivoterRotations = 8;
 
   // Point between Stage and Amp: our shuttle position from behind the zone. 
-  public static final double kAmpStagePivoterRotations = 8.75;
+  // public static final double kAmpStagePivoterRotations = 8.75;
+  public static final double kAmpStagePivoterRotations = 12;
   public static final double kMaxPivoterRotations = 31; // kMaxPivoterDegrees / (360 * kPivoterGearRatio)
 
   // Our gear ratio is as follows: (1/64) * (16/26)

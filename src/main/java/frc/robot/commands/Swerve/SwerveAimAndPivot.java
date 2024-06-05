@@ -81,7 +81,7 @@ public class SwerveAimAndPivot extends Command {
 
     // Get the apriltag position. 
     photonCamera = photonSub.getAprilCamera();
-    visionTab.addString("CameraToTarget", this::getFomattedTransform3d).withPosition(0, 0).withSize(2, 2);
+    // visionTab.addString("CameraTo Target", this::getFomattedTransform3d).withPosition(0, 0).withSize(2, 2);
     addRequirements(swerveSubsystem);
     addRequirements(photonSub);
     addRequirements(pivoterSub);
