@@ -3,50 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.3179319293111518,
-        "y": 4.420390379242297
+        "x": 1.2069872572793579,
+        "y": 4.128036518181299
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.320003722765901,
-        "y": 4.437251072232495
-      },
-      "isLocked": true,
-      "linkedName": "Stage Note AIM End"
-    },
-    {
-      "anchor": {
-        "x": 3.1,
-        "y": 5.57
-      },
-      "prevControl": {
-        "x": 1.1002239947864696,
-        "y": 5.649991040208545
-      },
-      "nextControl": {
-        "x": 3.3923538610609985,
-        "y": 5.55830584555756
+        "x": 1.9904956049228335,
+        "y": 2.5844081317792273
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.6,
-        "y": 5.566417514601411
+        "x": 8.669996627404183,
+        "y": 0.7897304155653457
       },
       "prevControl": {
-        "x": 3.535532355395195,
-        "y": 5.5430292057165325
+        "x": 7.640911036469468,
+        "y": 0.696177180025827
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Stage Note AIM to Speaker Note End"
+      "linkedName": "Mail Hary V2 Stage to Far Note End"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.3,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -61,13 +45,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker (rotation) points",
+  "folder": "Hairy Males",
   "previewStartingState": {
-    "rotation": -17.528233169754344,
+    "rotation": -47.3532968661083,
     "velocity": 0
   },
   "useDefaultConstraints": true

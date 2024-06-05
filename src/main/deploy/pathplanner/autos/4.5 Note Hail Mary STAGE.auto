@@ -58,6 +58,12 @@
         {
           "type": "parallel",
           "data": {
+            "commands": []
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
             "commands": [
               {
                 "type": "path",
